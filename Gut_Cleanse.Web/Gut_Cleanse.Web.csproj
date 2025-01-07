@@ -1,0 +1,122 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Assets\24-7.png" />
+    <None Include="wwwroot\Assets\5674340_Coll_wavebreak_Animation_1920x1080 %281%29.mov" />
+    <None Include="wwwroot\Assets\About-HOPE-left.png" />
+    <None Include="wwwroot\Assets\about4k.jpeg" />
+    <None Include="wwwroot\Assets\aboutbg.png" />
+    <None Include="wwwroot\Assets\aboutrr.jpg" />
+    <None Include="wwwroot\Assets\abouttt.jpg" />
+    <None Include="wwwroot\Assets\aboutus.mp4" />
+    <None Include="wwwroot\Assets\aboutus.webp" />
+    <None Include="wwwroot\Assets\AboutUsHeroImage.jpg" />
+    <None Include="wwwroot\Assets\abt.jpg" />
+    <None Include="wwwroot\Assets\arrow-right.svg" />
+    <None Include="wwwroot\Assets\behavior-health-icon.png" />
+    <None Include="wwwroot\Assets\Behavioral-Health-Assessment-ENGLISH.pdf" />
+    <None Include="wwwroot\Assets\Behavioral-Health-Assessment-SPANISH.pdf" />
+    <None Include="wwwroot\Assets\blogs.jpg" />
+    <None Include="wwwroot\Assets\blood-test.png" />
+    <None Include="wwwroot\Assets\collaboration.png" />
+    <None Include="wwwroot\Assets\commitment.png" />
+    <None Include="wwwroot\Assets\community.png" />
+    <None Include="wwwroot\Assets\compassion.png" />
+    <None Include="wwwroot\Assets\conflict_12340750 - Copy.gif" />
+    <None Include="wwwroot\Assets\conflict_12340750.gif" />
+    <None Include="wwwroot\Assets\contav.jpg" />
+    <None Include="wwwroot\Assets\cultural-activities.png" />
+    <None Include="wwwroot\Assets\dental-care-icon.png" />
+    <None Include="wwwroot\Assets\digestive.jpeg" />
+    <None Include="wwwroot\Assets\dna.png" />
+    <None Include="wwwroot\Assets\education-icon.png" />
+    <None Include="wwwroot\Assets\excellence.png" />
+    <None Include="wwwroot\Assets\eye-care-icon.png" />
+    <None Include="wwwroot\Assets\facebook-icon.svg" />
+    <None Include="wwwroot\Assets\fee.png" />
+    <None Include="wwwroot\Assets\flag.png" />
+    <None Include="wwwroot\Assets\footerlogo.png" />
+    <None Include="wwwroot\Assets\generative-ai.webp" />
+    <None Include="wwwroot\Assets\globals.css" />
+    <None Include="wwwroot\Assets\gut-01 - Copy.jpg" />
+    <None Include="wwwroot\Assets\gut-01.jpg" />
+    <None Include="wwwroot\Assets\gut-and-glory.jpg" />
+    <None Include="wwwroot\Assets\gut-intelligence.jpg" />
+    <None Include="wwwroot\Assets\gut-microbiota_12034683.gif" />
+    <None Include="wwwroot\Assets\gutoo - Copy.jpg" />
+    <None Include="wwwroot\Assets\gutoo.jpg" />
+    <None Include="wwwroot\Assets\harticon.png" />
+    <None Include="wwwroot\Assets\Health-home.webp" />
+    <None Include="wwwroot\Assets\HeroImage.jpg" />
+    <None Include="wwwroot\Assets\hoab.jpg" />
+    <None Include="wwwroot\Assets\homebout.webp" />
+    <None Include="wwwroot\Assets\homedown.webp" />
+    <None Include="wwwroot\Assets\homeqa.jpg" />
+    <None Include="wwwroot\Assets\homevideo.mp4" />
+    <None Include="wwwroot\Assets\homevideowe.webm" />
+    <None Include="wwwroot\Assets\HOPE-Clinic-Telemedicine-Consent-Form-Fillable.pdf" />
+    <None Include="wwwroot\Assets\hormonal - Copy.jpeg" />
+    <None Include="wwwroot\Assets\hormonal.jpeg" />
+    <None Include="wwwroot\Assets\icon ab.png" />
+    <None Include="wwwroot\Assets\icon.png" />
+    <None Include="wwwroot\Assets\IMG_9684.jpg" />
+    <None Include="wwwroot\Assets\insomnia_18633648 - Copy.gif" />
+    <None Include="wwwroot\Assets\insomnia_18633648.gif" />
+    <None Include="wwwroot\Assets\instagram-icon.svg" />
+    <None Include="wwwroot\Assets\integration.png" />
+    <None Include="wwwroot\Assets\intestine-problem.jpg" />
+    <None Include="wwwroot\Assets\jjjytq.png" />
+    <None Include="wwwroot\Assets\language.png" />
+    <None Include="wwwroot\Assets\leftbx-img.png" />
+    <None Include="wwwroot\Assets\linkedin-icon.svg" />
+    <None Include="wwwroot\Assets\logoM.png" />
+    <None Include="wwwroot\Assets\logore.jpeg" />
+    <None Include="wwwroot\Assets\map-pin.svg" />
+    <None Include="wwwroot\Assets\map-sm.jpg" />
+    <None Include="wwwroot\Assets\map.png" />
+    <None Include="wwwroot\Assets\menu.png" />
+    <None Include="wwwroot\Assets\mission-icon.png" />
+    <None Include="wwwroot\Assets\mission.png" />
+    <None Include="wwwroot\Assets\mission1.png" />
+    <None Include="wwwroot\Assets\nutritionist.png" />
+    <None Include="wwwroot\Assets\obesity_11292175.gif" />
+    <None Include="wwwroot\Assets\oneon.jpg" />
+    <None Include="wwwroot\Assets\padiatric-icon.png" />
+    <None Include="wwwroot\Assets\pdf-white.png" />
+    <None Include="wwwroot\Assets\pdf.png" />
+    <None Include="wwwroot\Assets\pharmacy-icon.png" />
+    <None Include="wwwroot\Assets\phone.svg" />
+    <None Include="wwwroot\Assets\Portrait.jpg" />
+    <None Include="wwwroot\Assets\primary-care.webp" />
+    <None Include="wwwroot\Assets\processbg.jpg" />
+    <None Include="wwwroot\Assets\programs.jpg" />
+    <None Include="wwwroot\Assets\pulmonology.png" />
+    <None Include="wwwroot\Assets\sayin-test.3e21e7ec.jpg" />
+    <None Include="wwwroot\Assets\sayin-test.jpg" />
+    <None Include="wwwroot\Assets\servicebg.jpg" />
+    <None Include="wwwroot\Assets\shared-vision.png" />
+    <None Include="wwwroot\Assets\sitemap.xml" />
+    <None Include="wwwroot\Assets\starving_12817603.gif" />
+    <None Include="wwwroot\Assets\stomach_12034700.gif" />
+    <None Include="wwwroot\Assets\twitter-icon.svg" />
+    <None Include="wwwroot\Assets\vision-icon.png" />
+    <None Include="wwwroot\Assets\vission22.png" />
+    <None Include="wwwroot\Assets\volume.png" />
+    <None Include="wwwroot\Assets\weblogo.png" />
+    <None Include="wwwroot\Assets\whats.webp" />
+    <None Include="wwwroot\Assets\witness_15578367.gif" />
+    <None Include="wwwroot\Assets\women-service-icon.png" />
+    <None Include="wwwroot\Assets\young-handsome.jpg" />
+  </ItemGroup>
+
+</Project>
