@@ -14139,7 +14139,7 @@ section.bannerbelow-area {
 .aboutimg {
     z-index: 2;
     position: relative;
-    background: url(../../public/AboutUsHeroImage.jpg) no-repeat;
+    background: url(../Assets/AboutUsHeroImage.jpg) no-repeat;
     background-size: cover;
     background-position: top;
 }
@@ -14190,7 +14190,7 @@ section.bannerbelow-area {
 .processBg {
     z-index: 2;
     position: relative;
-    background: url(../../public/processbg.jpg) top center no-repeat;
+    background: url(../Assets/processbg.jpg) top center no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -14206,7 +14206,7 @@ section.bannerbelow-area {
 .contactBg {
     z-index: 2;
     position: relative;
-    background: url(../../public/contav.jpg) center no-repeat;
+    background: url(../Assets/contav.jpg) center no-repeat;
     background-size: cover;
 }
 
