@@ -16475,7 +16475,10 @@ ul.event-details-list li {
         margin-bottom: 50px !important;
     }
 }
-
+.carousel-item{
+    padding-left:10%;
+    padding-right:10%;
+}
 .prasat {
     text-align: right;
 }
