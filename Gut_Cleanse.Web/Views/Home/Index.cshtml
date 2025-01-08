@@ -114,9 +114,9 @@
                                 <div id="slide_5" style="display:none; flex: 1 1 auto; position: relative; width: 1305px;"><div><p>I recently went through a surgery and my gut was completely out of wack. Nancy was instrumental in helping heal my gut issues. The diet plan and recipes shared by her are super easy to follow. In addition to that I lost 3 kgs. I feel way better, less bloated and over all energetic. Thank you Nancy for being such an awesome and empathetic health coach !</p><p><b>Sowmya</b></p></div></div>
                                 <div id="slide_6" style="display:none; flex: 1 1 auto; position: relative; width: 1305px;"><div><p>I had a major bloating issue since a few years… nothing seemed to be working till the time I joined Nancy for the gut cleansing diet and that is when the magic happened… it was a very doable diet which helped me find out that milk was not suiting me at all which led to severe bloating… with Nancy’s diet I got rid of this problem… since then I never had bloating again and now I can easily enjoy my cold coffee everyday… thank you Nancy… you’ve been a saviour 🙏❤️🙏</p><p><b>Kannu</b></p></div></div>
                             </div>
-                            <input type="hidden" id="remarksIndex" value="3" />
-                            <button style="background:none;border:none;float:left;" onclick="slideRemarks(this,'left')" type="button"><i aria-label="Go to previous slide" style="font-size:45px;" class='fas fa-arrow-circle-left'></i></button>
-                            <button style="background:none;border:none;float:right;" onclick="slideRemarks(this,'right')" type="button"><i aria-label="Go to previous slide" style="font-size:45px;" class='fas fa-arrow-circle-right'></i></button>
+                            <input type="hidden" id="remarksIndex" value="3"/>
+                            <button style="background:none;border:none;float:left;" onclick="slideRemarks('left')" type="button"><i aria-label="Go to previous slide" style="font-size:45px;" class='fas fa-arrow-circle-left'></i></button>
+                            <button style="background:none;border:none;float:right;" onclick="slideRemarks('right')" type="button"><i aria-label="Go to previous slide" style="font-size:45px;" class='fas fa-arrow-circle-right'></i></button>
                         </div>
                     </div>
                 </div>
@@ -136,9 +136,10 @@
         </section>
     </div>
 </div>
+@section scripts{
 <script>
-    function slideRemarks(e, direction) {
-        if (direction === "left") {
+    function slideRemarks(direction) {
+        if (direction === "left"){
             var index = $('#remarksIndex').val();
             var previousIndex = parseInt(index) - 1;
             if (previousIndex <= 0)
@@ -158,3 +159,4 @@
         }
     }
 </script>
+}
