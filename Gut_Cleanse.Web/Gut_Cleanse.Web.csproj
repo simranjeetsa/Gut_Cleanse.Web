@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Assets\24-7.png" />
     <None Include="wwwroot\Assets\5674340_Coll_wavebreak_Animation_1920x1080 %281%29.mov" />
     <None Include="wwwroot\Assets\About-HOPE-left.png" />

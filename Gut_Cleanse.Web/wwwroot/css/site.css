@@ -12550,6 +12550,12 @@ footer {
     padding: 60px 0px 0px;
 }
 
+@media (max-width: 767px) {
+    section.footer-top-wrap {
+        text-align: center;
+    }
+}
+
 .footer-box {
     margin-bottom: 30px;
 }
@@ -13204,7 +13210,7 @@ ul.counter-list {
     animation: zoom-in-zoom-out 2s ease-out infinite;
     position: absolute;
     top: -88px;
-    right: -83px;
+    right: -36px;
     width: 184px;
 }
 
@@ -14155,7 +14161,7 @@ section.bannerbelow-area {
 .bgservices {
     z-index: 2;
     position: relative;
-    background: url(../../public/programs.jpg) no-repeat;
+    background: url(../Assets/programs.jpg) no-repeat;
     background-size: cover;
     background-position: bottom;
 }
@@ -14163,7 +14169,7 @@ section.bannerbelow-area {
 .bgoneonone {
     z-index: 2;
     position: relative;
-    background: url(../../public/HeroImage.jpg) top center no-repeat;
+    background: url(../Assets/HeroImage.jpg) top center no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -14171,7 +14177,7 @@ section.bannerbelow-area {
 .gut-and-glory {
     z-index: 2;
     position: relative;
-    background: url(../../public/gut-and-glory.jpg) top center no-repeat;
+    background: url(../Assets/gut-and-glory.jpg) top center no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -14182,7 +14188,7 @@ section.bannerbelow-area {
 .gut-intelligence-workshop {
     z-index: 2;
     position: relative;
-    background: url(../../public/gut-intelligence.jpg) top center no-repeat;
+    background: url(../Assets/gut-intelligence.jpg) top center no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -16740,7 +16746,7 @@ ul.event-details-list li {
 .services-project {
     z-index: 2;
     position: relative;
-    background: url(/_next/static/media/AboutUsHeroImage.5636c17a.jpg) no-repeat;
+    background: url(/Assets/AboutUsHeroImage.5636c17a.jpg) no-repeat;
     background-size: cover;
     background-position: top;
 }
