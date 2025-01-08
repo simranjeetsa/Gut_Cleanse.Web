@@ -14,7 +14,8 @@
                     </div>
                 </div>
             </div>
-        </div><section class="about-area pt-100 pb-100" id="aboutus">
+        </div>
+        <section class="about-area pt-100 pb-100" id="aboutus">
             <div class="container">
                 <div class="row  ">
                     <div class="col-xl-6 col-lg-6">
@@ -144,19 +145,39 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            var divIsInPort = false;
+           
 
-            $('.counter').each(function () {
-                $(this).prop('Counter', 0).animate({
-                    Counter: $(this).text()
-                }, {
-                    duration: 4000,
-                    easing: 'swing',
-                    step: function (now) {
-                        $(this).text(Math.ceil(now));
-                    }
-                });
+            $(window).on('scroll', function () {
+                const $targetDiv = $('#aboutus');
+                if (isInViewport($targetDiv) && divIsInPort==false) {
+                    divIsInPort = true;
+                    $('.counter').each(function () {
+                        $(this).prop('Counter', 0).animate({
+                            Counter: $(this).text()
+                        }, {
+                            duration: 4000,
+                            easing: 'swing',
+                            step: function (now) {
+                                $(this).text(Math.ceil(now));
+                            }
+                        });
+                    });
+                    
+                } 
+                
             });
-
         });
+
+        function isInViewport($element) {
+            const windowHeight = $(window).height();
+            const scrollTop = $(window).scrollTop();
+
+            const elementTop = $element.offset().top;
+            const elementBottom = elementTop + $element.outerHeight();
+
+            // Check if the element is within the viewport
+            return (elementBottom > scrollTop && elementTop < (scrollTop + windowHeight));
+        }
     </script>
 }
