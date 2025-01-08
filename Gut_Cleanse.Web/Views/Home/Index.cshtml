@@ -25,7 +25,13 @@
                         </div>
                     </div><div class="col-xl-6 col-lg-6 pb-10">
                         <div class="about-right pt-15 mb-30  " data-aos="fade-right">
-                            <div class="section-title-2  mt-5"><h2>About Us </h2></div><div class="about-text  "><p class="mb-5">At Gut Cleanse, we understand that vibrant health begins in your digestive system. Since 2015, our team of digestive wellness experts has helped thousands of people transform their lives through our science-backed, personalized gut health programs. We don't just mask symptoms – we dig deep to restore your microbiome balance and optimize your digestive function naturally. Drawing from both modern nutritional science and time-tested healing traditions, our gentle yet effective gut cleanse approach helps you overcome bloating, fatigue, and digestive discomfort while boosting your energy and overall wellbeing. Through our signature E.R.R.O.R. Method, we've guided busy professionals, parents, and health-conscious individuals to rediscover the joy of eating without fear or discomfort. Whether you're struggling with occasional digestive issues or looking to enhance your gut health, we're here to support you with practical solutions that fit your lifestyle.</p></div><ul class="counter-list pt-25 mb-4"><li><h3><span>0</span>+</h3><p>People healed</p></li><li><h3><span>0</span>+</h3><p>Countries</p></li><li><h3><span>0</span>%+ </h3><p>Satisfaction</p></li></ul><div class="abutHomebtn">
+                            <div class="section-title-2  mt-5"><h2>About Us </h2></div><div class="about-text  "><p class="mb-5">At Gut Cleanse, we understand that vibrant health begins in your digestive system. Since 2015, our team of digestive wellness experts has helped thousands of people transform their lives through our science-backed, personalized gut health programs. We don't just mask symptoms – we dig deep to restore your microbiome balance and optimize your digestive function naturally. Drawing from both modern nutritional science and time-tested healing traditions, our gentle yet effective gut cleanse approach helps you overcome bloating, fatigue, and digestive discomfort while boosting your energy and overall wellbeing. Through our signature E.R.R.O.R. Method, we've guided busy professionals, parents, and health-conscious individuals to rediscover the joy of eating without fear or discomfort. Whether you're struggling with occasional digestive issues or looking to enhance your gut health, we're here to support you with practical solutions that fit your lifestyle.</p></div><ul class="counter-list pt-25 mb-4">
+                                <li>
+                                    <h3><span class="counter">1200</span>+</h3><p>People healed</p>
+                                </li>
+                                <li><h3><span class="counter">21</span>+</h3><p>Countries</p></li>
+                                <li><h3><span class="counter">99</span>%+ </h3><p>Satisfaction</p></li>
+                            </ul><div class="abutHomebtn">
                                 <a class="btn-red theme-btn mt-4" href="/home/about"><span>Learn More</span></a>
                             </div>
                         </div>
@@ -120,7 +126,7 @@
                 </button>
             </div>
         </section>
-      
+
         <section class="call-to-action-wrap-layout4">
             <div class="item-Image"></div>
             <div class="container">
@@ -135,3 +141,22 @@
         </section>
     </div>
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('.counter').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 4000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+
+        });
+    </script>
+}
