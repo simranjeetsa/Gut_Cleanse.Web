@@ -1,0 +1,20 @@
+﻿@model Gut_Cleanse.Model.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form method="post">
+    <div>
+        <label for="Username">Username:</label>
+        <input type="text" id="Username" name="Username" />
+    </div>
+    <div>
+        <label for="Password">Password:</label>
+        <input type="password" id="Password" name="Password" />
+    </div>
+    <div>
+        <label for="ConfirmPassword">Confirm Password:</label>
+        <input type="password" id="ConfirmPassword" name="ConfirmPassword" />
+    </div>
+    <button type="submit">Register</button>
+</form>
