@@ -1,0 +1,752 @@
+﻿<html lang="en" class="light-style layout-menu-fixed">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>Dashboard</title>
+    <meta name="description" content="">
+
+
+    <link rel="icon" type="image/x-icon" href="/Assets/logo_black.png">
+
+    <!-- Fonts & Flag icons -->
+    <link rel="stylesheet" href="/vendor/fonts/boxicons.css">
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/vendor/css/theme-default.css">
+    <link rel="stylesheet" href="/css/demo.css">
+    <!-- `perfect-scrollbar` library required by SideNav plugin -->
+    <link rel="stylesheet" href="/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+    <!-- Application stylesheets -->
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.css" />
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .card {
+            display: flex;
+            flex-direction: row;
+            max-width: 100%;
+            height: 92%;
+            margin: 25px !important;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #myTable_wrapper {
+            width: 100% !important;
+            padding: 10px !important;
+        }
+
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="layout-wrapper layout-content-navbar ">
+        <div class="layout-container">
+
+
+            <!-- Menu -->
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme">
+
+                <div class="app-brand demo ">
+                    <a class="app-brand-link" href="/">
+                        <img alt="logo" loading="lazy" width="0" height="0" decoding="async" data-nimg="1" class="img-fluid" sizes="100vw" src="/Assets/logoM.png" style="color: transparent; width: auto; height: auto;">
+                    </a>
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+                        <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+                    </a>
+                </div>
+                <div class="menu-inner-shadow" style="display: none;"></div>
+
+                <ul class="menu-inner py-1 ps ps--active-y">
+                    <!-- Dashboards -->
+                    <li class="menu-item active open">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                            <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
+                            <span class="badge rounded-pill bg-danger ms-auto">5</span>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item active">
+                                <a class="menu-link" href="/">
+                                    <div>Analytics</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/dashboards-crm.html" target="_blank" class="menu-link">
+                                    <div>CRM</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-ecommerce-dashboard.html" target="_blank" class="menu-link">
+                                    <div>eCommerce</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-logistics-dashboard.html" target="_blank" class="menu-link">
+                                    <div>Logistics</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-academy-dashboard.html" target="_blank" class="menu-link">
+                                    <div>Academy</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Layouts -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <div>Layouts</div>
+                        </a>
+
+                        <ul class="menu-sub">
+
+                            <li class="menu-item">
+                                <a class="menu-link" href="/LayoutExamples/WithoutMenu">
+                                    <div>Without menu</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/LayoutExamples/WithoutNavbar">
+                                    <div>Without navbar</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/LayoutExamples/Fluid">
+                                    <div>Fluid</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/LayoutExamples/Container">
+                                    <div>Container</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/LayoutExamples/Blank">
+                                    <div>Blank</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Front Pages -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-store"></i>
+                            <div>Front Pages</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/front-pages/landing-page.html" class="menu-link" target="_blank">
+                                    <div>Landing</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/front-pages/pricing-page.html" class="menu-link" target="_blank">
+                                    <div>Pricing</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/front-pages/payment-page.html" class="menu-link" target="_blank">
+                                    <div>Payment</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/front-pages/checkout-page.html" class="menu-link" target="_blank">
+                                    <div>Checkout</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/front-pages/help-center-landing.html" class="menu-link" target="_blank">
+                                    <div>Help Center</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Apps & Pages -->
+                    <li class="menu-header small text-uppercase">
+                        <span class="menu-header-text">Apps &amp; Pages</span>
+                    </li>
+                    <!-- Apps -->
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-email.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-envelope"></i>
+                            <div>Email</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-chat.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-chat"></i>
+                            <div>Chat</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-calendar.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-calendar"></i>
+                            <div>Calendar</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/app-kanban.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-grid"></i>
+                            <div>Kanban</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <!-- Pages -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div>Account Settings</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Pages/AccountSettings">
+                                    <div>Account</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Pages/AccountSettingsNotifications">
+                                    <div>Notifications</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Pages/AccountSettingsConnections">
+                                    <div>Connections</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                            <div>Authentications</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" target="_blank" href="/Auth/LoginBasic">
+                                    <div>Login</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" target="_blank" href="/Auth/RegisterBasic">
+                                    <div>Register</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" target="_blank" href="/Auth/ForgotPasswordBasic">
+                                    <div>Forgot Password</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                            <div>Misc</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" target="_blank" href="/Pages/MiscError">
+                                    <div>Error</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" target="_blank" href="/Pages/MiscUnderMaintenance">
+                                    <div>Under Maintenance</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Components -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
+                    <!-- Cards -->
+                    <li class="menu-item">
+                        <a class="menu-link" href="/Cards/Basic">
+                            <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <div class="text-truncate" data-i18n="Cards">Cards</div>
+                        </a>
+                    </li>
+                    <!-- User interface -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-box"></i>
+                            <div>User interface</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Accordion">
+                                    <div>Accordion</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Alerts">
+                                    <div>Alerts</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Badges">
+                                    <div>Badges</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Buttons">
+                                    <div>Buttons</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Carousel">
+                                    <div>Carousel</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Collapse">
+                                    <div>Collapse</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Dropdowns">
+                                    <div>Dropdowns</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Footer">
+                                    <div>Footer</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/ListGroups">
+                                    <div>List groups</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Modals">
+                                    <div>Modals</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Navbar">
+                                    <div>Navbar</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Offcanvas">
+                                    <div>Offcanvas</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/PaginationBreadcrumbs">
+                                    <div>Pagination &amp; Breadcrumbs</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Progress">
+                                    <div>Progress</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Spinners">
+                                    <div>Spinners</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/TabsPills">
+                                    <div>Tabs &amp; Pills</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Toasts">
+                                    <div>Toasts</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/TooltipsPopovers">
+                                    <div>Tooltips &amp; Popovers</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Ui/Typography">
+                                    <div>Typography</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Extended components -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-copy"></i>
+                            <div>Extended UI</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" href="/ExtendedUi/PerfectScrollbar">
+                                    <div>Perfect scrollbar</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/ExtendedUi/TextDivider">
+                                    <div>Text Divider</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Icons -->
+                    <li class="menu-item">
+                        <a class="menu-link" href="/Icons/Boxicons">
+                            <i class="menu-icon tf-icons bx bx-crown"></i>
+                            <div>Boxicons</div>
+                        </a>
+                    </li>
+
+                    <!-- Forms & Tables -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+                    <!-- Forms -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div>Form Elements</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Forms/BasicInputs">
+                                    <div>Basic Inputs</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/Forms/InputGroups">
+                                    <div>Input groups</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div>Form Layouts</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a class="menu-link" href="/FormLayouts/Vertical">
+                                    <div>Vertical Form</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="menu-link" href="/FormLayouts/Horizontal">
+                                    <div>Horizontal Form</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Form Validation -->
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/form-validation.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-list-check"></i>
+                            <div>Form Validation</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <!-- Tables -->
+                    <li class="menu-item">
+                        <a class="menu-link" href="/Tables/Basic">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div>Tables</div>
+                        </a>
+                    </li>
+                    <!-- Data Tables -->
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-aspnet-core-mvc-admin-template/html/vertical-menu-template/tables-datatables-basic.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-grid"></i>
+                            <div>Datatables</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase">Pro</div>
+                        </a>
+                    </li>
+                    <!-- Misc -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+                    <li class="menu-item">
+                        <a href="https://github.com/themeselection/sneat-bootstrap-html-aspnet-core-mvc-admin-template-free" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-support"></i>
+                            <div>Support</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/net-core-mvc-introduction.html" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-file"></i>
+                            <div>Documentation</div>
+                        </a>
+                    </li>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+                    <div class="ps__rail-y" style="top: 0px; height: 286px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 56px;"></div></div>
+                </ul>
+
+            </aside>
+            <!-- / Menu -->
+            <!-- Layout page -->
+            <div class="layout-page">
+                <!-- Navbar -->
+                <nav class="layout-navbar navbar-detached container-xxl navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-md"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+                        <!-- Search -->
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search bx-md"></i>
+                                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search...">
+                            </div>
+                        </div>
+                        <!-- /Search -->
+
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <!-- Place this tag where you want the button to render. -->
+                            <li class="nav-item lh-1 me-4">
+                                <span></span>
+                            </li>
+
+                            <!-- User -->
+                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                    <div class="avatar avatar-online">
+                                        <img src="/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0">John Doe</h6>
+                                                    <small class="text-muted">Admin</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider my-1"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <i class="bx bx-user bx-md me-2"></i>
+                                            <span>My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <i class="bx bx-cog bx-md me-2"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i>
+                                                <span class="flex-grow-1 align-middle">Billing Plan</span>
+                                                <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider my-1"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Account/Logout">
+                                            <i class="bx bx-power-off bx-md me-2"></i>
+                                            <span>Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--/ User -->
+
+                        </ul>
+                    </div>
+
+                </nav>
+                <!-- / Navbar -->
+                <!-- Content wrapper -->
+
+                <div class="content-wrapper">
+
+                    <!-- Content -->
+                    @RenderBody()
+                    <!-- / Content -->
+                    <!-- Footer -->
+
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl">
+                            <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                                <div class="text-body">
+                                    ©2025 - 2026 – All Rights Reserved By IGT Networks, Inc.
+                                </div>
+
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- / Footer -->
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!--/ Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+        <div class="drag-target"></div>
+    </div>
+
+    <!--/ Layout Content -->
+    <!-- Core Scripts -->
+    <script src="/vendor/js/helpers.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/vendor/libs/jquery/jquery.js"></script>
+    <script src="/vendor/libs/popper/popper.js"></script>
+    <script src="/vendor/js/bootstrap.js"></script>
+    <!-- `perfect-scrollbar` library required by SideNav plugin -->
+    <script src="/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/vendor/js/menu.js"></script>
+    <script src="/js/site.js"></script>
+
+
+
+
+    <!-- Vendor Scripts -->
+
+    <script src="/vendor/libs/apex-charts/apexcharts.js"></script>
+
+
+
+
+
+    <!-- Main JS-->
+    <script src="/js/main.js"></script>
+
+    <!-- Page Scripts-->
+
+    <script src="/js/dashboards-analytics.js"></script>
+
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+
+
+    <!-- Visual Studio Browser Link -->
+    <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestid="9c282848c13641339b851cf37cff4817" data-requestmappingfromserver="false" data-connecturl="http://localhost:50421/20d25248cc3640f593d11945ea842116/browserLink"></script>
+    <!-- End Browser Link -->
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <svg id="SvgjsSvg1278" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1279"></defs><polyline id="SvgjsPolyline1280" points="0,0"></polyline><path id="SvgjsPath1281" d="M-1 238.4125L-1 238.4125C-1 238.4125 55.1058349609375 238.4125 55.1058349609375 238.4125C55.1058349609375 238.4125 110.211669921875 238.4125 110.211669921875 238.4125C110.211669921875 238.4125 165.3175048828125 238.4125 165.3175048828125 238.4125C165.3175048828125 238.4125 220.42333984375 238.4125 220.42333984375 238.4125C220.42333984375 238.4125 275.5291748046875 238.4125 275.5291748046875 238.4125C275.5291748046875 238.4125 330.635009765625 238.4125 330.635009765625 238.4125C330.635009765625 238.4125 330.635009765625 238.4125 330.635009765625 238.4125 "></path></svg>
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+
+            $('.datePicker').datepicker();
+
+
+            $("#CountryId").change(function () {
+            var CountryId = parseInt($(this).val());
+            if (!isNaN(CountryId)) {
+                var ddlState = $('#StateId');
+                ddlState.empty();
+                ddlState.append($("<option></option>").val('').html('Please wait ...'));
+
+                $.ajax({
+                    url: "/Common/GetStatesByCountryId",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { countryId: CountryId },
+                    success: function (d) {
+
+                        ddlState.empty();
+                        ddlState.append($("<option></option>").val('').html('Select State'));
+                        $.each(d, function (i, states) {
+                            ddlState.append($("<option></option>").val(states.id).html(states.name));
+                        });
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                });
+            }
+        });
+
+        $("#StateId").change(function () {
+            var StateId = parseInt($(this).val());
+            if (!isNaN(StateId)) {
+                var ddlCity = $('#CityId');
+                ddlCity.append($("<option></option>").val('').html('Please wait ...'));
+                $.ajax({
+                    url:  "/Common/GetCitiesByStateId",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { stateId: StateId },
+                    success: function (d) {
+                        ddlCity.empty(); // Clear the plese wait
+                        ddlCity.append($("<option></option>").val('').html('Select City'));
+                        $.each(d, function (i, cities) {
+                            ddlCity.append($("<option></option>").val(cities.id).html(cities.name));
+                        });
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                });
+                 }
+        });
+
+        });
+        function confirmDelete(id,path){
+        Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                     $.ajax({
+                    url:  path,
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { id: id },
+                    success: function (d) {
+                       
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                });
+                }
+              });
+        }
+
+    </script>
+
+</body>
+</html>
+
+

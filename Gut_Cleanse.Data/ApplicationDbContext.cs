@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Gut_Cleanse.Data.Tables;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
 namespace Gut_Cleanse.Data
 {
@@ -9,5 +11,13 @@ namespace Gut_Cleanse.Data
         {
 
         }
+        //public ApplicationDbContext()
+        //{
+                
+        //}
+        public DbSet<User> Users { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }

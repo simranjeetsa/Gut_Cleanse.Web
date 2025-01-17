@@ -1,0 +1,152 @@
+﻿@model Gut_Cleanse.Model.UserModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .g-3, .gy-3 {
+        --bs-gutter-y: 1rem;
+    }
+
+</style>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Create", "User", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(x=>x.Id)
+                        <div class="row g-3 needs-validation">
+                            <div class="col-12">
+                                <h6>1. Account Details</h6>
+                                <hr class="mt-0">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.FirstName, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.FirstName)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.MiddleName, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.MiddleName, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.LastName, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.LastName)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.ContactNumber, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.ContactNumber, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.ContactNumber)
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.Email, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.Email)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <h6 class="mt-2">2. Personal Info</h6>
+                                <hr class="mt-0">
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.ZipCode, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.ZipCode, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.ZipCode)
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.DOB, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.DOB, new { @class = "form-control datePicker" })
+                                        @Html.ValidationMessageFor(x => x.DOB)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label required">Choose Country</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.CountryId)
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label required">Choose State</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => m.StateId, new SelectList(Model.States, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.StateId)
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label required">Choose City</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => m.CityId, new SelectList(Model.Cities, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.CityId)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 fv-plugins-icon-container">
+                                        <label class="form-label">Profile Pic</label>
+                                        <input class="form-control" type="file" id="formValidationFile" name="formValidationFile">
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5">
+                                        <label class="form-label required">Gender</label>
+                                        <div class="col-md-12" style="margin-top:10px;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        @Html.RadioButtonFor(model => model.Gender, "Male", new { @checked = true, @class="form-check-input" })
+                                                        <label class="form-check-label">Male</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check">
+                                                        @Html.RadioButtonFor(model => model.Gender, "Female", new { @checked = true, @class = "form-check-input" })
+                                                        <label class="form-check-label">Female</label>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" style="text-align:center;margin-top:60px;">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

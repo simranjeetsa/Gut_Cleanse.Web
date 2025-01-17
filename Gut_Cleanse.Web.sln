@@ -5,13 +5,15 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gut_Cleanse.Web", "Gut_Cleanse.Web\Gut_Cleanse.Web.csproj", "{D72C0F1D-3361-44BA-A89E-862A44F44B92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gut_Cleanse.Data", "Gut_Cleanse.Data\Gut_Cleanse.Data.csproj", "{B270BC45-EBFF-4382-8306-FBF3D7E45EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gut_Cleanse.Data", "Gut_Cleanse.Data\Gut_Cleanse.Data.csproj", "{B270BC45-EBFF-4382-8306-FBF3D7E45EA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gut_Cleanse.Model", "Gut_Cleanse.Model\Gut_Cleanse.Model.csproj", "{016B3B83-4F1A-4E8B-A933-5C3174A9A1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gut_Cleanse.Model", "Gut_Cleanse.Model\Gut_Cleanse.Model.csproj", "{016B3B83-4F1A-4E8B-A933-5C3174A9A1F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gut_Cleanse.Repo", "Gut_Cleanse.Repo\Gut_Cleanse.Repo.csproj", "{2D8416DE-4B01-4965-8640-3FE0D913CF77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gut_Cleanse.Repo", "Gut_Cleanse.Repo\Gut_Cleanse.Repo.csproj", "{2D8416DE-4B01-4965-8640-3FE0D913CF77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gut_Cleanse.Service", "Gut_Cleanse.Service\Gut_Cleanse.Service.csproj", "{C4853030-38C6-47A6-B856-85E8C2C220BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gut_Cleanse.Service", "Gut_Cleanse.Service\Gut_Cleanse.Service.csproj", "{C4853030-38C6-47A6-B856-85E8C2C220BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gut_Cleanse.Common", "Gut_Cleanse.Common\Gut_Cleanse.Common.csproj", "{01092E36-68F4-4225-9D6B-58658833C809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C4853030-38C6-47A6-B856-85E8C2C220BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4853030-38C6-47A6-B856-85E8C2C220BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4853030-38C6-47A6-B856-85E8C2C220BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01092E36-68F4-4225-9D6B-58658833C809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01092E36-68F4-4225-9D6B-58658833C809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01092E36-68F4-4225-9D6B-58658833C809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01092E36-68F4-4225-9D6B-58658833C809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

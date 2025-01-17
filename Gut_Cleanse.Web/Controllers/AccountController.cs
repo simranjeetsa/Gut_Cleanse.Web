@@ -40,7 +40,7 @@ namespace Gut_Cleanse.Web.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "User");
                     }
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
@@ -53,12 +53,11 @@ namespace Gut_Cleanse.Web.Controllers
         }
 
         // Logout action
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         // Register action (optional)
