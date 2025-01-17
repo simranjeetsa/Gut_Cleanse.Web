@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Gut_Cleanse.Model;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Gut_Cleanse.Web.Controllers
@@ -29,7 +30,7 @@ namespace Gut_Cleanse.Web.Controllers
 
             Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_umbrFAbVJ3slyJ", "su9eXFaihGucMmKECVRcRk0Q");
             Dictionary<string, object> options = new Dictionary<string, object>();
-            options.Add("amount", _requestData.amount * 100);  // Amount will in paise
+            options.Add("amount", _requestData.Amount * 100);  // Amount will in paise
             options.Add("receipt", transactionId);
             options.Add("currency", "INR");
             options.Add("payment_capture", "0"); // 1 - automatic  , 0 - manual
@@ -42,12 +43,12 @@ namespace Gut_Cleanse.Web.Controllers
             {
                 orderId = orderResponse.Attributes["id"],
                 razorpayKey = "rzp_test_umbrFAbVJ3slyJ",
-                amount = _requestData.amount * 100,
+                amount = _requestData.Amount * 100,
                 currency = "INR",
-                name = _requestData.name,
-                email = _requestData.email,
-                contactNumber = _requestData.contactNumber,
-                address = _requestData.address,
+                name = _requestData.Name,
+                email = _requestData.Email,
+                contactNumber = _requestData.ContactNumber,
+                address = _requestData.Address,
                 description = "Testing description"
             };
 
@@ -103,25 +104,4 @@ namespace Gut_Cleanse.Web.Controllers
 
     }
 
-    public class PaymentInitiateModel
-    {
-        public string name { get; set; }
-        public string email { get; set; }
-        public string contactNumber { get; set; }
-        public string address { get; set; }
-        public int amount { get; set; }
-    }
-
-    public class OrderModel
-    {
-        public string orderId { get; set; }
-        public string razorpayKey { get; set; }
-        public int amount { get; set; }
-        public string currency { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string contactNumber { get; set; }
-        public string address { get; set; }
-        public string description { get; set; }
-    }
 }
