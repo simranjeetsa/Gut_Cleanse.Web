@@ -1832,13 +1832,7 @@
             background-size: cover;
         }
 
-            .theme-mobile.dark {
-                background-image: url("https://cdn.razorpay.com/static/assets/paymentpages/dark_mobile.jpg");
-            }
-
-            .theme-mobile.light {
-                background-image: url("https://cdn.razorpay.com/static/assets/paymentpages/light_mobile.jpg");
-            }
+          
 
         .theme-desktop::before {
             content: '';
@@ -1851,6 +1845,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-color: inherit;
+            z-index:-1;
         }
 
         .theme-desktop.dark::before {
@@ -3063,7 +3058,6 @@
 </head>
 
 <body class="theme-desktop light">
-    <h1>1:1 Gut Reset Revolution (3 months)</h1>
     <div id="paymentpage-container">
         <div id="desktop-container">
             <div class="content-container">
@@ -3081,7 +3075,7 @@
                         </div><!---->
 
                         <div id="form-section" class="">
-                             @using (Html.BeginForm("Create", "User", FormMethod.Post))
+                            @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post))
                     {
                                 <div class="UI-form">
                                     <div class="Field Field--required Field--amount Field--amount--selected Field--currency-1 ">
@@ -3096,6 +3090,7 @@
                                                     </span>
                                                 </span>
                                                 <div class="Field-el"><label><b>45,000.00</b></label></div>
+                                                @Html.HiddenFor(x=>x.Amount)
                                                 <span class="Field-addon Field-addon--after ">
                                                 </span>
                                             </div>

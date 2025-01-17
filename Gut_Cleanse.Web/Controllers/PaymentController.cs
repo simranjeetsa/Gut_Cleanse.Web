@@ -1,5 +1,6 @@
 ﻿using Gut_Cleanse.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 
 namespace Gut_Cleanse.Web.Controllers
@@ -8,7 +9,9 @@ namespace Gut_Cleanse.Web.Controllers
     {
         public IActionResult Revolution()
         {
-            return View();
+            PaymentInitiateModel model = new PaymentInitiateModel();
+            model.Amount = 45000;
+            return View(model);
         }
 
         public IActionResult Glory()
@@ -24,11 +27,12 @@ namespace Gut_Cleanse.Web.Controllers
         [HttpPost]
         public ActionResult CreateOrder(PaymentInitiateModel _requestData)
         {
+
             // Generate random receipt number for order
             Random randomObj = new Random();
             string transactionId = randomObj.Next(10000000, 100000000).ToString();
 
-            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_umbrFAbVJ3slyJ", "su9eXFaihGucMmKECVRcRk0Q");
+            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_NuZY6XPZmkE91n", "fa1QXefiWJEU2Shm53aKTNiG");
             Dictionary<string, object> options = new Dictionary<string, object>();
             options.Add("amount", _requestData.Amount * 100);  // Amount will in paise
             options.Add("receipt", transactionId);
@@ -42,7 +46,7 @@ namespace Gut_Cleanse.Web.Controllers
             OrderModel orderModel = new OrderModel
             {
                 orderId = orderResponse.Attributes["id"],
-                razorpayKey = "rzp_test_umbrFAbVJ3slyJ",
+                razorpayKey = "rzp_test_NuZY6XPZmkE91n",
                 amount = _requestData.Amount * 100,
                 currency = "INR",
                 name = _requestData.Name,
@@ -56,41 +60,41 @@ namespace Gut_Cleanse.Web.Controllers
             return View("PaymentPage", orderModel);
         }
 
-       
 
 
-        //[HttpPost]
-        //public ActionResult Complete()
-        //{
-        //    // Payment data comes in url so we have to get it from url
 
-        //    // This id is razorpay unique payment id which can be use to get the payment details from razorpay server
-        //    string paymentId = Request.Params["rzp_paymentid"];
+        [HttpPost]
+        public ActionResult Complete(string rzp_paymentid, string rzp_orderid)
+        {
+            // Payment data comes in url so we have to get it from url
 
-        //    // This is orderId
-        //    string orderId = Request.Params["rzp_orderid"];
-        //    Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_umbrFAbVJ3slyJ", "su9eXFaihGucMmKECVRcRk0Q");
+            // This id is razorpay unique payment id which can be use to get the payment details from razorpay server
+            string paymentId = rzp_paymentid;
 
-        //    Razorpay.Api.Payment payment = client.Payment.Fetch(paymentId);
+            // This is orderId
+            string orderId = rzp_orderid;
+            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_NuZY6XPZmkE91n", "fa1QXefiWJEU2Shm53aKTNiG");
 
-        //    // This code is for capture the payment 
-        //    Dictionary<string, object> options = new Dictionary<string, object>();
-        //    options.Add("amount", payment.Attributes["amount"]);
-        //    Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
-        //    string amt = paymentCaptured.Attributes["amount"];
+            Razorpay.Api.Payment payment = client.Payment.Fetch(paymentId);
 
-        //    //// Check payment made successfully
+            // This code is for capture the payment 
+            Dictionary<string, object> options = new Dictionary<string, object>();
+            options.Add("amount", payment.Attributes["amount"]);
+            Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
+            string amt = paymentCaptured.Attributes["amount"];
 
-        //    if (paymentCaptured.Attributes["status"] == "captured")
-        //    {
-        //        // Create these action method
-        //        return RedirectToAction("Success");
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Failed");
-        //    }
-        //}
+            //// Check payment made successfully
+
+            if (paymentCaptured.Attributes["status"] == "captured")
+            {
+                // Create these action method
+                return RedirectToAction("Success");
+            }
+            else
+            {
+                return RedirectToAction("Failed");
+            }
+        }
 
         public ActionResult Success()
         {
@@ -100,6 +104,49 @@ namespace Gut_Cleanse.Web.Controllers
         public ActionResult Failed()
         {
             return View();
+        }
+
+        public async Task SendMessage()
+        {
+            string accessToken = "your_access_token";  // The WhatsApp API access token
+            string phoneNumberId = "your_phone_number_id";  // Your WhatsApp phone number ID
+            string recipientPhoneNumber = "recipient_phone_number"; // Recipient phone number (include country code, no +)
+
+            var message = new
+            {
+                messaging_product = "whatsapp",
+                to = recipientPhoneNumber,
+                text = new { body = "Hello, this is a test message from WhatsApp API!" }
+            };
+
+            var jsonMessage = Newtonsoft.Json.JsonConvert.SerializeObject(message);
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
+            var content = new StringContent(jsonMessage, Encoding.UTF8, "application/json");
+
+            // Replace the URL with the WhatsApp API endpoint for sending messages
+            var url = $"https://graph.facebook.com/v15.0/{phoneNumberId}/messages";
+
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Message sent successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to send message. Status: {response.StatusCode}");
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseContent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
         }
 
     }
