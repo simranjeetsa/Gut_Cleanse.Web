@@ -14196,7 +14196,7 @@ section.bannerbelow-area {
 .processBg {
     z-index: 2;
     position: relative;
-    background: url(../Assets/processbg.jpg) top center no-repeat;
+    background: url(../Assets/young-healthy-.b4e6db59.jpg) top center no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -14212,7 +14212,7 @@ section.bannerbelow-area {
 .contactBg {
     z-index: 2;
     position: relative;
-    background: url(../Assets/contav.jpg) center no-repeat;
+    background: url(../Assets/flexitarian.ba7b758b.jpg) top no-repeat;
     background-size: cover;
 }
 
@@ -17111,6 +17111,8 @@ ul.event-details-list li {
 
     .imageset-hom img {
         height: 700px !important;
+        object-fit:cover;
+        object-position:center;
     }
 
 /* here is the css of blog page START*/

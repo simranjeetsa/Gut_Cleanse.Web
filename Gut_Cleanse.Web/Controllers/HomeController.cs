@@ -18,7 +18,20 @@ namespace Gut_Cleanse.Web.Controllers
             return View();
         }
 
+        [Route("privacy-policy")]
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [Route("term-and-condition")]
+        public IActionResult TermAndCondition()
+        {
+            return View();
+        }
+
+        [Route("refund-policy")]
+        public IActionResult RefundPolicy()
         {
             return View();
         }
