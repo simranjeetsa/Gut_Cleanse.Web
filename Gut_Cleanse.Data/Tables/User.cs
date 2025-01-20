@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gut_Cleanse.Data.Tables
 {
@@ -41,5 +36,6 @@ namespace Gut_Cleanse.Data.Tables
         public DateOnly DOB { get; set; }
         public string? ProfilePicture { get; set; }
         public virtual City City { get; set; }
+        public ICollection<Payment> Payments { get; set; }
     }
 }

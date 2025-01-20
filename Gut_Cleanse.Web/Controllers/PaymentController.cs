@@ -7,10 +7,16 @@ namespace Gut_Cleanse.Web.Controllers
 {
     public class PaymentController : Controller
     {
+        private readonly IConfiguration _configuration;
+        public PaymentController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public IActionResult Revolution()
         {
             PaymentInitiateModel model = new PaymentInitiateModel();
             model.Amount = 45000;
+            model.Description = "Revolution";
             return View(model);
         }
 
@@ -27,18 +33,15 @@ namespace Gut_Cleanse.Web.Controllers
         [HttpPost]
         public ActionResult CreateOrder(PaymentInitiateModel _requestData)
         {
-
-            // Generate random receipt number for order
-            Random randomObj = new Random();
-            string transactionId = randomObj.Next(10000000, 100000000).ToString();
-
-            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_NuZY6XPZmkE91n", "fa1QXefiWJEU2Shm53aKTNiG");
+            var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
+            var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
+            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient(keyId, secretKey);
             Dictionary<string, object> options = new Dictionary<string, object>();
             options.Add("amount", _requestData.Amount * 100);  // Amount will in paise
-            options.Add("receipt", transactionId);
+            options.Add("receipt", Guid.NewGuid().ToString());
             options.Add("currency", "INR");
-            options.Add("payment_capture", "0"); // 1 - automatic  , 0 - manual
-                                                 //options.Add("notes", "-- You can put any notes here --");
+            options.Add("payment_capture", "0");
+
             Razorpay.Api.Order orderResponse = client.Order.Create(options);
             string orderId = orderResponse["id"].ToString();
 
@@ -46,14 +49,14 @@ namespace Gut_Cleanse.Web.Controllers
             OrderModel orderModel = new OrderModel
             {
                 orderId = orderResponse.Attributes["id"],
-                razorpayKey = "rzp_test_NuZY6XPZmkE91n",
+                razorpayKey = keyId,
                 amount = _requestData.Amount * 100,
                 currency = "INR",
                 name = _requestData.Name,
                 email = _requestData.Email,
                 contactNumber = _requestData.ContactNumber,
                 address = _requestData.Address,
-                description = "Testing description"
+                description = _requestData.Description
             };
 
             // Return on PaymentPage with Order data
@@ -66,14 +69,13 @@ namespace Gut_Cleanse.Web.Controllers
         [HttpPost]
         public ActionResult Complete(string rzp_paymentid, string rzp_orderid)
         {
-            // Payment data comes in url so we have to get it from url
-
-            // This id is razorpay unique payment id which can be use to get the payment details from razorpay server
+            var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
+            var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
             string paymentId = rzp_paymentid;
 
             // This is orderId
             string orderId = rzp_orderid;
-            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_NuZY6XPZmkE91n", "fa1QXefiWJEU2Shm53aKTNiG");
+            Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient(keyId, secretKey);
 
             Razorpay.Api.Payment payment = client.Payment.Fetch(paymentId);
 
@@ -83,7 +85,6 @@ namespace Gut_Cleanse.Web.Controllers
             Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
             string amt = paymentCaptured.Attributes["amount"];
 
-            //// Check payment made successfully
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {

@@ -13,6 +13,7 @@ namespace Gut_Cleanse.Model
         public string ContactNumber { get; set; }
         public string Address { get; set; }
         public int Amount { get; set; }
+        public string Description { get; set; }
     }
 
     public class OrderModel

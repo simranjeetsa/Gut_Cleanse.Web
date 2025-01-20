@@ -4,6 +4,7 @@ using Gut_Cleanse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gut_Cleanse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250120111319_add_payment_table")]
+    partial class add_payment_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace Gut_Cleanse.Data.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("Amouont")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
@@ -207,36 +210,6 @@ namespace Gut_Cleanse.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PaymentTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 45000m,
-                            Description = "Gut Reset Revolution",
-                            Name = "Gut Reset Revolution"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 6300m,
-                            Description = "Gut & Glory",
-                            Name = "Gut & Glory"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Amount = 299m,
-                            Description = "Gut Intelligence Workshop",
-                            Name = "Gut Intelligence Workshop"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Amount = 5000m,
-                            Description = "21 Day Challenge",
-                            Name = "21 Day Challenge"
-                        });
                 });
 
             modelBuilder.Entity("Gut_Cleanse.Data.Tables.State", b =>
@@ -351,14 +324,6 @@ namespace Gut_Cleanse.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "F2362EB6-4C91-4E31-B822-A62032A68678",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
