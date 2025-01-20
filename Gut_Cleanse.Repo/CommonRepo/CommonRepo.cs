@@ -28,5 +28,19 @@ namespace Gut_Cleanse.Repo.Common
         {
             return context.Cities.Where(x => x.StateId == stateId).Select(x => x.AutoMap<CityModel>()).ToList();
         }
+        public PaymentTypeModel GetPaymentTypeId(int paymentTypeId)
+        {
+            PaymentTypeModel result = new PaymentTypeModel();
+            var paymentType= context.PaymentTypes.FirstOrDefault(x => x.Id == paymentTypeId);
+            if (paymentType != null)
+            {
+                result.Id = paymentTypeId;
+                result.Name = paymentType.Name;
+                result.Description = paymentType.Description;
+                result.Amount = paymentType.Amount;
+            }
+            return result;
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Gut_Cleanse.Model;
+using Gut_Cleanse.Service.CommonService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -8,36 +9,33 @@ namespace Gut_Cleanse.Web.Controllers
     public class PaymentController : Controller
     {
         private readonly IConfiguration _configuration;
-        public PaymentController(IConfiguration configuration)
+        private readonly ICommonService _commonService;
+        public PaymentController(IConfiguration configuration, ICommonService commonService)
         {
             _configuration = configuration;
+            _commonService= commonService;
         }
         public IActionResult Revolution()
         {
-            PaymentInitiateModel model = new PaymentInitiateModel();
-            model.Amount = 45000;
-            model.Description = "Revolution";
+            var model=_commonService.GetPaymentTypeId(1);
             return View(model);
         }
 
         public IActionResult Glory()
         {
-            PaymentInitiateModel model = new PaymentInitiateModel();
-            model.Amount = 6300;
+            var model = _commonService.GetPaymentTypeId(2);
             return View(model);
         }
 
         public IActionResult Workshop()
         {
-            PaymentInitiateModel model = new PaymentInitiateModel();
-            model.Amount = 299;
+            var model = _commonService.GetPaymentTypeId(3);
             return View(model);
         }
 
         public IActionResult Challenge()
         {
-            PaymentInitiateModel model = new PaymentInitiateModel();
-            model.Amount = 5000;
+            var model = _commonService.GetPaymentTypeId(4);
             return View(model);
         }
 

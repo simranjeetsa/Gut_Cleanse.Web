@@ -22,5 +22,9 @@ namespace Gut_Cleanse.Service.CommonService
         {
             return commonRepo.GetCitiesByStateId(stateId);
         }
+        public PaymentTypeModel GetPaymentTypeId(int paymentTypeId)
+        {
+            return commonRepo.GetPaymentTypeId(paymentTypeId);
+        }
     }
 }

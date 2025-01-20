@@ -1,4 +1,4 @@
-﻿@model Gut_Cleanse.Model.PaymentInitiateModel
+﻿@model Gut_Cleanse.Model.PaymentTypeModel
 
 
 <style type="text/css">
@@ -3093,6 +3093,7 @@
                                                 </span>
                                                 <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
                                                 @Html.HiddenFor(x => x.Amount)
+                                                @Html.HiddenFor(x => x.Description)
                                                 <span class="Field-addon Field-addon--after ">
                                                 </span>
                                             </div>
