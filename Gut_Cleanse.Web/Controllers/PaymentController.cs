@@ -22,12 +22,23 @@ namespace Gut_Cleanse.Web.Controllers
 
         public IActionResult Glory()
         {
-            return View();
+            PaymentInitiateModel model = new PaymentInitiateModel();
+            model.Amount = 6300;
+            return View(model);
         }
 
         public IActionResult Workshop()
         {
-            return View();
+            PaymentInitiateModel model = new PaymentInitiateModel();
+            model.Amount = 299;
+            return View(model);
+        }
+
+        public IActionResult Challenge()
+        {
+            PaymentInitiateModel model = new PaymentInitiateModel();
+            model.Amount = 5000;
+            return View(model);
         }
 
         [HttpPost]

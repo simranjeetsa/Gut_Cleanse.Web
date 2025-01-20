@@ -1,5 +1,5 @@
 ﻿@model Gut_Cleanse.Model.PaymentInitiateModel
-<head>
+
 
     <style type="text/css">
 
@@ -1650,7 +1650,7 @@
         #paymentpage-container p,
         #wysiwyg-root p {
             padding: 0;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 20px;
         }
 
@@ -3053,11 +3053,13 @@
         #goal-tracker .range-slider-track, #goal-tracker-details .RangeSlider--track {
             background: rgb(35,113,236);
         }
+
+        #description ul {
+            list-style: outside;
+        }
     </style>
 
-</head>
-
-<body class="theme-desktop light">
+<div class="theme-desktop light">
     <div id="paymentpage-container">
         <div id="desktop-container">
             <div class="content-container">
@@ -3089,9 +3091,9 @@
                                                         <b class="currency-symbol">₹</b>
                                                     </span>
                                                 </span>
-                                                <div class="Field-el"><label><b>45,000.00</b></label></div>
-                                                @Html.HiddenFor(x=>x.Amount)
-                                                @Html.HiddenFor(x => x.Description)
+                                                <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
+                                                @Html.HiddenFor(x => x.Amount)
+                                                 @Html.HiddenFor(x => x.Description)
                                                 <span class="Field-addon Field-addon--after ">
                                                 </span>
                                             </div>
@@ -3135,7 +3137,7 @@
                                             <img id="fin-logo" alt="pay-methods" src="https://cdn.razorpay.com/static/assets/pay_methods_branding.png" width="180">
 
 
-                                            <button type="submit" class="btn btn--gradient" tabindex="0">Pay <span style="margin-left: 4px;">₹ 45,000.00</span></button><!----><!---->
+                                            <button type="submit" class="btn btn--gradient" tabindex="0">Pay <span style="margin-left: 4px;">₹ @Model.Amount.ToString("N2")</span></button><!----><!---->
                                         </div>
                                     </div>
                                 </div>
@@ -3170,9 +3172,7 @@
                                                 <li>Eating has become a source of stress rather than pleasure</li>
                                                 <li>You're seeking expert guidance during your pregnancy journey or postpartum recovery</li>
                                             </ul>
-                                            <p class="hideButton">
-                                                <button class="btn-link" onclick="showMore()">Show More</button>
-                                            </p>
+                                            <p><button class="btn-link hideButton" onclick="showMore()">Show More</button></p>
                                            
                                         </div>
                                         
@@ -3227,7 +3227,7 @@
             </div>
         </div>
     </div>
-</body>
+</div>
 @section scripts{
     <script>
        
