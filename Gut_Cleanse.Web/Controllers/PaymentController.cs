@@ -4,8 +4,6 @@ using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.PaymentService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using System.Text.Json.Nodes;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Gut_Cleanse.Web.Controllers
