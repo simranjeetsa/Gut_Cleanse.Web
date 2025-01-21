@@ -13,7 +13,6 @@ namespace Gut_Cleanse.Service.CommonService
         List<StateModel> GetStatesByCountryId(int countryId);
         List<CityModel> GetCitiesByStateId(int stateId);
         PaymentTypeModel GetPaymentTypeId(int paymentTypeId);
-        string GetAspNetUserId();
-        int GetUserId();
+        UserModel GetCurrentUserInfo();
     }
 }

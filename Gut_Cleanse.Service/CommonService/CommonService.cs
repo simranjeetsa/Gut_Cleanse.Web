@@ -29,13 +29,10 @@ namespace Gut_Cleanse.Service.CommonService
         {
             return commonRepo.GetPaymentTypeId(paymentTypeId);
         }
-        public string GetAspNetUserId()
+        public UserModel GetCurrentUserInfo()
         {
-            return _httpContextAccessor.HttpContext.Session.GetString("AspNetUserId");
-        }
-        public int GetUserId()
-        {
-            return _httpContextAccessor.HttpContext.Session.GetInt32("UserId") ?? 0;
+            var data=Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(_httpContextAccessor.HttpContext.Session.GetString("User"));
+            return data;
         }
     }
 }
