@@ -4,6 +4,7 @@ using Gut_Cleanse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gut_Cleanse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250120125850_add_AspNetUserId_in_users_table")]
+    partial class add_AspNetUserId_in_users_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +138,7 @@ namespace Gut_Cleanse.Data.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("Amouont")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
@@ -147,12 +150,11 @@ namespace Gut_Cleanse.Data.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
+                    b.Property<int>("Email")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("ModifyDateTime")
+                    b.Property<DateTime>("ModifyDateTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("OrderId")
@@ -161,6 +163,7 @@ namespace Gut_Cleanse.Data.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("PaymentId")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
@@ -313,6 +316,7 @@ namespace Gut_Cleanse.Data.Migrations
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("MiddleName")
+                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("varchar(250)");
 

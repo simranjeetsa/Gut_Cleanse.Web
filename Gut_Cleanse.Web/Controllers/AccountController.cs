@@ -1,5 +1,7 @@
 ﻿using Gut_Cleanse.Data;
 using Gut_Cleanse.Model;
+using Gut_Cleanse.Service.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +12,10 @@ namespace Gut_Cleanse.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        readonly IUserService _userService;
 
         public AccountController(
+            IUserService userService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager)
@@ -19,6 +23,7 @@ namespace Gut_Cleanse.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _userService = userService;
         }
 
         // Login action
@@ -40,6 +45,9 @@ namespace Gut_Cleanse.Web.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
+                        var userInfo = _userService.GetUserByUserId(user.Id);
+                        HttpContext.Session.SetString("AspNetUserId", user.Id);
+                        HttpContext.Session.SetInt32("UserId", userInfo.Id);
                         return RedirectToAction("Index", "User");
                     }
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -53,7 +61,7 @@ namespace Gut_Cleanse.Web.Controllers
         }
 
         // Logout action
-       
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

@@ -14,5 +14,6 @@ namespace Gut_Cleanse.Service.User
         void AddUser(UserModel model);
         void UpdateUser(UserModel model);
         void Delete(int id);
+        UserModel GetUserByUserId(string userId);
     }
 }

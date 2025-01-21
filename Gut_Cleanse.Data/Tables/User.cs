@@ -35,6 +35,9 @@ namespace Gut_Cleanse.Data.Tables
         [Required]
         public DateOnly DOB { get; set; }
         public string? ProfilePicture { get; set; }
+        [StringLength(255)]
+        [Required]
+        public string AspNetUserId { get; set; }
         public virtual City City { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }
