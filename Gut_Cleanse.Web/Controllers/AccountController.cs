@@ -46,8 +46,7 @@ namespace Gut_Cleanse.Web.Controllers
                     if (result.Succeeded)
                     {
                         var userInfo = _userService.GetUserByUserId(user.Id);
-                        HttpContext.Session.SetString("AspNetUserId", user.Id);
-                        HttpContext.Session.SetInt32("UserId", userInfo.Id);
+                        HttpContext.Session.SetString("User", Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
                         return RedirectToAction("Index", "User");
                     }
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
