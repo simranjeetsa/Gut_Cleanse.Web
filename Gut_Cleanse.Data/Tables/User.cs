@@ -11,7 +11,7 @@ namespace Gut_Cleanse.Data.Tables
         [Required]
         public string FirstName { get; set; }
         [StringLength(250)]
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
         [StringLength(250)]
         [Required]
         public string LastName { get; set; }

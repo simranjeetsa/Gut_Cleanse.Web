@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,23 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gut_Cleanse.Data.Tables
+namespace Gut_Cleanse.Model
 {
-    public class Payment
+    public class PaymentModel
     {
-        [Key]
         [Required]
         public int Id { get; set; }
         [Required]
         [StringLength(500)]
         public string OrderId { get; set; }
         [StringLength(500)]
-        public string? PaymentId { get; set; }
+        public string PaymentId { get; set; }
         [Required]
-        [ForeignKey("PaymentType")]
         public int PaymentTypeId { get; set; }
         [Required]
-        [Precision(18, 2)]
         public decimal Amount { get; set; }
         [Required]
         public int Status { get; set; }
@@ -34,14 +30,14 @@ namespace Gut_Cleanse.Data.Tables
         [StringLength(200)]
         public string Email { get; set; }
         [Required]
-        [ForeignKey("User")]
         public int UserId { get; set; }
         [Required]
         public DateTime CreatedDateTime { get; set; }
-        public DateTime? ModifyDateTime { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
-        public virtual User User { get; set; }
-
-
+        public DateTime ModifyDateTime { get; set; }
+        public string? RazorPayKeyId { get; set; }
+        public string? Currency { get; set; }
+        public string? Name { get; set; }
+        public string? Address { get; set; }
+        public string? Description { get; set; }
     }
 }

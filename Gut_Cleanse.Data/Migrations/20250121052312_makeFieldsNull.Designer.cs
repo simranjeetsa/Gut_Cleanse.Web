@@ -4,6 +4,7 @@ using Gut_Cleanse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gut_Cleanse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250121052312_makeFieldsNull")]
+    partial class makeFieldsNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,44 +110,6 @@ namespace Gut_Cleanse.Data.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Mohali",
-                            StateId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Jalandhar",
-                            StateId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Ludhiana",
-                            StateId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Shimla",
-                            StateId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Dharamshala",
-                            StateId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Mandi",
-                            StateId = 2
-                        });
                 });
 
             modelBuilder.Entity("Gut_Cleanse.Data.Tables.Country", b =>
@@ -163,23 +128,6 @@ namespace Gut_Cleanse.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "India"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Australia"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "USA"
-                        });
                 });
 
             modelBuilder.Entity("Gut_Cleanse.Data.Tables.Payment", b =>
@@ -315,20 +263,6 @@ namespace Gut_Cleanse.Data.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("States");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryId = 1,
-                            Name = "Punjab"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CountryId = 1,
-                            Name = "Himachal"
-                        });
                 });
 
             modelBuilder.Entity("Gut_Cleanse.Data.Tables.User", b =>
@@ -338,11 +272,6 @@ namespace Gut_Cleanse.Data.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AspNetUserId")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");

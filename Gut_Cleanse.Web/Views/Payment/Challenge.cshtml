@@ -2699,18 +2699,26 @@
                 }
 
     @@media (max-width: 1023px) {
-        #paymentpage-container #desktop-container .content {
-            width: calc(50% + 380px);
-        }
 
         #paymentpage-container #desktop-container #main-view {
-            width: 380px;
-            top: -106px;
+            width: fit-content;
         }
 
         #paymentpage-container #desktop-container #form-section #fin-logo {
             width: 160px;
         }
+
+        #desktop-container #main-view {
+            float: none;
+        }
+
+        #desktop-container {
+            overflow: hidden;
+        }
+
+            #desktop-container .content-container {
+                min-width: 0px;
+            }
     }
 
     @@media (max-width: 960px) {
@@ -2730,7 +2738,6 @@
 
     @@media (max-width: 759px) {
         #desktop-container .content::before {
-            min-width: 572px;
             left: 0;
         }
     }
@@ -3094,6 +3101,7 @@
                                                 <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
                                                 @Html.HiddenFor(x => x.Amount)
                                                 @Html.HiddenFor(x => x.Description)
+                                                @Html.Hidden("PaymentTypeId", Model.Id)
                                                 <span class="Field-addon Field-addon--after ">
                                                 </span>
                                             </div>
