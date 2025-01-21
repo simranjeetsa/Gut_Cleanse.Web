@@ -24,7 +24,7 @@ namespace Gut_Cleanse.Data.Tables
         public int PaymentTypeId { get; set; }
         [Required]
         [Precision(18, 2)]
-        public decimal Amouont { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public int Status { get; set; }
         [Required]
@@ -32,7 +32,7 @@ namespace Gut_Cleanse.Data.Tables
         public string ContactNumber { get; set; }
         [Required]
         [StringLength(200)]
-        public int Email { get; set; }
+        public string Email { get; set; }
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
