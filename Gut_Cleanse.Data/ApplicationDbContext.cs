@@ -31,22 +31,26 @@ namespace Gut_Cleanse.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-           
-            //builder.Entity<Country>().HasData(
-            //       new() { Id = 1, Name = "India" },
-            //       new() { Id = 2, Name = "Australia" },
-            //        new() { Id = 3, Name = "USA" }
-            //);
-            ////Seeding State Master Data using HasData method
-            //builder.Entity<State>().HasData(
-            //    new() { Id = 1, Name = "Punjab", CountryId = 1 },
-            //    new() { Id = 2, Name = "Delhi", CountryId = 1 }
-            //);
-            ////Seeding City Master Data using HasData method
-            //builder.Entity<City>().HasData(
-            //    new() { Id = 1, Name = "Mohali", StateId = 1 },
-            //    new() { Id = 2, Name = "Jalandhar", StateId = 1 }
-            // );
+
+            builder.Entity<Country>().HasData(
+                   new() { Id = 1, Name = "India" },
+                   new() { Id = 2, Name = "Australia" },
+                    new() { Id = 3, Name = "USA" }
+            );
+            //Seeding State Master Data using HasData method
+            builder.Entity<State>().HasData(
+                new() { Id = 1, Name = "Punjab", CountryId = 1 },
+                 new() { Id = 2, Name = "Himachal", CountryId = 1 }
+            );
+            //Seeding City Master Data using HasData method
+            builder.Entity<City>().HasData(
+                new() { Id = 1, Name = "Mohali", StateId = 1 },
+                new() { Id = 2, Name = "Jalandhar", StateId = 1 },
+                 new() { Id = 3, Name = "Ludhiana", StateId = 1 },
+                  new() { Id = 4, Name = "Shimla", StateId = 2 },
+                new() { Id = 5, Name = "Dharamshala", StateId = 2 },
+                 new() { Id = 6, Name = "Mandi", StateId = 2 }
+             );
             builder.Entity<IdentityRole>().HasData(
                  new IdentityRole() { Id = "F2362EB6-4C91-4E31-B822-A62032A68678", Name = "Admin", NormalizedName = "ADMIN" }
             );
