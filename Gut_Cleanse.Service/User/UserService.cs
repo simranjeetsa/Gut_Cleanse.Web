@@ -1,5 +1,7 @@
-﻿using Gut_Cleanse.Model;
+﻿using Gut_Cleanse.Common;
+using Gut_Cleanse.Model;
 using Gut_Cleanse.Repo.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gut_Cleanse.Service.User
 {
@@ -12,7 +14,16 @@ namespace Gut_Cleanse.Service.User
         }
         public List<UserModel> GetUsers()
         {
-            return userRepo.GetUsers();
+            return userRepo.GetUsers().Select(x => x.AutoMap<UserModel>()).ToList();
+        }
+
+        public UserModel GetUserByUserId(string userId)
+        {
+            UserModel model = new UserModel();
+            var user = userRepo.GetUsers().FirstOrDefault(x => x.AspNetUserId == userId);
+            if (user != null)
+                model=user.AutoMap<UserModel>();
+            return model;
         }
 
         public UserModel GetUserById(int userId)

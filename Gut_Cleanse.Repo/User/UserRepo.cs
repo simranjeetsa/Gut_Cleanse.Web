@@ -12,9 +12,9 @@ namespace Gut_Cleanse.Repo.User
         {
             context = _context;
         }
-        public List<UserModel> GetUsers()
+        public IQueryable<Data.Tables.User> GetUsers()
         {
-            return context.Users.Where(x => !x.IsDeleted).Select(x => x.AutoMap<UserModel>()).ToList();
+            return context.Users.Where(x => !x.IsDeleted);
         }
 
         public UserModel GetUserById(int userId)

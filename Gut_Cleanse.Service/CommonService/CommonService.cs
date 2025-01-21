@@ -1,14 +1,17 @@
 ﻿using Gut_Cleanse.Model;
 using Gut_Cleanse.Repo.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace Gut_Cleanse.Service.CommonService
 {
-    public class CommonService: ICommonService
+    public class CommonService : ICommonService
     {
         readonly ICommonRepo commonRepo;
-        public CommonService(ICommonRepo _commonRepo)
+        readonly IHttpContextAccessor _httpContextAccessor;
+        public CommonService(ICommonRepo _commonRepo, IHttpContextAccessor httpContextAccessor)
         {
             commonRepo = _commonRepo;
+            _httpContextAccessor = httpContextAccessor;
         }
         public List<CountryModel> GetCountries()
         {
@@ -25,6 +28,14 @@ namespace Gut_Cleanse.Service.CommonService
         public PaymentTypeModel GetPaymentTypeId(int paymentTypeId)
         {
             return commonRepo.GetPaymentTypeId(paymentTypeId);
+        }
+        public string GetAspNetUserId()
+        {
+            return _httpContextAccessor.HttpContext.Session.GetString("AspNetUserId");
+        }
+        public int GetUserId()
+        {
+            return _httpContextAccessor.HttpContext.Session.GetInt32("UserId") ?? 0;
         }
     }
 }
