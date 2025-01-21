@@ -1,5 +1,7 @@
-﻿using Gut_Cleanse.Model;
+﻿using Gut_Cleanse.Common.Enums;
+using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
+using Gut_Cleanse.Service.PaymentService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -10,10 +12,12 @@ namespace Gut_Cleanse.Web.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ICommonService _commonService;
-        public PaymentController(IConfiguration configuration, ICommonService commonService)
+        private readonly IPaymentService _paymentService;
+        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService)
         {
             _configuration = configuration;
-            _commonService= commonService;
+            _commonService = commonService;
+            _paymentService = paymentService;
         }
         public IActionResult Revolution()
         {
@@ -55,21 +59,25 @@ namespace Gut_Cleanse.Web.Controllers
             string orderId = orderResponse["id"].ToString();
 
             // Create order model for return on view
-            OrderModel orderModel = new OrderModel
+            PaymentModel paymentModel = new PaymentModel
             {
-                orderId = orderResponse.Attributes["id"],
-                razorpayKey = keyId,
-                amount = _requestData.Amount * 100,
-                currency = "INR",
-                name = _requestData.Name,
-                email = _requestData.Email,
-                contactNumber = _requestData.ContactNumber,
-                address = _requestData.Address,
-                description = _requestData.Description
+                OrderId = orderResponse.Attributes["id"],
+                RazorPayKeyId = keyId,
+                Amount = _requestData.Amount * 100,
+                Currency = "INR",
+                Name = _requestData.Name,
+                Email = _requestData.Email,
+                ContactNumber = _requestData.ContactNumber,
+                Address = _requestData.Address,
+                Description = _requestData.Description,
+                PaymentTypeId = _requestData.PaymentTypeId,
+                Status = (int)PaymentStatus.Waiting
             };
 
+            var paymentResult = _paymentService.CreatePayment(paymentModel);
+
             // Return on PaymentPage with Order data
-            return View("PaymentPage", orderModel);
+            return View("PaymentPage", paymentModel);
         }
 
 

@@ -1,7 +1,9 @@
 using Gut_Cleanse.Data;
 using Gut_Cleanse.Repo.Common;
+using Gut_Cleanse.Repo.PaymentRepo;
 using Gut_Cleanse.Repo.User;
 using Gut_Cleanse.Service.CommonService;
+using Gut_Cleanse.Service.PaymentService;
 using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,8 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommonRepo, CommonRepo>();
 builder.Services.AddScoped<ICommonService, CommonService>();
+builder.Services.AddScoped<IPaymentRepo, PaymentRepo>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
