@@ -31,7 +31,8 @@ namespace Gut_Cleanse.Service.CommonService
         }
         public UserModel GetCurrentUserInfo()
         {
-            var data=Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(_httpContextAccessor.HttpContext.Session.GetString("User"));
+            var session = _httpContextAccessor.HttpContext.Session.GetString("User");
+            var data = session == null ? new UserModel() : Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(session);
             return data;
         }
     }

@@ -4,6 +4,8 @@ using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.PaymentService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using System.Text.Json.Nodes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Gut_Cleanse.Web.Controllers
@@ -46,6 +48,7 @@ namespace Gut_Cleanse.Web.Controllers
         [HttpPost]
         public ActionResult CreateOrder(PaymentInitiateModel _requestData)
         {
+            var currentUser = _commonService.GetCurrentUserInfo();
             var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
             var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
             Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient(keyId, secretKey);
@@ -71,20 +74,21 @@ namespace Gut_Cleanse.Web.Controllers
                 Address = _requestData.Address,
                 Description = _requestData.Description,
                 PaymentTypeId = _requestData.PaymentTypeId,
-                Status = (int)PaymentStatus.Waiting
+                Status = (int)PaymentStatus.Waiting,
+                UserId = currentUser?.Id ?? 0,
             };
 
             var paymentResult = _paymentService.CreatePayment(paymentModel);
 
             // Return on PaymentPage with Order data
-            return View("PaymentPage", paymentModel);
+            return PartialView("_PaymentPage", paymentModel);
         }
 
 
 
 
         [HttpPost]
-        public ActionResult Complete(string rzp_paymentid, string rzp_orderid)
+        public JsonResult Complete(string rzp_paymentid, string rzp_orderid)
         {
             var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
             var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
@@ -105,12 +109,27 @@ namespace Gut_Cleanse.Web.Controllers
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
-                // Create these action method
-                return RedirectToAction("Success");
+                var paymentModel = new PaymentModel()
+                {
+                    PaymentId = rzp_paymentid,
+                    Status = (int)PaymentStatus.Success,
+                    OrderId = rzp_orderid,
+                };
+
+                var updateStatus = _paymentService.UpdatePayment(paymentModel);
+                return Json(new {Success = true,Message = "Payment completed successfully!"});
             }
             else
             {
-                return RedirectToAction("Failed");
+                var paymentModel = new PaymentModel()
+                {
+                    PaymentId = rzp_paymentid,
+                    Status = (int)PaymentStatus.Failed,
+                    OrderId = rzp_orderid,
+                };
+
+                var updateStatus = _paymentService.UpdatePayment(paymentModel);
+                return Json(new { Success = false, Message = "Payment failed!" });
             }
         }
 

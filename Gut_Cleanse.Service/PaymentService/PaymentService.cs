@@ -18,5 +18,10 @@ namespace Gut_Cleanse.Service.PaymentService
         {
             return _paymentRepo.CreatePayment(payment);
         }
+
+        public bool UpdatePayment(PaymentModel payment)
+        {
+            return _paymentRepo.UpdatePayment(payment);
+        }
     }
 }
