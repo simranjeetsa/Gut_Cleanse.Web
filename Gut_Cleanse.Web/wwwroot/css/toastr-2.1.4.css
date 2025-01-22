@@ -5,7 +5,7 @@
 .toast-message {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
-    font-size:16px;
+    font-size:15px;
 }
 
     .toast-message a, .toast-message label {

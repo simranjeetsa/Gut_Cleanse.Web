@@ -39,9 +39,17 @@ namespace Gut_Cleanse.Web.Controllers
             try
             {
                 if (model.Id > 0)
+                {
                     userService.UpdateUser(model);
+                    TempData["ToastrMessage"] = "User updated successfully!";
+                    TempData["ToastrType"] = "success";
+                }
                 else
+                {
                     userService.AddUser(model);
+                    TempData["ToastrMessage"] = "User created successfully!";
+                    TempData["ToastrType"] = "success";
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -49,6 +57,8 @@ namespace Gut_Cleanse.Web.Controllers
                 model.Countries = commonService.GetCountries();
                 model.States = commonService.GetStatesByCountryId(model.CountryId);
                 model.Cities = commonService.GetCitiesByStateId(model.StateId);
+                TempData["ToastrMessage"] = ex.Message;
+                TempData["ToastrType"] = "error";
             }
 
             return View(model);
@@ -56,9 +66,21 @@ namespace Gut_Cleanse.Web.Controllers
 
         public IActionResult Delete(int id)
         {
-
-            if (id > 0)
-                userService.Delete(id);
+            try
+            {
+                if (id > 0)
+                {
+                    userService.Delete(id);
+                    TempData["ToastrMessage"] = "User deleted successfully!";
+                    TempData["ToastrType"] = "success";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ToastrMessage"] = ex.Message;
+                TempData["ToastrType"] = "error";
+            }
+            
 
             return RedirectToAction("Index");
 
