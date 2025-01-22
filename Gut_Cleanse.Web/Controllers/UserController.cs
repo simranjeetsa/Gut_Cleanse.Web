@@ -13,10 +13,12 @@ namespace Gut_Cleanse.Web.Controllers
     {
         readonly IUserService userService;
         readonly ICommonService commonService;
-        public UserController(IUserService _userService, ICommonService _commonService)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UserController(IUserService _userService, ICommonService _commonService, IWebHostEnvironment webHostEnvironment)
         {
             userService = _userService;
             commonService = _commonService;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -26,13 +28,13 @@ namespace Gut_Cleanse.Web.Controllers
         public IActionResult Create(int Id)
         {
             UserModel result = new UserModel();
-            result.Gender = "Male";
             result.DOB = DateOnly.FromDateTime(DateTime.Now);
             if (Id != 0)
                 result = userService.GetUserById(Id);
+            result.Gender = string.IsNullOrEmpty(result.Gender) ? "Male" : result.Gender;
             result.Countries = commonService.GetCountries();
-            result.States = commonService.GetStatesByCountryId(result.CountryId);
-            result.Cities = commonService.GetCitiesByStateId(result.StateId);
+            result.States = result.CountryId != null ? commonService.GetStatesByCountryId((int)result.CountryId) : new List<StateModel>();
+            result.Cities = result.StateId != null ? commonService.GetCitiesByStateId((int)result.StateId) : new List<CityModel>();
             return View(result);
         }
         [HttpPost]
@@ -40,6 +42,26 @@ namespace Gut_Cleanse.Web.Controllers
         {
             try
             {
+                var file = HttpContext.Request.Form.Files.FirstOrDefault();
+                if (file != null && file.Length > 0)
+                {
+                    var directory = _webHostEnvironment.WebRootPath + "\\Assets\\ProfilePic";
+                    var extension = Path.GetExtension(file.FileName);
+                    var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid();
+                    var filePath = Path.Combine(directory, fileName + extension);
+
+                    if (!System.IO.Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    model.ProfilePicture = "/Assets/ProfilePic/" + fileName + extension;
+                }
                 if (model.Id > 0)
                 {
                     userService.UpdateUser(model);
@@ -57,8 +79,8 @@ namespace Gut_Cleanse.Web.Controllers
             catch (Exception ex)
             {
                 model.Countries = commonService.GetCountries();
-                model.States = commonService.GetStatesByCountryId(model.CountryId);
-                model.Cities = commonService.GetCitiesByStateId(model.StateId);
+                model.States = model.CountryId != null ? commonService.GetStatesByCountryId((int)model.CountryId) : new List<StateModel>();
+                model.Cities = model.StateId != null ? commonService.GetCitiesByStateId((int)model.StateId) : new List<CityModel>();
                 TempData["ToastrMessage"] = ex.Message;
                 TempData["ToastrType"] = "error";
             }

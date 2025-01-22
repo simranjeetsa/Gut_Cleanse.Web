@@ -16,7 +16,6 @@ namespace Gut_Cleanse.Repo.Common
         public List<CountryModel> GetCountries()
         {
             List<CountryModel> result = new List<CountryModel>();
-            result.Add(new CountryModel { Id = 0, Name = "-- Choose Country --" });
             result.AddRange(context.Countries.Select(x => x.AutoMap<CountryModel>()).ToList());
             return result;
         }

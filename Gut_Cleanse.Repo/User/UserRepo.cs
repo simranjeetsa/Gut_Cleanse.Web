@@ -25,8 +25,8 @@ namespace Gut_Cleanse.Repo.User
             if (user != null)
             {
                 result = user.AutoMap<UserModel>();
-                result.StateId = user.City.StateId;
-                result.CountryId = user.City.State.CountryId;
+                result.StateId = user.City?.StateId;
+                result.CountryId = user.City?.State.CountryId;
             }
 
 
@@ -35,9 +35,9 @@ namespace Gut_Cleanse.Repo.User
 
         public void AddUser(UserModel model)
         {
-            context.Users.Add(model.AutoMap<Data.Tables.User>());
+            var entity = model.AutoMap<Data.Tables.User>();
+            context.Users.Add(entity);
             context.SaveChanges();
-
         }
 
         public void UpdateUser(UserModel model)

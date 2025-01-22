@@ -4,6 +4,7 @@ using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -39,7 +40,7 @@ namespace Gut_Cleanse.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Username);
+                var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
@@ -78,21 +79,46 @@ namespace Gut_Cleanse.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser { UserName = model.Username };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                if (ModelState.IsValid)
+                {
+                    if (model.Password != model.ConfirmPassword)
+                    {
+                        throw new Exception(message: "Password and Confirm Password doesn't match!");
+                    }
+                    var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                    var result = await _userManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    if (result.Succeeded)
+                    {
+                        var aspNetUser = await _userManager.FindByEmailAsync(model.Email);
+                        if (aspNetUser != null)
+                        {
+                            var newUser = new UserModel()
+                            {
+                                Email = model.Email,
+                                AspNetUserId = aspNetUser.Id,
+                                IsDeleted = false,
+                                IsLocked = true,
+                            };
+
+                            _userService.AddUser(newUser);
+                        }
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            
             return View(model);
         }
     }
