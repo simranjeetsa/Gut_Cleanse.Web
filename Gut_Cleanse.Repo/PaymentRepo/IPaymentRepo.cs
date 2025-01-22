@@ -10,5 +10,6 @@ namespace Gut_Cleanse.Repo.PaymentRepo
     public interface IPaymentRepo
     {
         bool CreatePayment(PaymentModel payment);
+        bool UpdatePayment(PaymentModel payment);
     }
 }

@@ -3084,7 +3084,7 @@
                         </div><!---->
 
                         <div id="form-section" class="">
-                            @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post))
+                            @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post, new { @Id = "CreateOrderForm" }))
                             {
                                 <div class="UI-form">
                                     <div class="Field Field--required Field--amount Field--amount--selected Field--currency-1 ">
@@ -3236,6 +3236,7 @@
         </div>
     </div>
 </div>
+<div id="partialViewContainer"></div>
 @section scripts {
     <script>
 
@@ -3244,5 +3245,24 @@
         $('.hideButton').hide();
         }
     </script>
-
+    <script>
+        $(function () {
+            $('#CreateOrderForm').on('submit', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/Payment/CreateOrder",
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    success: function (response) {
+                        $('#partialViewContainer').html('');
+                        $('#partialViewContainer').html(response);
+                        document.getElementById('rzp-button1').click();
+                    },
+                    error: function () {
+                        toastr.error("Oops! something went wrong");
+                    }
+                });
+            });
+        });
+    </script>
 }

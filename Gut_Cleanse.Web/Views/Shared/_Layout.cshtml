@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/Gut_Cleanse.Web.styles.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/aos-3.0.0.css" />
+    <link rel="stylesheet" href="~/css/toastr-2.1.4.css" />
 </head>
 <body>
     <header id="header_1">
@@ -161,6 +162,8 @@
     <script>
         AOS.init();
     </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="~/js/toastr-2.1.4.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

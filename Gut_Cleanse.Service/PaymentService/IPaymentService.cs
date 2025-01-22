@@ -10,5 +10,6 @@ namespace Gut_Cleanse.Service.PaymentService
     public interface IPaymentService
     {
         bool CreatePayment(PaymentModel payment);
+        bool UpdatePayment(PaymentModel payment);
     }
 }
