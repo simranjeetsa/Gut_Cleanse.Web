@@ -3,38 +3,48 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <style>
-
+    #whatsapp-icon{
+        bottom: 80px !important;
+    }
 </style>
-<div class="card">
-    <table id="myTable" class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th style="text-align:left;">Contact No.</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var data in Model)
-            {
-                <tr>
-                    <td>@data.FirstName @data.LastName</td>
-                    <td style="text-align:left;">@data.ContactNumber</td>
-                    <td>@data.Email</td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
-                            <div class="dropdown-menu" style="">
-                                <a class="dropdown-item" href="/User/Create?Id=@data.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                <a class="dropdown-item" onclick="confirmDelete(@data.Id,'/User/Delete')" href="#"><i class="bx bx-trash me-1"></i> Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card  table-responsive">
+            <table id="myTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th style="text-align:left;">Contact No.</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.FirstName @data.LastName</td>
+                            <td style="text-align:left;">@data.ContactNumber</td>
+                            <td>@data.Email</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                    <div class="dropdown-menu" style="">
+                                        <a class="dropdown-item" href="/User/Create?Id=@data.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                        <a class="dropdown-item" onclick="confirmDelete(@data.Id,'/User/Delete')" href="#"><i class="bx bx-trash me-1"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="footer-quick-link">
+                <ul class="d-flex"></ul><a href="/User/Create" id="whatsapp-icon"><img style="width:90px;" src="~/img/icons/unicons/AddUserIcon.png"></a>
+            </div>
+
+        </div>
+</div>
 </div>
 
 @section Scripts {
@@ -65,4 +75,5 @@
         });
     </script>
 }
+
 

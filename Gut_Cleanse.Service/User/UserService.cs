@@ -1,6 +1,7 @@
 ﻿using Gut_Cleanse.Common;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Repo.User;
+using Gut_Cleanse.Service.CommonService;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gut_Cleanse.Service.User
@@ -8,13 +9,15 @@ namespace Gut_Cleanse.Service.User
     public class UserService : IUserService
     {
         readonly IUserRepo userRepo;
-        public UserService(IUserRepo _userRepo)
+        readonly ICommonService commonService;
+        public UserService(IUserRepo _userRepo, ICommonService _commonService)
         {
             userRepo = _userRepo;
+            commonService = _commonService;
         }
         public List<UserModel> GetUsers()
         {
-            return userRepo.GetUsers().Select(x => x.AutoMap<UserModel>()).ToList();
+            return userRepo.GetUsers().Where(x => x.Id != commonService.GetCurrentUserInfo().Id).Select(x => x.AutoMap<UserModel>()).ToList();
         }
 
         public UserModel GetUserByUserId(string userId)
@@ -22,7 +25,7 @@ namespace Gut_Cleanse.Service.User
             UserModel model = new UserModel();
             var user = userRepo.GetUsers().FirstOrDefault(x => x.AspNetUserId == userId);
             if (user != null)
-                model=user.AutoMap<UserModel>();
+                model = user.AutoMap<UserModel>();
             return model;
         }
 
