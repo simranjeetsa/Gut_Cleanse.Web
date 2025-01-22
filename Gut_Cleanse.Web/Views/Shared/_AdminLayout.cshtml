@@ -1,4 +1,12 @@
-﻿<html lang="en" class="light-style layout-menu-fixed">
+﻿@using Gut_Cleanse.Model
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var userData = new UserModel();
+    if (HttpContextAccessor.HttpContext.Session.Keys.Count() > 0)
+        userData = Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(HttpContextAccessor.HttpContext.Session.GetString("User"));
+}
+<html lang="en" class="light-style layout-menu-fixed">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -26,7 +34,7 @@
         .card {
             display: flex;
             flex-direction: row;
-            max-width: 100%;
+            max-width: 96%;
             height: 92%;
             margin: 25px !important;
             border: none;
@@ -534,7 +542,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <h6 class="mb-0">John Doe</h6>
+                                                    <h6 class="mb-0">@(userData.FirstName + " " + userData.LastName)</h6>
                                                     <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
@@ -544,12 +552,12 @@
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="javascript:void(0);">
+                                        <a class="dropdown-item" href="/User/Create?Id=@userData.Id">
                                             <i class="bx bx-user bx-md me-2"></i>
                                             <span>My Profile</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    @*  <li>
                                         <a class="dropdown-item" href="javascript:void(0);">
                                             <i class="bx bx-cog bx-md me-2"></i>
                                             <span>Settings</span>
@@ -563,7 +571,7 @@
                                                 <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
                                             </span>
                                         </a>
-                                    </li>
+                                    </li> *@
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
@@ -595,7 +603,7 @@
                         <div class="container-xxl">
                             <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
                                 <div class="text-body">
-                                    ©2025 - 2026 – All Rights Reserved By IGT Networks, Inc.
+                                    <span style="color:white;font-size:small;">©2025 - 2026 – All Rights Reserved By IGT Networks, Inc.</span>
                                 </div>
 
                             </div>
@@ -650,9 +658,6 @@
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 
 
-    <!-- Visual Studio Browser Link -->
-    <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestid="9c282848c13641339b851cf37cff4817" data-requestmappingfromserver="false" data-connecturl="http://localhost:50421/20d25248cc3640f593d11945ea842116/browserLink"></script>
-    <!-- End Browser Link -->
     <script src="/_framework/aspnetcore-browser-refresh.js"></script>
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
     <svg id="SvgjsSvg1278" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1279"></defs><polyline id="SvgjsPolyline1280" points="0,0"></polyline><path id="SvgjsPath1281" d="M-1 238.4125L-1 238.4125C-1 238.4125 55.1058349609375 238.4125 55.1058349609375 238.4125C55.1058349609375 238.4125 110.211669921875 238.4125 110.211669921875 238.4125C110.211669921875 238.4125 165.3175048828125 238.4125 165.3175048828125 238.4125C165.3175048828125 238.4125 220.42333984375 238.4125 220.42333984375 238.4125C220.42333984375 238.4125 275.5291748046875 238.4125 275.5291748046875 238.4125C275.5291748046875 238.4125 330.635009765625 238.4125 330.635009765625 238.4125C330.635009765625 238.4125 330.635009765625 238.4125 330.635009765625 238.4125 "></path></svg>
@@ -734,7 +739,7 @@
                     dataType: 'json',
                     data: { id: id },
                     success: function (d) {
-                       
+
                     },
                     error: function () {
                         alert('Error!');

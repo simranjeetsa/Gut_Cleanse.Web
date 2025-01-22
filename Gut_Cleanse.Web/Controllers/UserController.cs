@@ -1,12 +1,14 @@
 ﻿using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.User;
+using Gut_Cleanse.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gut_Cleanse.Web.Controllers
 {
     [Authorize]
+    //[CheckSessionIsAvailable]
     public class UserController : Controller
     {
         readonly IUserService userService;
