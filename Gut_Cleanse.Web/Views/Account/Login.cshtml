@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Gut_Cleanse.Model.LoginViewModel
+@{
     Layout = null;
 }
 <html>
@@ -952,7 +953,7 @@
                 <div class="content-bottom">
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                     {
-
+                        @Html.HiddenFor(x=>x.ReturnUrl)
                         <div class="field-group">
                             <span class="fa fa-user" aria-hidden="true"></span>
                             <div class="wthree-field">

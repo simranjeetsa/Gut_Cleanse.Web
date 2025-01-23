@@ -4,6 +4,7 @@ using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -28,9 +29,18 @@ namespace Gut_Cleanse.Web.Controllers
 
         // Login action
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl)
         {
-            return View();
+            LoginViewModel model = new LoginViewModel();
+            model.ReturnUrl = ReturnUrl;
+            if (User.Identity.IsAuthenticated && HttpContext != null && HttpContext.Session.GetString("User") != null)
+            {
+                if (string.IsNullOrEmpty(ReturnUrl))
+                    return RedirectToAction("Index", "User");
+                else
+                    return Redirect(ReturnUrl);
+            }
+            return View(model);
         }
 
         // POST Login action
@@ -47,7 +57,10 @@ namespace Gut_Cleanse.Web.Controllers
                     {
                         var userInfo = _userService.GetUserByUserId(user.Id);
                         HttpContext.Session.SetString("User", Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
-                        return RedirectToAction("Index", "User");
+                        if (string.IsNullOrEmpty(model.ReturnUrl))
+                            return RedirectToAction("Index", "User");
+                        else
+                            return Redirect(model.ReturnUrl);
                     }
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
@@ -63,6 +76,7 @@ namespace Gut_Cleanse.Web.Controllers
 
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Gut_Cleanse.Web.Controllers
 {
     [Authorize]
-    //[CheckSessionIsAvailable]
+    [CheckSessionIsAvailable]
     public class UserController : Controller
     {
         readonly IUserService userService;
