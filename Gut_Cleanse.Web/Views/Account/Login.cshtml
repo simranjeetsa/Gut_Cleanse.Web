@@ -955,9 +955,9 @@
                     {
                         @Html.HiddenFor(x=>x.ReturnUrl)
                         <div class="field-group">
-                            <span class="fa fa-user" aria-hidden="true"></span>
+                            <span class="fa fa-envelope" aria-hidden="true"></span>
                             <div class="wthree-field">
-                                <input name="Username" id="Username" type="text" value="" placeholder="Username" required="">
+                                <input name="Email" id="Email" type="email" value="" placeholder="Email" required="required">
                             </div>
                         </div>
                         <div class="field-group">
@@ -984,7 +984,7 @@
                         </ul>
                         <ul class="list-login-bottom" style="margin-top:40px;">
                             <li class="">
-                                <a href="#" class="">Create Account</a>
+                                <a href="/account/register" class="">Create Account</a>
                             </li>
                             <li class="">
                                 <a href="#" class="text-right">Need Help?</a>

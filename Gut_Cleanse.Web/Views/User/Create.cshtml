@@ -10,6 +10,14 @@
         --bs-gutter-y: 1rem;
     }
 
+    .gj-textbox-md{
+        line-height:1.375rem;
+        padding: calc(.543rem - var(--bs-border-width)) calc(.9375rem - var(--bs-border-width))
+    }
+
+    .gj-datepicker-md [role=right-icon]{
+        top:6px;
+    }
 </style>
 <div class="row">
 
@@ -73,8 +81,8 @@
                                         @Html.ValidationMessageFor(x => x.ZipCode)
                                     </div>
                                     <div class="col-md-6">
-                                        @Html.LabelFor(x => x.DOB, new { @class = "form-label" })
-                                        @Html.TextBoxFor(x => x.DOB, new { @class = "form-control datePicker" })
+                                        @Html.LabelFor(x => x.DOB, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.DOB, new { @class = "form-control datePicker", required = "required" })
                                         @Html.ValidationMessageFor(x => x.DOB)
                                     </div>
                                 </div>
@@ -85,19 +93,20 @@
                                     <div class="col-md-4">
                                         <label class="form-label required">Choose Country</label>
                                         <br />
-                                        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries, "Id", "Name"),
+                                                 "Select Country", new { @class = "form-select", required = "required" })
                                         @Html.ValidationMessageFor(x => x.CountryId)
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label required">Choose State</label>
                                         <br />
-                                        @Html.DropDownListFor(m => m.StateId, new SelectList(Model.States, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.DropDownListFor(m => m.StateId, new SelectList(Model.States, "Id", "Name"), "Select State", new { @class = "form-select", required = "required" })
                                         @Html.ValidationMessageFor(x => x.StateId)
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label required">Choose City</label>
                                         <br />
-                                        @Html.DropDownListFor(m => m.CityId, new SelectList(Model.Cities, "Id", "Name"), new { @class = "form-select", required = "required" })
+                                        @Html.DropDownListFor(m => m.CityId, new SelectList(Model.Cities, "Id", "Name"), "Select City", new { @class = "form-select", required = "required" })
                                         @Html.ValidationMessageFor(x => x.CityId)
                                     </div>
                                 </div>

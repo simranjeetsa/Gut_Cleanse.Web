@@ -38,7 +38,7 @@ namespace Gut_Cleanse.Model
         public bool IsDeleted { get; set; }
         public bool IsLocked { get; set; }
         [Required]
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         [StringLength(6)]
         [Required]
         public string ZipCode { get; set; }
@@ -46,11 +46,11 @@ namespace Gut_Cleanse.Model
         [Required]
         public string Gender { get; set; }
         [Required]
-        public DateOnly DOB { get; set; }
+        public DateOnly? DOB { get; set; }
         public string? ProfilePicture { get; set; }
 
-        public int CountryId { get; set; }
-        public int StateId { get; set; }
+        public int? CountryId { get; set; }
+        public int? StateId { get; set; }
         public string AspNetUserId { get; set; }
         public List<CountryModel> Countries { get; set; }
         public List<StateModel> States { get; set; }

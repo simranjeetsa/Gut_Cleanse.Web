@@ -47,5 +47,33 @@
 </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(function () {
+            var message = '@TempData["ToastrMessage"]';
+            var type = '@TempData["ToastrType"]';
+
+            if (message) {
+                switch (type) {
+                    case 'success':
+                        toastr.success(message);
+                        break;
+                    case 'info':
+                        toastr.info(message);
+                        break;
+                    case 'warning':
+                        toastr.warning(message);
+                        break;
+                    case 'error':
+                        toastr.error(message);
+                        break;
+                    default:
+                        toastr.info(message);
+                        break;
+                }
+            }
+        });
+    </script>
+}
 
 

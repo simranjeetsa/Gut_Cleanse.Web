@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.css" />
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/css/toastr-2.1.4.css" />
     <style type="text/css">
         .card {
             display: flex;
@@ -750,7 +751,8 @@
         }
 
     </script>
-
+    <script src="~/js/toastr-2.1.4.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 
