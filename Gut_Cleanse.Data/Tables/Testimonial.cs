@@ -1,27 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Gut_Cleanse.Data.Tables
 {
-    public class PaymentType
+    public class Testimonial
     {
         [Key]
-        [Required]
         public int Id { get; set; }
-        [Required]
-        [StringLength(500)]
+        [StringLength(1000)]
         public string Name { get; set; }
-        [Required]
         [StringLength(Int32.MaxValue)]
         public string Description { get; set; }
-        [Required]
-        [Precision(18, 2)]
-        public decimal Amount { get; set; }
-        public ICollection<Payment> Payments { get; set; }
+        [StringLength(250)]
+        public string CreatedBy { get; set; }
+        [ForeignKey("Programs")]
+        public int ProgramId { get; set; }
+        public virtual Program Programs { get; set; }
     }
 }

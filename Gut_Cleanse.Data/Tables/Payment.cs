@@ -20,8 +20,8 @@ namespace Gut_Cleanse.Data.Tables
         [StringLength(500)]
         public string? PaymentId { get; set; }
         [Required]
-        [ForeignKey("PaymentType")]
-        public int PaymentTypeId { get; set; }
+        [ForeignKey("Programs")]
+        public int ProgramId { get; set; }
         [Required]
         [Precision(18, 2)]
         public decimal Amount { get; set; }
@@ -39,7 +39,7 @@ namespace Gut_Cleanse.Data.Tables
         [Required]
         public DateTime CreatedDateTime { get; set; }
         public DateTime? ModifyDateTime { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
+        public virtual Program Programs { get; set; }
         public virtual User User { get; set; }
 
 
