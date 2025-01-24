@@ -30,7 +30,7 @@ namespace Gut_Cleanse.Repo.Common
         public PaymentTypeModel GetPaymentTypeId(int paymentTypeId)
         {
             PaymentTypeModel result = new PaymentTypeModel();
-            var paymentType= context.PaymentTypes.FirstOrDefault(x => x.Id == paymentTypeId);
+            var paymentType= context.Programs.FirstOrDefault(x => x.Id == paymentTypeId);
             if (paymentType != null)
             {
                 result.Id = paymentTypeId;
