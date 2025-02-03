@@ -70,6 +70,7 @@ namespace Gut_Cleanse.Web.Controllers
                 }
                 else
                 {
+                    model.AspNetUserId = commonService.GetCurrentUserInfo().AspNetUserId;
                     userService.AddUser(model);
                     TempData["ToastrMessage"] = "User created successfully!";
                     TempData["ToastrType"] = "success";

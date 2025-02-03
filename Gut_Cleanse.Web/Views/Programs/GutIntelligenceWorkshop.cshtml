@@ -1,4 +1,6 @@
-﻿<div>
+﻿@using System.Web
+    @model Gut_Cleanse.Model.ProgramViewModel
+<div>
     <div class="entry-banner entry-banner-after  bg-common gut-intelligence-workshop ">
         <div class="inner-page-banner breadcrumbs-off">
             <div class="container">
@@ -10,37 +12,41 @@
     </div>
     <section class="about-area pt-100 pb-100" id="aboutus">
         <div class="container">
-            <div class="row  ">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="about-left pos-rel mb-30 aos-init" data-aos="fade-up">
-                        <div class="about-author d-flex align-items-center">
-                            <div class="about-author-Image mt-2">
-                                <img alt="aboutus" loading="lazy" width="0" height="0"
-                                     decoding="async" data-nimg="1" sizes="100vw"
-                                     src="~/Assets/gutoo.jpg"
-                                     style="color: transparent; width: auto; height: auto;">
-                                <div class="circle-Image"></div>
+            <div class="row">
+                @if (Model.ProgramDetail != null && Model.ProgramDetail.Any())
+                {
+                    var programDetail = Model.ProgramDetail.FirstOrDefault(pd => pd.Id == 11); // Filter by Id == 1
+                    if (programDetail != null)
+                    {
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="about-left pos-rel mb-30 aos-init" data-aos="fade-up">
+                                <div class="about-author d-flex align-items-center">
+                                    <div class="about-author-Image mt-2">
+                                        <img src="@programDetail.ImageUrl" alt="Program Image" class="img-fluid" />
+                                        <div class="circle-Image"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 pb-10">
-                    <div class="mb-30 aos-init" data-aos="fade-right">
-                        <div class="section-title-2">
-                            <h2> Master Your Microbiome, Transform Your Health</h2>
+                        <div class="col-xl-6 col-lg-6 pb-10">
+                            <div class="mb-30 aos-init" data-aos="fade-right">
+                                <div class="section-title-2">
+                                    <h2>@programDetail.Name</h2>
+                                </div>
+                                <div class="about-text">
+                                    <p class="mb-5">
+                                        @Html.Raw(HttpUtility.HtmlDecode(programDetail.Description))
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="call-to-action-btn">
+                                <a href="~/payment/revolution" target="_blank" class="item-btn-phone btn-blue theme-btn">
+                                    <span>Reserve Now</span>
+                                </a>
+                            </div>
                         </div>
-                        <div class="about-text  ">
-                            <p class="mb-5">
-                                Discover how a thriving gut ecosystem shapes your physical and mental
-                                wellbeing through this transformative online workshop.
-                            </p>
-                        </div>
-                        <div class="call-to-action-btn ">
-                            <a href="~/payment/workshop"
-                               target="_blank" class="item-btn-phone btn-blue theme-btn"><span>Reserve Now</span></a>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
     </section>
@@ -127,170 +133,39 @@
     </section>
     <section class="about-area pt-100 pb-100" id="aboutus">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="about-left pos-rel mb-30 aos-init" data-aos="fade-up">
-                        <div class="about-author d-flex align-items-center">
-                            <div class="about-author-Image">
-                                <img alt="aboutus" loading="lazy" width="0" height="0"
-                                     decoding="async" data-nimg="1" sizes="100vw"
-                                     src="~/Assets/IMG_9684.jpg"
-                                     style="color: transparent; width: auto; height: auto;">
+            @if (Model.ProgramDetail != null)
+            {
+
+                var programDetail = Model.ProgramDetail.FirstOrDefault(pd => pd.Id == 12);
+
+                @if (programDetail != null)
+                {
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="about-left pos-rel mb-30 aos-init" data-aos="fade-up">
+                                <div class="about-author d-flex align-items-center">
+                                    <div class="about-author-Image">
+                                        <img alt="aboutus" loading="lazy" width="0" height="0" decoding="async" data-nimg="1" sizes="100vw"
+                                             src="@programDetail.ImageUrl"
+                                             style="color: transparent; width: auto; height: auto;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="about-right pt-15 mb-30 aos-init" data-aos="fade-right">
+                                <div class="section-title-2 mb-20">
+                                    <h2>@programDetail.Name</h2>
+                                </div>
+                                <div class="about-text pr-5">
+                                    @Html.Raw(HttpUtility.HtmlDecode(programDetail.Description))
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="about-right pt-15 mb-30 aos-init" data-aos="fade-right">
-                        <div class="section-title-2 mb-20">
-                            <h2>What is included in this Workshop? </h2>
-                        </div>
-                        <div class="about-text pr-5">
-                            <ul class="list-item">
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> 2 Hour
-                                        Live Zoom Session With Gut Health expert Nancy
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> A guide
-                                        to identify n address gut dysfunction
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span>
-                                        Supplements &amp; tips to improve gut health
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> List of
-                                        gut healing foods
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span>
-                                        Understanding stool testing
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> Guide to
-                                        manage gut issues without medication
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> Enriched
-                                        Indian meal plans, healthy for your GUT.
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> Q&amp;A
-                                        on the topics discussed. Investment in Your Health
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span>
-                                        Understanding SIBO - (small intestine bacterial overgrowth) and managing it
-                                    </h4>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="section-title-5 mb-20">
-                                <h4><b>At ₹299 (less than your favorite pizza!), unlock:</b> </h4>
-                            </div>
-                            <ul class="list-item">
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> Live
-                                        expert-led workshop
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span>
-                                        Comprehensive gut health resources
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <span class="">
-                                            <img alt="arrow" loading="lazy" width="0" height="0"
-                                                 decoding="async" data-nimg="1" class="fa-spin" sizes="100vw"
-                                                 src="~/Assets/dna.png"
-                                                 style="color: transparent; width: auto; height: auto;">
-                                        </span> Exclusive
-                                        bonuses worth ₹6,000
-                                    </h4>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                }
+            }
         </div>
     </section>
     <section class="fancybox-layout1 bg-overlay bg-overlay-primary-gradient pt-120 pb-120 bg-Image otherserv services-tre services-project">
@@ -299,69 +174,82 @@
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-12 aos-init" data-aos="fade-up"></div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-d-4 col-lg-6 col-md-12" id="houroperation">
-                    <div class="fancybox-item weekbx aos-init" data-aos="fade-up">
-                        <div class="fancybox-body d-flex">
-                            <div class="weeklist">
-                                <h4 class="fancybox-title">Why Start With Gut Health?</h4>
-                                <p class="box-text">
-                                    Your gut isn't just about digestion – it's your body's command
-                                    center. When you optimize your gut health, you're laying the foundation for total
-                                    wellness, from improved energy to better mood and clearer thinking.
-                                </p>
+                @if (Model.ProgramDetail != null && Model.ProgramDetail.Any())
+                {
+                    // Fetching program details with Id 3 and Id 4 from the list
+                    var programDetail3 = Model.ProgramDetail.FirstOrDefault(pd => pd.Id == 13);
+                    var programDetail4 = Model.ProgramDetail.FirstOrDefault(pd => pd.Id == 14);
+
+                    // Rendering first programDetail (Id == 3)
+                    @if (programDetail3 != null)
+                    {
+                        <div class="col-sm-6 col-d-4 col-lg-6 col-md-12" id="houroperation">
+                            <div class="fancybox-item weekbx aos-init" data-aos="fade-up">
+                                <div class="fancybox-body d-flex">
+                                    <div class="weeklist">
+                                        <h4 class="fancybox-title">@programDetail3.Name</h4>
+                                        <p class="box-text">@programDetail3.Description</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-d-4 col-lg-6 col-md-12">
-                    <div class="fancybox-item aos-init" data-aos="fade-up">
-                        <div class="fancybox-body  d-flex">
-                            <div class="weeklist">
-                                <h4 class="fancybox-title">Limited Time Offer </h4>
-                                <p>
-                                    Transform your health journey with expert guidance and practical solutions at just
-                                    ₹299. Secure your spot today and receive exclusive bonuses worth
-                                    ₹6,000.<br>Remember: True health transformation begins with gut healing. Join us to
-                                    learn how to reprogram your gut and automate your path to wellness.
-                                </p>
+                    }
+                    // Rendering second programDetail (Id == 4)
+                    @if (programDetail4 != null)
+                    {
+                        <div class="col-sm-6 col-d-4 col-lg-6 col-md-12">
+                            <div class="fancybox-item aos-init" data-aos="fade-up">
+                                <div class="fancybox-body  d-flex">
+                                    <div class="weeklist">
+                                        <h4 class="fancybox-title">@programDetail4.Name</h4>
+                                        <p>@programDetail4.Description</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
     </section>
     <section>
-        <div class="container ">
-            <div class="row pt-50 main-pay paysection">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
-                    <h3 class=" text-center">
-                        Reserve your spot now at ₹299 and begin your journey to optimal health.
-                    </h3>
-                    <div class="call-to-action-btn paybtn">
-                        <a href="~/payment/workshop"
-                           target="_blank" class="item-btn-phone btn-blue theme-btn"><span>Reserve Now</span></a>
+        <div class="container">
+            @if (Model.ProgramDetail != null && Model.ProgramDetail.Any())
+            {
+                var programDetail = Model.ProgramDetail.FirstOrDefault(pd => pd.Id == 15);
+                @if (programDetail != null)
+                {
+                    <div class="row pt-50 main-pay paysection">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <h3 class="text-center">
+                                @programDetail.Name
+                            </h3>
+                            <div class="call-to-action-btn paybtn">
+                                <a href="@Url.Content("~/payment/revolution")"
+                                   target="_blank" class="item-btn-phone btn-blue theme-btn">
+                                    <span>Reserve Now</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                }
+            }
         </div>
     </section>
-    <section class="banner-wrap-layout1 parallaxie" id="support">
+
+    <section class="banner-wrap-layout1 parallaxie" id="support" style="height:460px">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="banner-box-layout1" data-aos="fade-up">
-                    <h2 class="item-title">What Our Clients Are Saying</h2>
-                    <div class="carousel-item active">
-                        <p>I had a major bloating issue since a few years… nothing seemed to be working till the time I joined Nancy for the gut cleansing diet and that is when the magic happened… it was a very doable diet which helped me find out that milk was not suiting me at all which led to severe bloating… with Nancy’s diet I got rid of this problem… since then I never had bloating again and now I can easily enjoy my cold coffee everyday… thank you Nancy… you’ve been a saviour 🙏❤️🙏</p>
-                        <p><b>Kannu</b></p>
+                @foreach (var (testimonial, index) in Model.TestimonialPrograms.Select((testimonial, index) => (testimonial, index)))
+                {
+                    <div class="carousel-item @(index == 0 ? "active" : "")">
+                        <div class="banner-box-layout1" data-aos="fade-up">
+                            <h2 class="item-title">@testimonial.Name</h2>
+                            <p>@testimonial.Description</p>
+                            <p><b>@testimonial.CreatedBy</b></p>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <p>Nancy's gut cleanse is the best thing that i did. I was extremely bloated with breathing issues. Had gone to multiple doctors who prescribed many medicines which didn't seem right. After 3 months of trying I tried Nancy's gut cleanse and to my surprise the problem I was facing reduced 90%. I highly recommend her 2 week gut cleanse practice to every one</p><p><b>Ankur </b></p>
-                    </div>
-                    <div class="carousel-item">
-                        <p>I recently went through a surgery and my gut was completely out of wack. Nancy was instrumental in helping heal my gut issues. The diet plan and recipes shared by her are super easy to follow. In addition to that I lost 3 kgs. I feel way better, less bloated and over all energetic. Thank you Nancy for being such an awesome and empathetic health coach !</p><p><b>Sowmya</b></p>
-                    </div>
-                </div>
+                }
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="fa fa-chevron-circle-left" style="font-size:45px;" aria-hidden="true"></span>

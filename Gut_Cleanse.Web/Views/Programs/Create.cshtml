@@ -1,0 +1,174 @@
+﻿@model Gut_Cleanse.Model.ProgramModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .g-3, .gy-3 {
+        --bs-gutter-y: 1rem;
+    }
+
+    .gj-textbox-md {
+        line-height: 1.375rem;
+        padding: calc(.543rem - var(--bs-border-width)) calc(.9375rem - var(--bs-border-width))
+    }
+
+    .gj-datepicker-md [role=right-icon] {
+        top: 6px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Create", "Programs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(x => x.Id)
+
+                        <div class="row g-3 needs-validation">
+                            <!-- Program Info Section -->
+                            <div class="col-12">
+                                <h6>Programs</h6>
+                                <hr class="mt-0">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.Name, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.Description, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.StartDate, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control datePicker" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.EndDate, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control datePicker" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.LabelFor(x => x.Amount, new { @class = "form-label" })
+                                        @Html.TextBoxFor(x => x.Amount, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Program Detail Section -->
+                            <div class="col-12">
+                                <h6 class="mt-2">Program Details</h6>
+                                <hr class="mt-0">
+                            </div>
+
+                            <div id="programDetailsContainer" class="col-md-12">
+                                <!-- Render each ProgramDetail dynamically if any exists -->
+                                @for (int i = 0; i < (Model.ProgramDetail?.Count ?? 0); i++)
+                                {
+                                    <div class="row program-detail-row">
+                                        @Html.HiddenFor(x => x.ProgramDetail[i].Id)
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(x => x.ProgramDetail[i].Name, new { @class = "form-label" })
+                                            @Html.TextBoxFor(x => x.ProgramDetail[i].Name, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(x => x.ProgramDetail[i].Description, new { @class = "form-label" })
+                                            @Html.TextBoxFor(x => x.ProgramDetail[i].Description, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+
+                            <!-- Testimonials Section -->
+                            <div class="col-12">
+                                <h6 class="mt-2">Testimonials</h6>
+                                <hr class="mt-0">
+                            </div>
+
+                            <div id="testimonialsContainer" class="col-md-12">
+                                <!-- Render each testimonial dynamically if any exists -->
+                                @for (int i = 0; i < (Model.TestimonialPrograms?.Count ?? 0); i++)
+                                {
+                                    <div class="row testimonial-row">
+                                        @Html.HiddenFor(x => x.TestimonialPrograms[i].Id)
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(x => x.TestimonialPrograms[i].Name, new { @class = "form-label" })
+                                            @Html.TextBoxFor(x => x.TestimonialPrograms[i].Name, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-label" })
+                                            @Html.TextBoxFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                          
+
+                            <div class="col-md-12" style="text-align:center; margin-top:60px; margin-bottom:20px;">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Script to dynamically add program detail fields
+    document.getElementById("addProgramDetailBtn").addEventListener("click", function () {
+        var programDetailsContainer = document.getElementById("programDetailsContainer");
+        var newProgramDetail = document.createElement("div");
+        newProgramDetail.classList.add("row", "program-detail-row");
+
+        var newIndex = programDetailsContainer.children.length; // Determine new index for name and description
+
+        newProgramDetail.innerHTML = `
+            <div class="col-md-6">
+                <label class="form-label">Program Detail Name</label>
+                <input type="text" class="form-control" name="ProgramDetails[${newIndex}].Name" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Program Detail Description</label>
+                <input type="text" class="form-control" name="ProgramDetails[${newIndex}].Description" />
+            </div>
+        `;
+
+        programDetailsContainer.appendChild(newProgramDetail);
+    });
+
+    // Script to dynamically add testimonial fields
+    document.getElementById("addTestimonialBtn").addEventListener("click", function () {
+        var testimonialsContainer = document.getElementById("testimonialsContainer");
+        var newTestimonial = document.createElement("div");
+        newTestimonial.classList.add("row", "testimonial-row");
+
+        var newIndex = testimonialsContainer.children.length; // Determine new index for name and description
+
+        newTestimonial.innerHTML = `
+            <div class="col-md-6">
+                <label class="form-label">Testimonial Name</label>
+                <input type="text" class="form-control" name="TestimonialPrograms[${newIndex}].Name" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Testimonial Description</label>
+                <input type="text" class="form-control" name="TestimonialPrograms[${newIndex}].Description" />
+            </div>
+        `;
+
+        testimonialsContainer.appendChild(newTestimonial);
+    });
+</script>

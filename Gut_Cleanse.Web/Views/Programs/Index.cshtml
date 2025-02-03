@@ -1,4 +1,9 @@
-﻿<div>
+﻿@using Gut_Cleanse.Model
+@model IEnumerable<Gut_Cleanse.Model.ProgramModel>
+@{
+    var selectedProgram = ViewBag.SelectedProgram; /* as ProgramModel */;
+}
+<div>
     <div class="entry-banner entry-banner-after  bg-common bgservices ">
         <div class="inner-page-banner breadcrumbs-off">
             <div class="container">
@@ -50,115 +55,87 @@
             </div>
         </div>
     </section>
-    <section class="fancybox-layout1  bg-overlay-primary-gradient pt-120 pb-120  otherserv progcard">
+   
+    <section class="fancybox-layout1 bg-overlay-primary-gradient pt-120 pb-120 otherserv progcard">
         <div class="container d-flex align-items-center">
             <div class="row">
                 <div class="col-12 mb-4">
-                    <h2 class="item-title text-center ">Our Programs</h2>
+                    <h2 class="item-title text-center">Our Programs</h2>
                 </div>
-                <div class="col-md-4">
-                    <div class="pro-card p-4">
-                        <div class="event-title mb-2">1:1 Gut Reset Revolution™</div>
-                        <div class="event-description mb-3">
-                            Transform your relationship with health through our
-                            signature wellness program, crafted from over a decade of clinical success stories.....
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3 class="price-tab">Price </h3>
+
+                @foreach (var program in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="pro-card p-4">
+                            <div class="event-title mb-2">@program.Name</div>
+                         @*    <div class="event-description mb-3">
+                                @program.Description
+                            </div> *@
+
+                            <div class="event-description mb-3">
+                                @{
+                                    var truncatedDescription = program.Description.Length > 134 ? program.Description.Substring(0, 134) + "..." : program.Description;
+                                }
+                                @truncatedDescription
                             </div>
-                            <div class="col-md-6">
-                                <p class="price-money">₹ 45,000/3 Months</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Start date </h6>
-                                <div class="d-flex align-items-center mb-2 cardprice">
-                                    <div class="event-date">Jan 6, 2025</div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 class="price-tab">Price</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (program.Id == 1)
+                                    {
+                                        <p class="price-money">₹ @program.Amount.ToString("#,0")/3 Months</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="price-money">₹ @program.Amount.ToString("#,0")</p>
+                                    }
+
+
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h6 class="end-dat">End date</h6>
-                                <div class="d-flex align-items-center cardprice  mb-2">
-                                    <div class="event-date">Apr 6, 2025</div>
-                                </div>
+                            <div class="row">
+                                @if (program.StartDate != null)
+                                {
+                                    <div class="col-md-6">
+                                        <h6>Start date</h6>
+                                        <div class="d-flex align-items-center mb-2 cardprice">
+                                            <div class="event-date">@program.StartDate?.ToString("MMM d, yyyy")</div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (program.EndDate != null)
+                                {
+                                    <div class="col-md-6">
+                                        <h6 class="end-dat">End date </h6>
+                                        <div class="d-flex align-items-center mb-2 cardprice">
+                                            <div class="event-date">@program.EndDate?.ToString("MMM d, yyyy")</div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
-                        </div>
-                        <hr>
-                        <div>
-                            <a class="btn-process theme-btn mt-4" href="/programs/one-one-gut-reset-revolution">Read MOre...</a>
+                            <hr>
+                            <div>
+                                @if (program.Id == 1)
+                                {
+                                    <div><a class="btn-process theme-btn mt-4" href="/programs/one-one-gut-reset-revolution">Read MOre...</a></div>
+                                }
+                                else if (program.Id == 2)
+                                {
+                                    <div><a class="btn-process theme-btn mt-4" href="/programs/gut-and-glory">Read MOre...</a></div>
+                                }
+                                else if (program.Id == 3)
+                                {
+                                    <div> <a class="btn-process theme-btn mt-4" href="/programs/gut-intelligence-workshop">Read MOre...</a></div>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="pro-card p-4">
-                        <div class="event-title mb-2">Gut &amp; Glory™</div>
-                        <div class="event-description mb-3">
-                            Stop letting digestive issues control your life. Our Gut
-                            &amp; Glory™ program helps you break free from constant bloating, weird food reactions....
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3 class="price-tab">Price </h3>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="price-money">₹ 6,300</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Start date </h6>
-                                <div class="d-flex align-items-center mb-2 cardprice">
-                                    <div class="event-date">Jan 5, 2025</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h6 class="end-dat">End date </h6>
-                                <div class="d-flex align-items-center mb-2 cardprice">
-                                    <div class="event-date">Jan 18, 2025</div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div><a class="btn-process theme-btn mt-4" href="/programs/gut-and-glory">Read MOre...</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="pro-card p-4">
-                        <div class="event-title mb-2">Gut Intelligence Workshop</div>
-                        <div class="event-description mb-3">
-                            Discover how a thriving gut ecosystem shapes your physical
-                            and mental wellbeing through this transformative online workshop....
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3 class="price-tab cardprice">Price </h3>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="price-money">₹ 299</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Start date </h6>
-                                <div class="d-flex align-items-center mb-2 cardprice">
-                                    <div class="event-date ">Jan 5, 2025</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h6 class="end-dat">End date </h6>
-                                <div class="d-flex align-items-center cardprice mb-2">
-                                    <div class="event-date ">Jan 5, 2025</div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div>
-                            <a class="btn-process theme-btn mt-4" href="/programs/gut-intelligence-workshop">Read MOre...</a>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </section>
@@ -217,13 +194,13 @@
                                      style="color: transparent; width: auto; height: auto;">
                             </div>
                             <div class="weeklist">
-                                <h4 class="fancybox-title">21 Day Challenge</h4>
-                                <p>
-                                    We created the 21-day challenge, a 3-week diet and workout routine, to help you lose
-                                    weight and inches. We are going to create a personalized plan with simple recipes
-                                    using ingredients that are already available in your pantry. We will consider your
-                                    food preferences and health conditions before creating your diet.
-                                </p>
+                             
+                                    @if (selectedProgram != null)
+                                    {
+                                        <h4 class="fancybox-title">@selectedProgram.Name</h4>
+                                        <p>@selectedProgram.Description</p>
+                                    }
+                               
                             </div>
                         </div>
                         <div class="call-to-action-btn  nut-btn">
