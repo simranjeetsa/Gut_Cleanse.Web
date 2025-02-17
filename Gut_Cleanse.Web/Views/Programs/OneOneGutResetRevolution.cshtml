@@ -1,5 +1,64 @@
 ﻿@using System.Web
     @model Gut_Cleanse.Model.ProgramViewModel
+
+<style>
+    .programDescriptionLength p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 6; /* number of lines to show */
+        line-clamp: 6;
+        -webkit-box-orient: vertical;
+    }
+
+    .programDLength h4 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .programDescriptionLength h4 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    .programNameLength h2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: ;
+        -webkit-box-orient: vertical;
+    }
+
+    .programNameLength h3 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+
+    .programDescriptionLength1{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* number of lines to show */
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .programDescriptionLength h2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+</style>
+
 <div>
     <div class="entry-banner entry-banner-after  bg-common bgoneonone ">
         <div class="inner-page-banner breadcrumbs-off">
@@ -30,12 +89,15 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 pb-10">
                             <div class="mb-30 aos-init" data-aos="fade-right">
-                                <div class="section-title-2">
-                                    <h2>@programDetail.Name</h2>
+                                <div class="section-title-2 programNameLength">
+                                    <h2>
+                                        @programDetail.Name
+                                    </h2>
                                 </div>
-                                <div class="about-text">
+                                <div class="about-text programDescriptionLength">
                                     <p class="mb-5">
-                                        @programDetail.Description
+                                        @Html.Raw(programDetail.Description)
+                                
                                     </p>
                                 </div>
                             </div>
@@ -152,15 +214,14 @@
                         </div>
                         <div class="col-xl-6 col-lg-6">
                             <div class="about-right pt-15 mb-30 aos-init" data-aos="fade-right">
-                                <div class="section-title-2 mb-20">
+                                <div class="section-title-2 mb-20 programNameLength">
                                     <h2>@programDetail.Name</h2>
                                 </div>
-                                <div class="about-text pr-5">
+                                <div class="about-text pr-5 programDLength">
                                     <ul class="list-item">
                                         <li>
-                                            <h4>
-                                                @Html.Raw(HttpUtility.HtmlDecode(programDetail.Description))
-                                            </h4>
+                                                @Html.Raw(programDetail.Description)
+                                            
                                         </li>
                                     </ul>
                                 </div>
@@ -189,10 +250,15 @@
                     {
                         <div class="col-sm-6 col-d-4 col-lg-6 col-md-12" id="houroperation">
                             <div class="fancybox-item weekbx aos-init" data-aos="fade-up">
-                                <div class="fancybox-body d-flex">
-                                    <div class="weeklist">
-                                        <h4 class="fancybox-title">@programDetail3.Name</h4>
-                                        <p class="box-text">@programDetail3.Description</p>
+                                <div class="fancybox-body d-flex text">
+                                    <div class="weeklist programDescriptionLength">
+                                        <h4 class="fancybox-title">
+                                            @programDetail3.Name
+                                            </h4>
+                                        <p class="box-text">
+                                            @Html.Raw(programDetail3.Description)
+                                          
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -202,11 +268,17 @@
                     @if (programDetail4 != null)
                     {
                         <div class="col-sm-6 col-d-4 col-lg-6 col-md-12">
-                            <div class="fancybox-item aos-init" data-aos="fade-up">
-                                <div class="fancybox-body  d-flex">
-                                    <div class="weeklist">
-                                        <h4 class="fancybox-title">@programDetail4.Name</h4>
-                                        <p>@programDetail4.Description</p>
+                            <div class="fancybox-item weekbx aos-init" data-aos="fade-up">
+                                <div class="fancybox-body d-flex text">
+                                    <div class="weeklist programDescriptionLength">
+                                        <h4 class="fancybox-title">
+                                            @programDetail4.Name
+                                        </h4>
+                                        <p class="box-text">
+                                            @Html.Raw(programDetail4.Description)
+                                       
+                                    
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +297,7 @@
                 {
                     <div class="row pt-50 main-pay paysection">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <h3 class="text-center">
+                            <h3 class="text-center programNameLength">
                                 @programDetail.Name
                             </h3>
                             <div class="call-to-action-btn paybtn">
@@ -249,9 +321,13 @@
                 @foreach (var (testimonial, index) in Model.TestimonialPrograms.Select((testimonial, index) => (testimonial, index)))
                 {
                     <div class="carousel-item @(index == 0 ? "active" : "")">
-                        <div class="banner-box-layout1" data-aos="fade-up">
-                            <h2 class="item-title">@testimonial.Name</h2>
-                            <p>@testimonial.Description</p>
+                        <div class="banner-box-layout1 programDescriptionLength" data-aos="fade-up">
+                            <h2 class="item-title">
+                                @testimonial.Name
+                            </h2>
+                            <p>
+                                @Html.Raw(testimonial.Description)
+                            </p>
                             <p><b>@testimonial.CreatedBy</b></p>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th style="text-align:left;">Description</th>
+                        <th style="text-align:left; width:35%">Description</th>
                         <th>Amount</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -22,7 +22,12 @@
                     {
                         <tr>
                             <td>@data.Name</td>
-                            <td style="text-align:left;">@data.Description</td>
+                            <td style="text-align:left;">
+                                @{
+                                    var truncatedDescription = Html.Raw(data.Description.Length > 134 ? data.Description.Substring(0, 134) + "..." : data.Description);
+                                }
+                                @truncatedDescription
+                                </td>
                             <td>@data.Amount</td>
                             <td>@data.StartDate</td>
                             <td>@data.EndDate</td>
