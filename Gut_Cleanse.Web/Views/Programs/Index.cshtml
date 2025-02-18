@@ -132,7 +132,7 @@
                                 <div class="col-md-6">
                                     @if (program.Id == 1)
                                     {
-                                        <p class="price-money">₹ @program.Amount.ToString("#,0")/3 Months</p>
+                                        <p class="price-money">₹ @program.Amount.ToString("#,0")</p>
                                     }
                                     else
                                     {
@@ -154,7 +154,7 @@
                                 }
                                 else
                                 {
-                                    <div class="row" style="height:67px;">
+                                    <div class="row" style="height:60px;">
                                     </div>
                                 }
                                 @if (program.EndDate != null)

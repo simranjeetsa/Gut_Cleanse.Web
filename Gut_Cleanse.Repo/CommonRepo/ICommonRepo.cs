@@ -12,6 +12,6 @@ namespace Gut_Cleanse.Repo.Common
         List<CountryModel> GetCountries();
         List<StateModel> GetStatesByCountryId(int countryId);
         List<CityModel> GetCitiesByStateId(int stateId);
-        PaymentTypeModel GetPaymentTypeId(int paymentTypeId);
+        PaymentTypeModel GetPaymentModel(int programId);
     }
 }

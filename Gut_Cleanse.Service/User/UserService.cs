@@ -1,4 +1,5 @@
 ﻿using Gut_Cleanse.Common;
+using Gut_Cleanse.Data.Tables;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Repo.User;
 using Gut_Cleanse.Service.CommonService;
@@ -24,6 +25,15 @@ namespace Gut_Cleanse.Service.User
         {
             UserModel model = new UserModel();
             var user = userRepo.GetUsers().FirstOrDefault(x => x.AspNetUserId == userId);
+            if (user != null)
+                model = user.AutoMap<UserModel>();
+            return model;
+        }
+
+        public UserModel GetUserByEmail(string email)
+        {
+            UserModel model = new UserModel();
+            var user = userRepo.GetUsers().FirstOrDefault(x => x.Email == email);
             if (user != null)
                 model = user.AutoMap<UserModel>();
             return model;

@@ -1,7 +1,10 @@
 ﻿using Gut_Cleanse.Common.Enums;
+using Gut_Cleanse.Data;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.PaymentService;
+using Gut_Cleanse.Service.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -13,38 +16,43 @@ namespace Gut_Cleanse.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly ICommonService _commonService;
         private readonly IPaymentService _paymentService;
-        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
+        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService, UserManager<ApplicationUser> userManager
+            , IUserService userService)
         {
             _configuration = configuration;
             _commonService = commonService;
             _paymentService = paymentService;
+            _userManager = userManager;
+            _userService = userService;
         }
         public IActionResult Revolution()
         {
-            var model=_commonService.GetPaymentTypeId(1);
+            var model = _commonService.GetPaymentModel(1);
             return View(model);
         }
 
         public IActionResult Glory()
         {
-            var model = _commonService.GetPaymentTypeId(2);
+            var model = _commonService.GetPaymentModel(2);
             return View(model);
         }
 
         public IActionResult Workshop()
         {
-            var model = _commonService.GetPaymentTypeId(3);
+            var model = _commonService.GetPaymentModel(3);
             return View(model);
         }
 
         public IActionResult Challenge()
         {
-            var model = _commonService.GetPaymentTypeId(4);
+            var model = _commonService.GetPaymentModel(4);
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(PaymentInitiateModel _requestData)
+        public async Task<ActionResult> CreateOrder(PaymentInitiateModel _requestData)
         {
             var currentUser = _commonService.GetCurrentUserInfo();
             var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
@@ -59,6 +67,45 @@ namespace Gut_Cleanse.Web.Controllers
             Razorpay.Api.Order orderResponse = client.Order.Create(options);
             string orderId = orderResponse["id"].ToString();
 
+            var user = _userService.GetUserByEmail(_requestData.Email);
+            var userId = 0;
+            if (user != null && user.Id != 0)
+            {
+                userId = user.Id;
+            }
+            else
+            {
+                try
+                {
+                    var User = new ApplicationUser { Email = _requestData.Email, UserName = _requestData.Email };
+                    var result =  await _userManager.CreateAsync(User, "Admin@123");
+
+                    if (result.Succeeded)
+                    {
+                        var aspNetUser = await _userManager.FindByEmailAsync(_requestData.Email);
+                        if (aspNetUser != null)
+                        {
+                            var newUser = new UserModel()
+                            {
+                                Email = _requestData.Email,
+                                AspNetUserId = aspNetUser.Id,
+                                IsDeleted = false,
+                                IsLocked = true,
+                            };
+
+                            _userService.AddUser(newUser);
+                        }
+
+                        user = _userService.GetUserByEmail(_requestData.Email);
+                        userId = user?.Id ?? 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Content("Error while registering user - error : " + ex.Message);
+                }
+            }
+
             // Create order model for return on view
             PaymentModel paymentModel = new PaymentModel
             {
@@ -70,10 +117,10 @@ namespace Gut_Cleanse.Web.Controllers
                 Email = _requestData.Email,
                 ContactNumber = _requestData.ContactNumber,
                 Address = _requestData.Address,
-                Description = _requestData.Description,
-                PaymentTypeId = _requestData.PaymentTypeId,
+                Description = _requestData.Description.Length > 255 ? _requestData.Description.Substring(0,254) : _requestData.Description,
+                ProgramId = _requestData.ProgramId,
                 Status = (int)PaymentStatus.Waiting,
-                UserId = currentUser?.Id ?? 0,
+                UserId = userId,
             };
 
             var paymentResult = _paymentService.CreatePayment(paymentModel);
@@ -115,7 +162,7 @@ namespace Gut_Cleanse.Web.Controllers
                 };
 
                 var updateStatus = _paymentService.UpdatePayment(paymentModel);
-                return Json(new {Success = true,Message = "Payment completed successfully!"});
+                return Json(new { Success = true, Message = "Payment completed successfully!" });
             }
             else
             {

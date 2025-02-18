@@ -27,13 +27,13 @@ namespace Gut_Cleanse.Repo.Common
         {
             return context.Cities.Where(x => x.StateId == stateId).Select(x => x.AutoMap<CityModel>()).ToList();
         }
-        public PaymentTypeModel GetPaymentTypeId(int paymentTypeId)
+        public PaymentTypeModel GetPaymentModel(int programId)
         {
             PaymentTypeModel result = new PaymentTypeModel();
-            var paymentType= context.Programs.FirstOrDefault(x => x.Id == paymentTypeId);
+            var paymentType= context.Programs.FirstOrDefault(x => x.Id == programId);
             if (paymentType != null)
             {
-                result.Id = paymentTypeId;
+                result.Id = programId;
                 result.Name = paymentType.Name;
                 result.Description = paymentType.Description;
                 result.Amount = paymentType.Amount;

@@ -14,6 +14,6 @@ namespace Gut_Cleanse.Model
         public string Address { get; set; }
         public decimal Amount { get; set; }
         public string Description { get; set; }
-        public int PaymentTypeId { get; set; }
+        public int ProgramId { get; set; }
     }
 }
