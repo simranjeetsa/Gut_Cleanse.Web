@@ -218,7 +218,7 @@
                                     <h2>@programDetail.Name</h2>
                                 </div>
                                 <div class="about-text pr-5 programDLength">
-                                    <ul class="list-item">
+                                    <ul class="list-item" id="programDetailImg">
                                         <li>
                                                 @Html.Raw(programDetail.Description)
                                             
@@ -368,3 +368,8 @@
         </div>
     </section>
 </div>
+@section Scripts {
+    <script>
+        $('#programDetailImg img').addClass('fa-spin');
+        </script>
+        }
