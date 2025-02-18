@@ -143,9 +143,9 @@ namespace Gut_Cleanse.Web.Controllers
 
         public async Task SendMessage()
         {
-            string accessToken = "your_access_token";  // The WhatsApp API access token
-            string phoneNumberId = "your_phone_number_id";  // Your WhatsApp phone number ID
-            string recipientPhoneNumber = "recipient_phone_number"; // Recipient phone number (include country code, no +)
+            string accessToken = "EAAI0cZCvNMsABO9Dx4S3hTZBPuhBu27I5FyzFZCxNDxAwNy4VnvmIzYk4PW3UCqZAhWpix4OJocAVaApwUPwEncoh2YYibINxDzhIZAAJhQgjXbntybu7BtyEahZBqbq29bHmtZA8sle9vrfYqWaGCZCSj6u1FdZBCrk4Hc5VGks4m9NDGjBOog1zWBErm6T3owi6RAZDZD";  // The WhatsApp API access token
+            string phoneNumberId = "557012187492007";  // Your WhatsApp phone number ID
+            string recipientPhoneNumber = "+918567834444"; // Recipient phone number (include country code, no +)
 
             var message = new
             {
