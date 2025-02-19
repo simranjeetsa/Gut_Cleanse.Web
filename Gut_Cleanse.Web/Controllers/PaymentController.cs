@@ -117,7 +117,7 @@ namespace Gut_Cleanse.Web.Controllers
                 Email = _requestData.Email,
                 ContactNumber = _requestData.ContactNumber,
                 Address = _requestData.Address,
-                Description = _requestData.Description.Length > 255 ? _requestData.Description.Substring(0,254) : _requestData.Description,
+              //  Description = _requestData.Description.Length > 255 ? _requestData.Description.Substring(0,254) : _requestData.Description,
                 ProgramId = _requestData.ProgramId,
                 Status = (int)PaymentStatus.Waiting,
                 UserId = userId,

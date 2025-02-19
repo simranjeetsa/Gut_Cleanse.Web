@@ -66,6 +66,9 @@
                            $('#partialViewContainer').html('');
                            if(response.success){
                                toastr.success(response.message);
+                                  $('#Email').val('');
+                                $('#ContactNumber').val('');
+
                            }else{
                                toastr.error(response.message);
                            }
