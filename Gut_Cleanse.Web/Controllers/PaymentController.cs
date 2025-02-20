@@ -78,7 +78,7 @@ namespace Gut_Cleanse.Web.Controllers
                 try
                 {
                     var User = new ApplicationUser { Email = _requestData.Email, UserName = _requestData.Email };
-                    var result =  await _userManager.CreateAsync(User, "Admin@123");
+                    var result = await _userManager.CreateAsync(User, "Admin@123");
 
                     if (result.Succeeded)
                     {
@@ -117,7 +117,7 @@ namespace Gut_Cleanse.Web.Controllers
                 Email = _requestData.Email,
                 ContactNumber = _requestData.ContactNumber,
                 Address = _requestData.Address,
-              //  Description = _requestData.Description.Length > 255 ? _requestData.Description.Substring(0,254) : _requestData.Description,
+                //  Description = _requestData.Description.Length > 255 ? _requestData.Description.Substring(0,254) : _requestData.Description,
                 ProgramId = _requestData.ProgramId,
                 Status = (int)PaymentStatus.Waiting,
                 UserId = userId,
@@ -133,7 +133,7 @@ namespace Gut_Cleanse.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult Complete(string rzp_paymentid, string rzp_orderid)
+        public async Task<JsonResult> Complete(string rzp_paymentid, string rzp_orderid, string ContactNumber)
         {
             var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
             var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
@@ -151,6 +151,9 @@ namespace Gut_Cleanse.Web.Controllers
             Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
             string amt = paymentCaptured.Attributes["amount"];
 
+            if (ContactNumber.Length == 10)
+                ContactNumber = "91" + ContactNumber;
+            await SendMessage(ContactNumber);
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
@@ -174,6 +177,7 @@ namespace Gut_Cleanse.Web.Controllers
                 };
 
                 var updateStatus = _paymentService.UpdatePayment(paymentModel);
+
                 return Json(new { Success = false, Message = "Payment failed!" });
             }
         }
@@ -188,17 +192,23 @@ namespace Gut_Cleanse.Web.Controllers
             return View();
         }
 
-        public async Task SendMessage()
+        public async Task SendMessage(string recipientPhoneNumber)
         {
             string accessToken = "EAAI0cZCvNMsABO9Dx4S3hTZBPuhBu27I5FyzFZCxNDxAwNy4VnvmIzYk4PW3UCqZAhWpix4OJocAVaApwUPwEncoh2YYibINxDzhIZAAJhQgjXbntybu7BtyEahZBqbq29bHmtZA8sle9vrfYqWaGCZCSj6u1FdZBCrk4Hc5VGks4m9NDGjBOog1zWBErm6T3owi6RAZDZD";  // The WhatsApp API access token
-            string phoneNumberId = "557012187492007";  // Your WhatsApp phone number ID
-            string recipientPhoneNumber = "+918567834444"; // Recipient phone number (include country code, no +)
+            string phoneNumberId = "519981084538466";  // Your WhatsApp phone number ID
+
 
             var message = new
             {
                 messaging_product = "whatsapp",
                 to = recipientPhoneNumber,
-                text = new { body = "Hello, this is a test message from WhatsApp API!" }
+                type = "template",
+                //text = new { body = "Payment received!" }
+                template = new
+                {
+                    name = "hello_world",
+                    language = new { code = "en_US" }
+                }
             };
 
             var jsonMessage = Newtonsoft.Json.JsonConvert.SerializeObject(message);
@@ -209,7 +219,7 @@ namespace Gut_Cleanse.Web.Controllers
             var content = new StringContent(jsonMessage, Encoding.UTF8, "application/json");
 
             // Replace the URL with the WhatsApp API endpoint for sending messages
-            var url = $"https://graph.facebook.com/v15.0/{phoneNumberId}/messages";
+            var url = $"https://graph.facebook.com/v21.0/{phoneNumberId}/messages";
 
             try
             {
@@ -229,6 +239,8 @@ namespace Gut_Cleanse.Web.Controllers
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+
+
         }
 
     }
