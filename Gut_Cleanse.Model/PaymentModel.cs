@@ -39,5 +39,13 @@ namespace Gut_Cleanse.Model
         public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Description { get; set; }
+
+        public string ProgramName { get; set; }
+    
+        public string ProgramDescription { get; set; }
+  
+        public DateOnly? StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

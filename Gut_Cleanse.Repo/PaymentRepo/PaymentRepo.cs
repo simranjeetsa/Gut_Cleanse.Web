@@ -33,6 +33,30 @@ namespace Gut_Cleanse.Repo.PaymentRepo
             }
         }
 
+
+
+     public IEnumerable<PaymentModel> GetPaymentDetailByProgramId(int userId)
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+
+            var result = (from payments in _context.Payments
+                          join programs in _context.Programs
+                          on payments.ProgramId equals programs.Id 
+                          where payments.UserId == userId && payments.Status == 1
+                          select new PaymentModel
+                          {
+                              Id = payments.Id,
+                              ProgramName = programs.Name,
+                              ProgramDescription = programs.Description,
+                              StartDate = programs.StartDate,
+                              EndDate = programs.EndDate,
+                              Amount = payments.Amount,
+                              Status = payments.Status,
+                          }).ToList();
+
+            return result;
+        }
+
         public bool UpdatePayment(PaymentModel payment)
         {
             try

@@ -1,4 +1,5 @@
 ﻿using Gut_Cleanse.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Gut_Cleanse.Service.PaymentService
     {
         bool CreatePayment(PaymentModel payment);
         bool UpdatePayment(PaymentModel payment);
+        IEnumerable<PaymentModel> GetPaymentDetailByProgramId(int userId);
     }
 }

@@ -11,5 +11,6 @@ namespace Gut_Cleanse.Repo.PaymentRepo
     {
         bool CreatePayment(PaymentModel payment);
         bool UpdatePayment(PaymentModel payment);
+        IEnumerable<PaymentModel> GetPaymentDetailByProgramId(int userId);
     }
 }
