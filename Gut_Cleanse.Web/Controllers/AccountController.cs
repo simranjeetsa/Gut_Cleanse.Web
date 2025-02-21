@@ -1,10 +1,8 @@
 ﻿using Gut_Cleanse.Data;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.User;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -106,6 +104,7 @@ namespace Gut_Cleanse.Web.Controllers
                     if (result.Succeeded)
                     {
                         var aspNetUser = await _userManager.FindByEmailAsync(model.Email);
+                        await _userManager.AddToRoleAsync(aspNetUser, "Admin");
                         if (aspNetUser != null)
                         {
                             var newUser = new UserModel()

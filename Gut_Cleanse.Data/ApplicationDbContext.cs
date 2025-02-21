@@ -51,7 +51,8 @@ namespace Gut_Cleanse.Data
              );
             builder.Entity<IdentityRole>().HasData(
                  new IdentityRole() { Id = "F2362EB6-4C91-4E31-B822-A62032A68678", Name = "Admin", NormalizedName = "ADMIN" },
-                  new IdentityRole() { Id = "1ace2763-ee9c-11ef-872f-bc2411ffd154", Name = "Customer", NormalizedName = "CUSTOMER" }
+                  new IdentityRole() { Id = "1ace2763-ee9c-11ef-872f-bc2411ffd154", Name = "Customer", NormalizedName = "CUSTOMER" },
+                   new IdentityRole() { Id = "8be1565d-f04c-11ef-a6eb-bc2411ffd154", Name = "User", NormalizedName = "USER" }
             );
             builder.Entity<Program>().HasData(
                  new Program() { Id = 1, Name = "1:1 Gut Reset Revolution", StartDate = new DateOnly(2025, 1, 6), EndDate = new DateOnly(2025, 4, 5), Amount = 45000, Description = "Transform your relationship with health through our signature wellness program, crafted from over a decade of clinical success stories" },

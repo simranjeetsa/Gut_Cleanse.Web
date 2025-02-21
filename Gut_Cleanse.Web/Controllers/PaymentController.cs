@@ -79,7 +79,7 @@ namespace Gut_Cleanse.Web.Controllers
                 {
                     var User = new ApplicationUser { Email = _requestData.Email, UserName = _requestData.Email };
                     var result = await _userManager.CreateAsync(User, "Admin@123");
-
+                    
                     if (result.Succeeded)
                     {
                         var aspNetUser = await _userManager.FindByEmailAsync(_requestData.Email);
