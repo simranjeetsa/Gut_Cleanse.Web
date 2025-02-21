@@ -18,14 +18,15 @@ namespace Gut_Cleanse.Web.Controllers
         private readonly IPaymentService _paymentService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
-        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService, UserManager<ApplicationUser> userManager
-            , IUserService userService)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService, UserManager<ApplicationUser> userManager , IUserService userService, RoleManager<IdentityRole> roleManager)
         {
             _configuration = configuration;
             _commonService = commonService;
             _paymentService = paymentService;
             _userManager = userManager;
             _userService = userService;
+            _roleManager = roleManager;
         }
         public IActionResult Revolution()
         {
@@ -79,10 +80,12 @@ namespace Gut_Cleanse.Web.Controllers
                 {
                     var User = new ApplicationUser { Email = _requestData.Email, UserName = _requestData.Email };
                     var result =  await _userManager.CreateAsync(User, "Admin@123");
-
+                
                     if (result.Succeeded)
                     {
                         var aspNetUser = await _userManager.FindByEmailAsync(_requestData.Email);
+                  
+                        await _userManager.AddToRoleAsync(aspNetUser, "Customer");
                         if (aspNetUser != null)
                         {
                             var newUser = new UserModel()
@@ -129,9 +132,6 @@ namespace Gut_Cleanse.Web.Controllers
             return PartialView("_PaymentPage", paymentModel);
         }
 
-
-
-
         [HttpPost]
         public JsonResult Complete(string rzp_paymentid, string rzp_orderid)
         {
@@ -177,7 +177,6 @@ namespace Gut_Cleanse.Web.Controllers
                 return Json(new { Success = false, Message = "Payment failed!" });
             }
         }
-
         public ActionResult Success()
         {
             return View();
@@ -229,6 +228,12 @@ namespace Gut_Cleanse.Web.Controllers
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
+        }
+
+        public IActionResult PaymentInfo(int userId)
+        {
+            var payments = _paymentService.GetPaymentDetailByProgramId(userId);
+            return View(payments);
         }
 
     }
