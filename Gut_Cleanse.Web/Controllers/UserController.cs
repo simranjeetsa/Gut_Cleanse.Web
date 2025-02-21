@@ -1,8 +1,10 @@
-﻿using Gut_Cleanse.Model;
+﻿using Gut_Cleanse.Data;
+using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.User;
 using Gut_Cleanse.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gut_Cleanse.Web.Controllers
@@ -14,11 +16,13 @@ namespace Gut_Cleanse.Web.Controllers
         readonly IUserService userService;
         readonly ICommonService commonService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UserController(IUserService _userService, ICommonService _commonService, IWebHostEnvironment webHostEnvironment)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserController(IUserService _userService, ICommonService _commonService, IWebHostEnvironment webHostEnvironment, UserManager<ApplicationUser> userManager)
         {
             userService = _userService;
             commonService = _commonService;
             _webHostEnvironment = webHostEnvironment;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -38,7 +42,7 @@ namespace Gut_Cleanse.Web.Controllers
             return View(result);
         }
         [HttpPost]
-        public IActionResult Create(UserModel model)
+        public async Task<IActionResult> Create(UserModel model)
         {
             try
             {
@@ -70,10 +74,24 @@ namespace Gut_Cleanse.Web.Controllers
                 }
                 else
                 {
-                    model.AspNetUserId = commonService.GetCurrentUserInfo().AspNetUserId;
-                    userService.AddUser(model);
-                    TempData["ToastrMessage"] = "User created successfully!";
-                    TempData["ToastrType"] = "success";
+                    var User = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                    var result = await _userManager.CreateAsync(User, "Admin@123");
+
+                    if (result.Succeeded)
+                    {
+                        var aspNetUser = await _userManager.FindByEmailAsync(model.Email);
+                        await _userManager.AddToRoleAsync(aspNetUser, "User");
+                        model.AspNetUserId = aspNetUser.Id;
+                        userService.AddUser(model);
+                        TempData["ToastrMessage"] = "User created successfully!";
+                        TempData["ToastrType"] = "success";
+                    }
+                    else
+                    {
+                        throw new Exception("Email already exist! Please try different Email address.");
+                    }
+                        
+                    
                 }
                 return RedirectToAction("Index");
             }
@@ -105,7 +123,7 @@ namespace Gut_Cleanse.Web.Controllers
                 TempData["ToastrMessage"] = ex.Message;
                 TempData["ToastrType"] = "error";
             }
-            
+
 
             return RedirectToAction("Index");
 

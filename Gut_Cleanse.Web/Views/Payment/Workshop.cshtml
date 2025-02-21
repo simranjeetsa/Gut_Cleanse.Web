@@ -3109,7 +3109,30 @@
                                             <div class="Field-error"></div>
                                             <div class="Field-description"></div>
                                         </div>
-                                    </div><!----><!----><div class="Field has-error Field--required">
+                                    </div>
+                                    <div class="Field has-error Field--required">
+                                        <div class="Field-label">
+                                            First Name
+                                        </div>
+                                        <div class="Field-content">
+                                            <div class="Field-wrapper">
+                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "Field-el", required = "required" })
+                                                @Html.ValidationMessageFor(x => x.FirstName)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="Field has-error Field--required">
+                                        <div class="Field-label">
+                                            Last Name
+                                        </div>
+                                        <div class="Field-content">
+                                            <div class="Field-wrapper">
+                                                @Html.TextBoxFor(x => x.LastName, new { @class = "Field-el", required = "required" })
+                                                @Html.ValidationMessageFor(x => x.LastName)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="Field has-error Field--required">
                                         <div class="Field-label">
                                             Email
 

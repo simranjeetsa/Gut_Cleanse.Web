@@ -21,5 +21,9 @@ namespace Gut_Cleanse.Model
         public decimal Amount { get; set; }
         public string Email { get; set; }
         public string ContactNumber { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
     }
 }
