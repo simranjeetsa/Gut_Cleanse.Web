@@ -89,6 +89,8 @@ namespace Gut_Cleanse.Web.Controllers
                             {
                                 Email = _requestData.Email,
                                 AspNetUserId = aspNetUser.Id,
+                                FirstName = _requestData.FirstName,
+                                LastName = _requestData.LastName,
                                 IsDeleted = false,
                                 IsLocked = true,
                             };
@@ -151,9 +153,9 @@ namespace Gut_Cleanse.Web.Controllers
             Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
             string amt = paymentCaptured.Attributes["amount"];
 
-            if (ContactNumber.Length == 10)
-                ContactNumber = "91" + ContactNumber;
-            await SendMessage(ContactNumber);
+            //if (ContactNumber.Length == 10)
+            //    ContactNumber = "91" + ContactNumber;
+            //await SendMessage(ContactNumber);
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
