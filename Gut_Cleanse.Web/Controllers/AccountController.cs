@@ -58,7 +58,7 @@ namespace Gut_Cleanse.Web.Controllers
                         var userInfo = _userService.GetUserByUserId(user.Id);
                         HttpContext.Session.SetString("User", Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
                         if (string.IsNullOrEmpty(model.ReturnUrl))
-                            return RedirectToAction("Index", "User");
+                            return RedirectToAction("PaymentInfo", "Payment");
                         else
                             return Redirect(model.ReturnUrl);
                     }
@@ -90,8 +90,11 @@ namespace Gut_Cleanse.Web.Controllers
 
         // POST Register action (optional)
         [HttpPost]
+      
+
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+
             try
             {
                 if (ModelState.IsValid)
@@ -100,11 +103,15 @@ namespace Gut_Cleanse.Web.Controllers
                     {
                         throw new Exception(message: "Password and Confirm Password doesn't match!");
                     }
+
                     var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
                     var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (result.Succeeded)
                     {
+                       //await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                        //await _userManager.AddToRoleAsync(user, "Customer");
+
                         var aspNetUser = await _userManager.FindByEmailAsync(model.Email);
                         if (aspNetUser != null)
                         {
@@ -116,11 +123,14 @@ namespace Gut_Cleanse.Web.Controllers
                                 IsLocked = true,
                             };
 
+                 
                             _userService.AddUser(newUser);
                         }
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Index", "Home");
                     }
+
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
@@ -131,8 +141,10 @@ namespace Gut_Cleanse.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
-            
+
             return View(model);
         }
+
+
     }
 }
