@@ -14161,9 +14161,9 @@ section.bannerbelow-area {
 .bgservices {
     z-index: 2;
     position: relative;
-    background: url(../Assets/programs.jpg) no-repeat;
+    background: url(../Assets/GKS_3270.jpg) no-repeat;
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
 }
 
 .bgoneonone {
@@ -15687,7 +15687,7 @@ ul.list-item.itemsbx li {
     .container-md,
     .container-sm,
     .container {
-        max-width: 1024px;
+        max-width: 1124px;
     }
 
     .header-menu-layout1 .template-main-menu nav > ul > li > a {
@@ -17120,7 +17120,7 @@ ul.event-details-list li {
     margin: 20px;
     display: flex;
     flex-direction: column;
-    height: 525px !important;
+    height: 100%;
 }
 
     .blogcard:hover {

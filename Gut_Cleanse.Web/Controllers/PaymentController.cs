@@ -1,4 +1,5 @@
-﻿using Gut_Cleanse.Common.Enums;
+﻿using Azure.Core;
+using Gut_Cleanse.Common.Enums;
 using Gut_Cleanse.Data;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
@@ -6,6 +7,8 @@ using Gut_Cleanse.Service.PaymentService;
 using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text;
 
 
@@ -19,7 +22,7 @@ namespace Gut_Cleanse.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService, UserManager<ApplicationUser> userManager , IUserService userService, RoleManager<IdentityRole> roleManager)
+        public PaymentController(IConfiguration configuration, ICommonService commonService, IPaymentService paymentService, UserManager<ApplicationUser> userManager, IUserService userService, RoleManager<IdentityRole> roleManager)
         {
             _configuration = configuration;
             _commonService = commonService;
@@ -30,6 +33,7 @@ namespace Gut_Cleanse.Web.Controllers
         }
         public IActionResult Revolution()
         {
+            SendMessage("918567834444");
             var model = _commonService.GetPaymentModel(1);
             return View(model);
         }
@@ -80,11 +84,11 @@ namespace Gut_Cleanse.Web.Controllers
                 {
                     var User = new ApplicationUser { Email = _requestData.Email, UserName = _requestData.Email };
                     var result = await _userManager.CreateAsync(User, "Admin@123");
-                    
+
                     if (result.Succeeded)
                     {
                         var aspNetUser = await _userManager.FindByEmailAsync(_requestData.Email);
-                  
+
                         await _userManager.AddToRoleAsync(aspNetUser, "Customer");
                         if (aspNetUser != null)
                         {
@@ -199,16 +203,29 @@ namespace Gut_Cleanse.Web.Controllers
             string phoneNumberId = "519981084538466";  // Your WhatsApp phone number ID
 
 
+
+
             var message = new
             {
                 messaging_product = "whatsapp",
                 to = recipientPhoneNumber,
                 type = "template",
-                //text = new { body = "Payment received!" }
                 template = new
                 {
-                    name = "hello_world",
-                    language = new { code = "en_US" }
+                    name = "successpayment",
+                    language = new { code = "en" },
+                    components = new[] {
+                     new
+                    {
+                        type = "body",
+                        parameters = new[]
+                        {
+                            new { type = "text", text = "customerName" },  // Template parameter 1
+                            new { type = "text", text = "orderNumber" }   // Template parameter 2
+                        }
+                    }
+                    }
+
                 }
             };
 
@@ -220,7 +237,7 @@ namespace Gut_Cleanse.Web.Controllers
             var content = new StringContent(jsonMessage, Encoding.UTF8, "application/json");
 
             // Replace the URL with the WhatsApp API endpoint for sending messages
-            var url = $"https://graph.facebook.com/v21.0/{phoneNumberId}/messages";
+            var url = $"https://graph.facebook.com/v21.0/{phoneNumberId}";
 
             try
             {
@@ -243,6 +260,7 @@ namespace Gut_Cleanse.Web.Controllers
 
 
         }
+
 
         public IActionResult PaymentInfo(int userId)
         {
