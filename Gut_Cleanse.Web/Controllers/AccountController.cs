@@ -53,14 +53,31 @@ namespace Gut_Cleanse.Web.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
+                        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
                         var userInfo = _userService.GetUserByUserId(user.Id);
                         HttpContext.Session.SetString("User", Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
-                        if (string.IsNullOrEmpty(model.ReturnUrl))
-                            return RedirectToAction("PaymentInfo", "Payment");
+
+                        if (isAdmin)
+                        {
+                            return RedirectToAction("Index", "User");
+                        }
                         else
-                            return Redirect(model.ReturnUrl);
+                        {
+                            if (string.IsNullOrEmpty(model.ReturnUrl))
+                            {
+                                return RedirectToAction("PaymentInfo", "Payment");
+                            }
+                            else
+                            {
+                                return Redirect(model.ReturnUrl);
+                            }
+                        }
                     }
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    }
                 }
                 else
                 {

@@ -24,11 +24,12 @@ namespace Gut_Cleanse.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View(userService.GetUsers());
         }
-        [HttpGet]
+         [HttpGet]
         public IActionResult Create(int Id)
         {
             UserModel result = new UserModel();

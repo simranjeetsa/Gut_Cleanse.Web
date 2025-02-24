@@ -5,6 +5,7 @@ using Gut_Cleanse.Service.PaymentService;
 using Gut_Cleanse.Service.ProgramsService;
 using Gut_Cleanse.Service.User;
 using Gut_Cleanse.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Gut_Cleanse.Web.Controllers
         {
             _programsService = programsService;
         }
-
+      
         public IActionResult Index()
         {
             var programs = _programsService.GetPrograms();
@@ -70,6 +71,7 @@ namespace Gut_Cleanse.Web.Controllers
             };
             return View(viewModel);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult List()
         {
 

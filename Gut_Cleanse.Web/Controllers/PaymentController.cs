@@ -1,10 +1,12 @@
 ﻿using Azure.Core;
 using Gut_Cleanse.Common.Enums;
 using Gut_Cleanse.Data;
+using Gut_Cleanse.Data.Tables;
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.PaymentService;
 using Gut_Cleanse.Service.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -260,11 +262,14 @@ namespace Gut_Cleanse.Web.Controllers
 
 
         }
-
-
-        public IActionResult PaymentInfo(int userId)
+        [Authorize(Roles = "Customer")]
+        public IActionResult PaymentInfo()
         {
-            var payments = _paymentService.GetPaymentDetailByProgramId(userId);
+            var session = HttpContext?.Session;
+            var userData = new UserModel();
+            if (session != null && session.Keys.Count() > 0)
+                userData = Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(session.GetString("User"));
+            var payments = _paymentService.GetPaymentDetailByProgramId(userData.Id);
             return View(payments);
         }
 

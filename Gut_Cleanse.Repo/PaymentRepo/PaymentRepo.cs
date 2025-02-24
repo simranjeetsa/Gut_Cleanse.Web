@@ -52,6 +52,8 @@ namespace Gut_Cleanse.Repo.PaymentRepo
                               EndDate = programs.EndDate,
                               Amount = payments.Amount,
                               Status = payments.Status,
+                              UserId = userId,
+                              IsActive = (programs.StartDate != null && programs.EndDate != null) &&(programs.StartDate <= currentDate) &&  (programs.EndDate >= currentDate)
                           }).ToList();
 
             return result;

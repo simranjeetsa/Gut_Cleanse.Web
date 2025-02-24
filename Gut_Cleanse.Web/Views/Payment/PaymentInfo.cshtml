@@ -45,10 +45,6 @@
                 transition: background-color 0.3s ease, color 0.3s ease;
             }
 
-                .custom-tabs li a i {
-                    margin-right: 8px;
-                }
-
             .custom-tabs li.active a {
                 background-color: #007bff;
                 color: white;
@@ -68,11 +64,32 @@
             .custom-tabs li span {
                 font-size: 14px;
             }
+
+    #programDescriptionLength{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    #programNameLength h3{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    #marginSetcontainer
+    {
+    margin-right: 27px;
+    }
 </style>
 
-@* <div class="my-custom-tabs">
+<div class="my-custom-tabs">
     <ul class="custom-tabs">
-        <li>
+        <li class="active">
             <a class="tab-link" data-tab="active">
                 <i class="flaticon-graph-line-screen"></i>
                 <span>Active</span>
@@ -85,54 +102,50 @@
             </a>
         </li>
         <li>
-            <a href="@Url.Action("Edit", "PortCall")" class="tab-link" data-tab="all">
+            <a class="tab-link" data-tab="all">
                 <i class="flaticon-interface"></i>
                 <span>All</span>
             </a>
         </li>
     </ul>
 </div>
- *@
 
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
-    <!-- Container for the cards -->
-    <!-- Container for the cards -->
-    <div class="w3-row-padding w3-margin-top">
+    <div class="w3-row-padding" margin-top="-61px!important">
         <!-- Active Tab Content -->
-        <div id="active-content" class="tab-content" style="display: none;">
-            @foreach (var program in Model)
+        <div id="active-content" class="tab-content" style="display: block;">
+            @foreach (var program in Model.Where(p => p.IsActive))
             {
-                <div class="w3-third w3-margin-bottom">
+                <div class="w3-third w3-margin-bottom" id="marginSetcontainer">
                     <div class="w3-card-4">
-                        <header class="w3-container w3-light-grey">
-                            <h3>@program.ProgramName</h3>
+                        <header class="w3-container w3-light-grey" id="programNameLength">
+                            <h3 id="programNameLength">@program.ProgramName</h3>
                         </header>
-                        <div class="w3-container">
+                        <div class="w3-container" id="programDescriptionLength">
                             <hr>
-                            <p> @Html.Raw(program.ProgramDescription)</p><br>
+                            <p>@Html.Raw(program.ProgramDescription)</p><br>
                         </div>
                         <button class="w3-button w3-block" style="background-color:#007bff;">+ Connect</button>
                     </div>
                 </div>
             }
         </div>
-    </div>
 
-    @*       <!-- Inactive Tab Content -->
+        <!-- Inactive Tab Content -->
         <div id="inactive-content" class="tab-content" style="display: none;">
             @foreach (var program in Model.Where(p => !p.IsActive))
             {
-                <div class="w3-third w3-margin-bottom">
+                <div class="w3-third w3-margin-bottom" id="marginSetcontainer">
                     <div class="w3-card-4">
-                        <header class="w3-container w3-light-grey">
-                            <h3>@program.ProgramName</h3>
+                        <header class="w3-container w3-light-grey" id="programNameLength">
+                            <h3 id="programNameLength">@program.ProgramName</h3>
                         </header>
-                        <div class="w3-container">
+                        <div class="w3-container" id="programDescriptionLength">
                             <hr>
-                            <p>@program.ProgramDescription</p><br>
+                            <p>@Html.Raw(program.ProgramDescription)</p><br>
                         </div>
                         <button class="w3-button w3-block" style="background-color:#007bff;">+ Connect</button>
                     </div>
@@ -141,17 +154,17 @@
         </div>
 
         <!-- All Tab Content -->
-        <div id="all-content" class="tab-content">
+        <div id="all-content" class="tab-content" style="display: none;">
             @foreach (var program in Model)
             {
-                <div class="w3-third w3-margin-bottom">
+                <div class="w3-third w3-margin-bottom" id="marginSetcontainer">
                     <div class="w3-card-4">
                         <header class="w3-container w3-light-grey">
-                            <h3>@program.ProgramName</h3>
+                            <h3 id="programNameLength">@program.ProgramName</h3>
                         </header>
-                        <div class="w3-container">
+                        <div class="w3-container" id="programDescriptionLength">
                             <hr>
-                            <p>@program.ProgramDescription</p><br>
+                            <p>@Html.Raw(program.ProgramDescription)</p><br>
                         </div>
                         <button class="w3-button w3-block" style="background-color:#007bff;">+ Connect</button>
                     </div>
@@ -159,13 +172,12 @@
             }
         </div>
     </div>
- *@
-
 </body>
 </html>
-@* @section Scripts {
+
+@section scripts {
     <script>
-         document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             var tabs = document.querySelectorAll('.tab-link');
             var tabContents = document.querySelectorAll('.tab-content');
 
@@ -178,7 +190,7 @@
                         tab.parentElement.classList.remove('active');
                     });
 
-                    // Add active class to the clicked tab
+                    // Add active class to clicked tab
                     tab.parentElement.classList.add('active');
 
                     // Hide all tab contents
@@ -186,7 +198,7 @@
                         content.style.display = 'none';
                     });
 
-                    // Show the content related to the clicked tab
+                    // Show the corresponding tab content
                     var tabId = tab.getAttribute('data-tab');
                     var activeTabContent = document.getElementById(tabId + '-content');
                     if (activeTabContent) {
@@ -195,5 +207,5 @@
                 });
             });
         });
-    </script> *@
-
+    </script>
+}
