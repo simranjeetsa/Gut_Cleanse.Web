@@ -239,7 +239,7 @@ namespace Gut_Cleanse.Web.Controllers
             var content = new StringContent(jsonMessage, Encoding.UTF8, "application/json");
 
             // Replace the URL with the WhatsApp API endpoint for sending messages
-            var url = $"https://graph.facebook.com/v21.0/{phoneNumberId}";
+            var url = $"https://graph.facebook.com/v21.0/{phoneNumberId}/messages";
 
             try
             {
