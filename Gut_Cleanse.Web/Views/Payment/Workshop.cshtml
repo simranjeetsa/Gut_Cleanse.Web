@@ -3102,6 +3102,7 @@
                                                 <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
                                                 @Html.HiddenFor(x => x.Amount)
                                                 @Html.HiddenFor(x => x.Description)
+                                                @Html.HiddenFor(x => x.Name)
                                                 @Html.Hidden("ProgramId", Model.Id)
                                                 <span class="Field-addon Field-addon--after ">
                                                 </span>

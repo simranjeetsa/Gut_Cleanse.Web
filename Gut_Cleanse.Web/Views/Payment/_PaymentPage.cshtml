@@ -8,7 +8,7 @@
         "key": "@Html.DisplayFor(model => model.RazorPayKeyId)", // Enter the Key ID generated from the Dashboard
         "amount": "@Html.DisplayFor(model => model.Amount)", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "@Html.DisplayFor(model => model.Currency)",
-        "name": "@Html.DisplayFor(model => model.Name)",
+        "name": "@Html.DisplayFor(model => model.FirstName)",
         "description": "@Html.DisplayFor(model => model.Description)",
         "image": '@Url.Content("~/Assets/logo_black.png")', // You can give your logo url
         "order_id": "@Html.DisplayFor(model => model.OrderId)",
@@ -22,7 +22,7 @@
             document.getElementById('rzp-paymentresponse').click();
         },
         "prefill": {
-            "name": "@Html.DisplayFor(model => model.Name)",
+            "name": "@Html.DisplayFor(model => model.FirstName)",
             "email": "@Html.DisplayFor(model => model.Email)",
             "contact": "@Html.DisplayFor(model => model.ContactNumber)"
         },
@@ -51,6 +51,8 @@
     @Html.Hidden("rzp_paymentid")
     @Html.Hidden("rzp_orderid")
     @Html.HiddenFor(x=>x.ContactNumber)
+    @Html.HiddenFor(x=>x.FirstName)
+    @Html.HiddenFor(x => x.Name)
     <button type="submit" id="rzp-paymentresponse" class="btn btn-primary" hidden>Submit</button>
 }
 
@@ -63,12 +65,13 @@
                        dataType: 'json',
                        data: $(this).serialize(), // Serialize form data
                        success: function (response) {
-                           debugger;
                            $('#partialViewContainer').html('');
                            if(response.success){
                                toastr.success(response.message);
-                                  $('#Email').val('');
+                                $('#Email').val('');
                                 $('#ContactNumber').val('');
+                                 $('#FirstName').val('');
+                                  $('#LastName').val('');
 
                            }else{
                                toastr.error(response.message);
