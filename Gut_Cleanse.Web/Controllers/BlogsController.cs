@@ -1,21 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Gut_Cleanse.Service.BlogsService;
+using Gut_Cleanse.Service.ProgramsService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Gut_Cleanse.Web.Controllers
 {
     public class BlogsController : Controller
     {
+        private readonly IBlogsService _blogsService;
+        public BlogsController(IBlogsService blogsService)
+        {
+            _blogsService = blogsService;
+        }
         public IActionResult Index()
         {
-            return View();
+            var blogs = _blogsService.GetBlogs();
+            return View(blogs);
         }
 
         public IActionResult Step_Approach()
         {
-            return View();
+            var blogs = _blogsService.GetBlogsById(1);
+            return View(blogs);
         }
         public IActionResult Remedies()
         {
-            return View();
+            var blogs = _blogsService.GetBlogsById(2);
+            return View(blogs);
         }
         
     }
