@@ -12,9 +12,28 @@ namespace Gut_Cleanse.Repo.User
         {
             context = _context;
         }
-        public IQueryable<Data.Tables.User> GetUsers()
+        public IQueryable<UserModel> GetUsers()
         {
-            return context.Users.Where(x => !x.IsDeleted);
+            return (from x in context.Users.Where(x => !x.IsDeleted)
+                    join userRole in context.UserRoles on x.AspNetUserId equals userRole.UserId into _userRole
+                    from userRole in _userRole.DefaultIfEmpty().Take(1)
+                    join role in context.Roles on userRole.RoleId equals role.Id
+                    select new UserModel
+                    {
+                        Id = x.Id,
+                        AspNetUserId = x.AspNetUserId,
+                        FirstName = x.FirstName ?? string.Empty,
+                        LastName = x.LastName ?? string.Empty,
+                        Email = x.Email,
+                        ContactNumber = x.ContactNumber ?? string.Empty,
+                        RoleName = role.Name ?? string.Empty,
+                        ProfilePicture = x.ProfilePicture ?? string.Empty,
+                        IsDeleted = x.IsDeleted,
+                        IsLocked = x.IsLocked,
+                        DOB = x.DOB,
+                        MiddleName = x.MiddleName ?? string.Empty,
+                        ZipCode = x.ZipCode ?? string.Empty,
+                    });
         }
 
         public UserModel GetUserById(int userId)
