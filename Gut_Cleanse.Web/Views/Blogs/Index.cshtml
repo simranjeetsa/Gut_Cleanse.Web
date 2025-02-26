@@ -26,11 +26,14 @@
                 <div class="blogcard">
                     <img alt="A person comforting another person" class="blogcard-img-top" height="400" src="@Url.Content(blog.ImageUrl)" width="600">
                     <div class="blogcard-body">
-                        <span class="badge"> Gut Cleanse </span>
-                        <p class="text-muted mt-2 mb-1">@blog.CreateDate.ToString("MMM d, yyyy")</p>
-                        <h5 class="blogcard-title">@blog.Title</h5>
-                        <p class="blogcard-text" style="height:150px;">@blog.MainDescription</p>
-                        <a href="/blogs/View?id=@blog.Id">Learn More</a>
+                        <div style="display:inline-block">
+                            <span class="badge"> Gut Cleanse </span>
+                            <p class="text-muted mt-2 mb-1">@blog.CreateDate.ToString("MMM d, yyyy")</p>
+                            <h5 class="blogcard-title">@blog.Title</h5>
+                            <p class="blogcard-text" style="height:150px;">@blog.MainDescription</p>
+                        </div>
+                        
+                        <div style="float:right;padding-top:20px;"><a href="/blogs/View?id=@blog.Id">Learn More</a></div>
                     </div>
                 </div>
             </div>

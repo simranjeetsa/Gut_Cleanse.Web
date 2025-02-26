@@ -27,7 +27,7 @@ namespace Gut_Cleanse.Web.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            return View(userService.GetUsers());
+            return View(userService.GetUsers().Where(x => x.RoleName == "User"));
         }
          [HttpGet]
         public IActionResult Create(int Id)
