@@ -2,9 +2,9 @@
 
 <style>
     .blogsBg {
-    background: url(/Assets/blogre.7551e69a.jpg) top no-repeat;
-    background-size: cover;
-    background-position: 50%;
+        background: url(/Assets/blogre.7551e69a.jpg) top no-repeat;
+        background-size: cover;
+        background-position: 50%;
     }
 </style>
 
@@ -30,15 +30,7 @@
                         <p class="text-muted mt-2 mb-1">@blog.CreateDate.ToString("MMM d, yyyy")</p>
                         <h5 class="blogcard-title">@blog.Title</h5>
                         <p class="blogcard-text" style="height:150px;">@blog.MainDescription</p>
-                        @if (blog.Id == 1)
-                        {
-                            <a href="/blogs/Step_Approach">Learn More</a>
-                          
-                        }
-                        else if (blog.Id == 2)
-                        {
-                            <a href="/blogs/Remedies">Learn More</a>
-                        }
+                        <a href="/blogs/View?id=@blog.Id">Learn More</a>
                     </div>
                 </div>
             </div>

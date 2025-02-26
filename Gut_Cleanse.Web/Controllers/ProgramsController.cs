@@ -1,15 +1,7 @@
-﻿using Gut_Cleanse.Data.Tables;
-using Gut_Cleanse.Model;
-using Gut_Cleanse.Service.CommonService;
-using Gut_Cleanse.Service.PaymentService;
+﻿using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.ProgramsService;
-using Gut_Cleanse.Service.User;
-using Gut_Cleanse.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGeneration.Design;
 
 namespace Gut_Cleanse.Web.Controllers
 {
