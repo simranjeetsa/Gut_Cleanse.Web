@@ -1,11 +1,7 @@
 ﻿using Gut_Cleanse.Common;
 using Gut_Cleanse.Data;
+using Gut_Cleanse.Data.Tables;
 using Gut_Cleanse.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gut_Cleanse.Repo.BlogsRepo
 {
@@ -38,6 +34,33 @@ namespace Gut_Cleanse.Repo.BlogsRepo
                 result.Title = program.Title;
             }
             return result;
+        }
+
+        public void AddBlog(BlogModel model)
+        {
+            var data = _context.Blogs.FirstOrDefault(x => x.Id == model.Id);
+            if (data != null)
+            {
+                data.CreateDate = model.CreateDate;
+                data.MainDescription = model.MainDescription;
+                data.Description = model.Description;
+                data.ImageUrl = model.ImageUrl;
+                data.Title = model.Title;
+            }
+            else
+            {
+                Blog blog = new Blog()
+                {
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    MainDescription = model.MainDescription,
+                    Title = model.Title,
+                    CreateDate = model.CreateDate,
+                };
+                _context.Blogs.Add(blog);
+            }
+            
+            _context.SaveChanges();
         }
     }
 }
