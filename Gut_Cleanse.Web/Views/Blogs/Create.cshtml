@@ -1,0 +1,125 @@
+﻿@model Gut_Cleanse.Model.BlogModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+
+<style>
+    .g-3, .gy-3 {
+        --bs-gutter-y: 1rem;
+    }
+
+    .gj-textbox-md {
+        line-height: 1.375rem;
+        padding: calc(.543rem - var(--bs-border-width)) calc(.9375rem - var(--bs-border-width));
+    }
+
+    .gj-datepicker-md [role=right-icon] {
+        top: 6px;
+    }
+
+    .form-container {
+        margin-top: 20px;
+    }
+
+        .form-container h6 {
+            font-weight: bold;
+        }
+
+        .form-container .card {
+            padding: 20px;
+        }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+        .form-footer button {
+            width: 150px;
+        }
+
+    /* Scrollable CKEditor */
+    .ck-editor__editable {
+        max-height: 300px; /* Set a fixed max height for the editor */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+</style>
+
+<div class="row form-container">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Create", "Blogs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(x => x.Id)
+                        <div class="row g-3 needs-validation">
+                            <a href="@Url.Action("Index", "User")">
+                                <i class="bi bi-arrow-left" style="font-size: 24px; color: #007bff;"></i>
+                            </a>
+                            <div class="col-12">
+                                <h6>Blogs</h6>
+                                <hr class="mt-0">
+                            </div>
+
+                            <!-- Title -->
+                            <div class="col-md-6">
+                                @Html.LabelFor(x => x.Title, new { @class = "form-label required" })
+                                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                            </div>
+                            <!-- Image Upload -->
+                            <div class="col-md-6">
+                                <label class="form-label">Image</label>
+                                <input class="form-control" type="file" id="formValidationFile" name="formValidationFile">
+                            </div>
+                            <!-- Main Description -->
+                            <div class="col-md-6">
+                                @Html.LabelFor(x => x.MainDescription, new { @class = "form-label" })
+                                @Html.TextAreaFor(x => x.MainDescription, new { @class = "form-control", rows = "4", id = "MainDescriptionEditor" })
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-md-6">
+                                @Html.LabelFor(x => x.Description, new { @class = "form-label required" })
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", rows = "4", id = "DescriptionEditor" })
+                            </div>
+
+                       
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-footer">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Include CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+    <script>
+        // Initialize CKEditor for Description and MainDescription
+        ClassicEditor
+            .create(document.querySelector('#MainDescriptionEditor'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#DescriptionEditor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
