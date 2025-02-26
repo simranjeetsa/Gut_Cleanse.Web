@@ -9,7 +9,9 @@ using Gut_Cleanse.Service.CommonService;
 using Gut_Cleanse.Service.PaymentService;
 using Gut_Cleanse.Service.ProgramsService;
 using Gut_Cleanse.Service.User;
+using Gut_Cleanse.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +37,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
@@ -45,7 +46,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 app.UseAuthentication();
@@ -65,6 +66,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.UseSession();
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
