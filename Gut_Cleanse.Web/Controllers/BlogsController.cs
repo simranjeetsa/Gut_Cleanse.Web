@@ -1,5 +1,6 @@
 ﻿using Gut_Cleanse.Service.BlogsService;
 using Gut_Cleanse.Service.ProgramsService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gut_Cleanse.Web.Controllers
@@ -16,17 +17,18 @@ namespace Gut_Cleanse.Web.Controllers
             var blogs = _blogsService.GetBlogs();
             return View(blogs);
         }
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            var blogs = _blogsService.GetBlogs();
+            return View(blogs);
+        }
 
-        public IActionResult Step_Approach()
+        public IActionResult View(int id)
         {
-            var blogs = _blogsService.GetBlogsById(1);
+            var blogs = _blogsService.GetBlogsById(id);
             return View(blogs);
         }
-        public IActionResult Remedies()
-        {
-            var blogs = _blogsService.GetBlogsById(2);
-            return View(blogs);
-        }
-        
+
     }
 }

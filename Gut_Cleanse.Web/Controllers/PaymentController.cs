@@ -35,7 +35,6 @@ namespace Gut_Cleanse.Web.Controllers
         }
         public IActionResult Revolution()
         {
-            SendMessage("918567834444");
             var model = _commonService.GetPaymentModel(1);
             return View(model);
         }
@@ -141,7 +140,7 @@ namespace Gut_Cleanse.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Complete(string rzp_paymentid, string rzp_orderid, string ContactNumber)
+        public async Task<JsonResult> Complete(string rzp_paymentid, string rzp_orderid, string ContactNumber, string FirstName, string Name)
         {
             var keyId = _configuration.GetValue<string>("RazorPay_KeyId");
             var secretKey = _configuration.GetValue<string>("RazorPay_SecretKey");
@@ -159,9 +158,9 @@ namespace Gut_Cleanse.Web.Controllers
             Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
             string amt = paymentCaptured.Attributes["amount"];
 
-            //if (ContactNumber.Length == 10)
-            //    ContactNumber = "91" + ContactNumber;
-            //await SendMessage(ContactNumber);
+            if (ContactNumber.Length == 10)
+                ContactNumber = "whatsapp:+91" + ContactNumber;
+            await SendMessage(ContactNumber, FirstName, Name);
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
@@ -199,13 +198,10 @@ namespace Gut_Cleanse.Web.Controllers
             return View();
         }
 
-        public async Task SendMessage(string recipientPhoneNumber)
+        public async Task SendMessage(string recipientPhoneNumber, string customerName, string programName)
         {
             string accessToken = "EAAI0cZCvNMsABO9Dx4S3hTZBPuhBu27I5FyzFZCxNDxAwNy4VnvmIzYk4PW3UCqZAhWpix4OJocAVaApwUPwEncoh2YYibINxDzhIZAAJhQgjXbntybu7BtyEahZBqbq29bHmtZA8sle9vrfYqWaGCZCSj6u1FdZBCrk4Hc5VGks4m9NDGjBOog1zWBErm6T3owi6RAZDZD";  // The WhatsApp API access token
             string phoneNumberId = "519981084538466";  // Your WhatsApp phone number ID
-
-
-
 
             var message = new
             {
@@ -218,16 +214,15 @@ namespace Gut_Cleanse.Web.Controllers
                     language = new { code = "en" },
                     components = new[] {
                      new
-                    {
+                     {
                         type = "body",
                         parameters = new[]
                         {
-                            new { type = "text", text = "customerName" },  // Template parameter 1
-                            new { type = "text", text = "orderNumber" }   // Template parameter 2
+                            new { parameter_name = "customer_name",type = "text", text = customerName },  // Template parameter 1
+                            new { parameter_name = "program_name",type = "text", text = programName }   // Template parameter 2
                         }
+                     }
                     }
-                    }
-
                 }
             };
 

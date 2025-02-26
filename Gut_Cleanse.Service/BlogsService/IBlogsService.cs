@@ -11,6 +11,7 @@ namespace Gut_Cleanse.Service.BlogsService
     {
         public IEnumerable<BlogModel> GetBlogs();
         public BlogModel GetBlogsById(int Id);
+        void AddBlog(BlogModel model);
 
     }
 }
