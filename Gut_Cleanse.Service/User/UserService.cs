@@ -18,7 +18,7 @@ namespace Gut_Cleanse.Service.User
         }
         public List<UserModel> GetUsers()
         {
-            return userRepo.GetUsers().Where(x => x.Id != commonService.GetCurrentUserInfo().Id).Select(x => x.AutoMap<UserModel>()).ToList();
+            return userRepo.GetUsers().Where(x => x.Id != commonService.GetCurrentUserInfo().Id).ToList();
         }
 
         public UserModel GetUserByUserId(string userId)

@@ -52,6 +52,7 @@ namespace Gut_Cleanse.Model
         public int? CountryId { get; set; }
         public int? StateId { get; set; }
         public string AspNetUserId { get; set; }
+        public string RoleName { get; set; }
         public List<CountryModel> Countries { get; set; }
         public List<StateModel> States { get; set; }
         public List<CityModel> Cities { get; set; }

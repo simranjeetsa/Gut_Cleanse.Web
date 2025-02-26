@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Gut_Cleanse.Model.UserModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    #whatsapp-icon {
+        bottom: 80px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card  table-responsive">
+            <table id="myTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th style="text-align:left;">Contact No.</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.FirstName @data.LastName</td>
+                            <td style="text-align:left;">@data.ContactNumber</td>
+                            <td>@data.Email</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button disabled type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                    <div class="dropdown-menu" style="">
+                                        <a class="dropdown-item" href="/User/Create?Id=@data.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
