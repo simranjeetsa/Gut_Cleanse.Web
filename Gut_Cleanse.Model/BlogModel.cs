@@ -16,8 +16,6 @@ namespace Gut_Cleanse.Model
         public string Title { get; set; }
    
         public string? MainDescription { get; set; }
-        [Required]
-        [Display(Name = "Description")]
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
         [Required]
