@@ -55,10 +55,10 @@ namespace Gut_Cleanse.Web.Controllers
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid();
                     var filePath = Path.Combine(directory, fileName + extension);
 
-                    if (!System.IO.Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
+                    //if (!System.IO.Directory.Exists(directory))
+                    //{
+                    //    Directory.CreateDirectory(directory);
+                    //}
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
