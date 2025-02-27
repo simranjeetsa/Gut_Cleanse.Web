@@ -32,7 +32,6 @@ namespace Gut_Cleanse.Web.Controllers
             var blogs = _blogsService.GetBlogsById(Id);
             return View(blogs);
         }
-        [HttpPost]
         [Authorize(Roles = "Admin")]
         //public IActionResult Create()
         //{
@@ -67,23 +66,23 @@ namespace Gut_Cleanse.Web.Controllers
                     if (model.Id > 0)
                     {
                         _blogsService.AddBlog(model);
-                        TempData["ToastrMessage"] = "User updated successfully!";
+                        TempData["ToastrMessage"] = "Blogs updated successfully!";
                         TempData["ToastrType"] = "success";
                     }
                 }
-           
+
                 else
                 {
-                        _blogsService.AddBlog(model);
-                        TempData["ToastrMessage"] = "Blogs created successfully!";
-                        TempData["ToastrType"] = "success";
-                  
+                    _blogsService.AddBlog(model);
+                    TempData["ToastrMessage"] = "Blogs created successfully!";
+                    TempData["ToastrType"] = "success";
+
                 }
                 return RedirectToAction("List");
             }
             catch (Exception ex)
             {
-        
+
                 TempData["ToastrMessage"] = ex.Message;
                 TempData["ToastrType"] = "error";
             }

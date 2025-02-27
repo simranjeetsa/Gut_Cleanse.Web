@@ -158,8 +158,8 @@
 
                                             <!-- Testimonial Name Field (Above Description) -->
                                             <div class="col-md-12">
-                                                @Html.LabelFor(x => x.TestimonialPrograms[i].Name, new { @class = "form-label" })
-                                                @Html.TextBoxFor(x => x.TestimonialPrograms[i].Name, new { @class = "form-control" })
+                                                <label class="form-label">Name</label>
+                                                @Html.TextBoxFor(x => x.TestimonialPrograms[i].CreatedBy, new { @class = "form-control" })
                                             </div>
 
                                             <!-- Testimonial Description Field (Below Name) -->

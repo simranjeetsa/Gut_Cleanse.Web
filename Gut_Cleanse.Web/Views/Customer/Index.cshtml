@@ -7,9 +7,15 @@
         bottom: 80px !important;
     }
 </style>
+<!-- Export Button -->
 <div class="row">
     <div class="col-md-12">
-        <div class="card  table-responsive">
+        <div>
+            <button type="button" class="btn btn-primary" onclick="exportToCSV()">
+                <i class="bx bx-download"></i>
+            </button>
+        </div>
+        <div class="card table-responsive">
             <table id="myTable" class="table">
                 <thead>
                     <tr>
@@ -28,9 +34,13 @@
                             <td>@data.Email</td>
                             <td>
                                 <div class="dropdown">
-                                    <button disabled type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
-                                    <div class="dropdown-menu" style="">
-                                        <a class="dropdown-item" href="/User/Create?Id=@data.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    <button disabled type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/User/Create?Id=@data.Id">
+                                            <i class="bx bx-edit-alt me-1"></i> Edit
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -42,6 +52,10 @@
     </div>
 </div>
 
-
-
-
+@section Scripts {
+    <script>
+        function exportToCSV() {
+            window.location.href = '/Customer/ExportToCSV';
+        }
+    </script>
+}
