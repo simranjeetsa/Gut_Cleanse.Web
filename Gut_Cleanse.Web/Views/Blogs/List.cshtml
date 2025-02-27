@@ -1,55 +1,4 @@
-﻿@* @model IEnumerable<Gut_Cleanse.Model.ProgramModel>
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card  table-responsive">
-            <table id="myTable" class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th style="text-align:left; width:35%">Description</th>
-                        <th>Amount</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var data in Model)
-                    {
-                        <tr>
-                            <td>@data.Name</td>
-                            <td style="text-align:left;">
-                                @{
-                                    var truncatedDescription = Html.Raw(data.Description.Length > 134 ? data.Description.Substring(0, 134) + "..." : data.Description);
-                                }
-                                @truncatedDescription
-                            </td>
-                            <td>@data.Amount</td>
-                            <td>@data.StartDate</td>
-                            <td>@data.EndDate</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
-                                    <div class="dropdown-menu" style="">
-                                        <a class="dropdown-item" href="/Programs/Create?Id=@data.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-</div>
- *@
-
- @model IEnumerable<Gut_Cleanse.Model.BlogModel>
+﻿ @model IEnumerable<Gut_Cleanse.Model.BlogModel>
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -57,17 +6,7 @@
     #whatsapp-icon {
         bottom: 80px !important;
     }
-    /* Ensure that descriptions wrap inside table cells */
-    .table td {
-        word-wrap: break-word; /* Allows text to wrap within cells */
-        white-space: normal; /* Ensures text doesn't stay on one line */
-    }
-
-    /* Optionally, if you want to limit height of descriptions and add scrolling */
-    .table td {
-        max-height: 150px; /* Set max height for the cell */
-        overflow-y: auto; /* Allow vertical scrolling for long content */
-    }
+  
 
 </style>
 <div class="row">
@@ -78,7 +17,7 @@
                     <tr>
                         <th>Title</th>
                         <th>Main Description</th>
-                        <th style="text-align:left; width:35%">Description</th>
+                        <th>Created Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -87,9 +26,20 @@
                     {
                         <tr>
                             <td>@data.Title</td>
-                            <td>@Html.Raw(data.MainDescription)</td>
+                            <td style="text-align:left;">
+                                @{
+                                    var truncatedmainDescription = string.IsNullOrEmpty(data.MainDescription)
+                                    ? ""
+                                    : (data.MainDescription.Length > 100
+                                    ? data.MainDescription.Substring(0, 100) + "..."
+                                    : data.MainDescription);
+                                }
+                                @Html.Raw(truncatedmainDescription)
+                            </td>
+                            <td>
+                                @data.CreateDate
+                            </td>
 
-                            <td>@Html.Raw(data.Description)</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>

@@ -11,13 +11,17 @@ namespace Gut_Cleanse.Model
     {
  
         public int Id { get; set; }
-     
+        [Required]
+        [Display(Name = "Title")]
         public string Title { get; set; }
    
         public string? MainDescription { get; set; }
- 
+        [Required]
+        [Display(Name = "Description")]
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
+        [Required]
+        [Display(Name = "Create Date")]
         public DateOnly CreateDate { get; set; }
     }
 }

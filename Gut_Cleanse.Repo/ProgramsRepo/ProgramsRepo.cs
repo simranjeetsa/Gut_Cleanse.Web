@@ -99,7 +99,8 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                               {
                                   Name = t.Name,
                                   Description = t.Description,
-                                  Id = t.Id
+                                  Id = t.Id,
+                                  CreatedBy = t.CreatedBy,
                               }).ToList()
                           });
 
@@ -157,7 +158,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                         {
                             existingTestimonial.Name = updatedTestimonial.Name;
                             existingTestimonial.Description = updatedTestimonial.Description;
-                           
+                            existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
                         }
                      
                     }
