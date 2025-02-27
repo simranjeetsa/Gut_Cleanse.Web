@@ -76,7 +76,7 @@
                     </div>
                     <div class="Field-content">
                         <div class="Field-wrapper">
-                            @Html.TextBoxFor(x => x.ContactNumber, new { @class = "Field-el", type = "tel", required = "required" })
+                            @Html.TextBoxFor(x => x.ContactNumber, new { @class = "Field-el", type = "number", required = "required" })
                             @Html.ValidationMessageFor(x => x.ContactNumber)
                         </div>
 
