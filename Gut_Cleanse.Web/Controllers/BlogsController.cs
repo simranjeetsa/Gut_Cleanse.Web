@@ -63,14 +63,14 @@ namespace Gut_Cleanse.Web.Controllers
                     }
 
                     model.ImageUrl = "/Assets/blog/" + fileName + extension;
-                    if (model.Id > 0)
-                    {
-                        _blogsService.AddBlog(model);
-                        TempData["ToastrMessage"] = "Blogs updated successfully!";
-                        TempData["ToastrType"] = "success";
-                    }
+                    
                 }
-
+                if (model.Id > 0)
+                {
+                    _blogsService.AddBlog(model);
+                    TempData["ToastrMessage"] = "Blogs updated successfully!";
+                    TempData["ToastrType"] = "success";
+                }
                 else
                 {
                     _blogsService.AddBlog(model);
