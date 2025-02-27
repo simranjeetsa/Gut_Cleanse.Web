@@ -1,0 +1,104 @@
+﻿@model Gut_Cleanse.Model.PaymentTypeModel
+
+
+<div data-view-id="1" id="main-view" class="slider-view" tabindex="0">
+    <!---->
+
+    <div class="title" tabindex="0">
+        <a slot="before" href="#" class="back-btn" type="button" aria-label="back button"></a><!---->
+        Payment Details
+        <div class="title-underline"></div>
+    </div><!---->
+
+    <div id="form-section" class="">
+        @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post, new { @Id = "CreateOrderForm" }))
+        {
+            <div class="UI-form">
+                <div class="Field Field--required Field--amount Field--amount--selected Field--currency-1 ">
+                    <div class="Field-label">
+                        Amount
+                    </div>
+                    <div class="Field-content">
+                        <div class="Field-wrapper">
+                            <span class="Field-addon Field-addon--before">
+                                <span>
+                                    <b class="currency-symbol">₹</b>
+                                </span>
+                            </span>
+                            <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
+                            @Html.HiddenFor(x => x.Amount)
+                            @Html.HiddenFor(x => x.Description)
+                            @Html.HiddenFor(x => x.Name)
+                            @Html.Hidden("ProgramId", Model.Id)
+                            <span class="Field-addon Field-addon--after ">
+                            </span>
+                        </div>
+                        <div class="Field-error"></div>
+                        <div class="Field-description"></div>
+                    </div>
+                </div>
+                <div class="Field has-error Field--required">
+                    <div class="Field-label">
+                        First Name
+                    </div>
+                    <div class="Field-content">
+                        <div class="Field-wrapper">
+                            @Html.TextBoxFor(x => x.FirstName, new { @class = "Field-el", required = "required" })
+                            @Html.ValidationMessageFor(x => x.FirstName)
+                        </div>
+                    </div>
+                </div>
+                <div class="Field has-error Field--required">
+                    <div class="Field-label">
+                        Last Name
+                    </div>
+                    <div class="Field-content">
+                        <div class="Field-wrapper">
+                            @Html.TextBoxFor(x => x.LastName, new { @class = "Field-el", required = "required" })
+                            @Html.ValidationMessageFor(x => x.LastName)
+                        </div>
+                    </div>
+                </div>
+                <div class="Field has-error Field--required">
+                    <div class="Field-label">
+                        Email
+                    </div>
+                    <div class="Field-content">
+                        <div class="Field-wrapper">
+                            @Html.TextBoxFor(x => x.Email, new { @class = "Field-el", required = "required" })
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+                    </div>
+                </div>
+                <div class="Field has-error Field--required">
+                    <div class="Field-label">
+                        Phone
+                    </div>
+                    <div class="Field-content">
+                        <div class="Field-wrapper">
+                            @Html.TextBoxFor(x => x.ContactNumber, new { @class = "Field-el", type = "tel", required = "required" })
+                            @Html.ValidationMessageFor(x => x.ContactNumber)
+                        </div>
+
+                    </div>
+                </div><!---->
+            </div>
+            <!---->
+
+            <div slot="after">
+                <div id="form-footer" class="">
+
+
+
+                    <div class="form-footer-payment">
+                        <img id="fin-logo" alt="pay-methods" src="https://cdn.razorpay.com/static/assets/pay_methods_branding.png" width="180">
+
+
+                        <button type="submit" class="btn btn--gradient" tabindex="0">Pay <span style="margin-left: 4px;">₹ @Model.Amount.ToString("N2")</span></button><!----><!---->
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

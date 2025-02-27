@@ -37,6 +37,7 @@ namespace Gut_Cleanse.Repo.Common
                 result.Name = paymentType.Name;
                 result.Description = paymentType.Description;
                 result.Amount = paymentType.Amount;
+                result.PaymentContent = paymentType.PaymentContent;
             }
             return result;
 

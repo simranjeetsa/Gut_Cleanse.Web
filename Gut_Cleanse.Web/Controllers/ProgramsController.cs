@@ -17,10 +17,7 @@ namespace Gut_Cleanse.Web.Controllers
         public IActionResult Index()
         {
             var programs = _programsService.GetPrograms();
-            var selectedProgram = programs.FirstOrDefault(p => p.Id == 4);
-            var remainingPrograms = programs.Where(p => p.Id != 4);
-            ViewBag.SelectedProgram = selectedProgram;
-            return View(remainingPrograms);
+            return View(programs);
         }
 
         [Route("programs/one-one-gut-reset-revolution")]
@@ -66,9 +63,7 @@ namespace Gut_Cleanse.Web.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult List()
         {
-
             return View(_programsService.GetPrograms());
-
         }
 
         [HttpGet]

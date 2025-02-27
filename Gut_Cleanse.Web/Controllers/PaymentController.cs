@@ -33,29 +33,13 @@ namespace Gut_Cleanse.Web.Controllers
             _userService = userService;
             _roleManager = roleManager;
         }
-        public IActionResult Revolution()
+
+        public IActionResult Index(int id)
         {
-            var model = _commonService.GetPaymentModel(1);
+            var model = _commonService.GetPaymentModel(id);
             return View(model);
         }
 
-        public IActionResult Glory()
-        {
-            var model = _commonService.GetPaymentModel(2);
-            return View(model);
-        }
-
-        public IActionResult Workshop()
-        {
-            var model = _commonService.GetPaymentModel(3);
-            return View(model);
-        }
-
-        public IActionResult Challenge()
-        {
-            var model = _commonService.GetPaymentModel(4);
-            return View(model);
-        }
 
         [HttpPost]
         public async Task<ActionResult> CreateOrder(PaymentInitiateModel _requestData)

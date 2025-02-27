@@ -19,6 +19,7 @@ namespace Gut_Cleanse.Data.Tables
         public decimal Amount { get; set; }
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
+        public string? PaymentContent { get; set; }
         public ICollection<Payment> Payments { get; set; }
         public ICollection<Testimonial> Testimonials { get; set; }
         public ICollection<ProgramDetail> ProgramDetails { get; set; }

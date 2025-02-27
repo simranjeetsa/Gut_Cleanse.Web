@@ -523,7 +523,7 @@
         #paymentpage-container .goal-tracker-amount-based .goal-tracker-amount-based-top,
         #wysiwyg-root .goal-tracker-amount-based .goal-tracker-amount-based-top {
             font-weight: normal;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 20px;
             color: #515978;
         }
@@ -1908,8 +1908,8 @@
         #details-view .details-value {
             margin-top: 4px;
             color: #515978;
-            font-size: 16px;
-            line-height: 1px;
+            font-size: 14px;
+            line-height: 22px;
         }
 
         #details-view #details-section > div {
@@ -2701,7 +2701,7 @@
     @@media (max-width: 1023px) {
 
         #paymentpage-container #desktop-container #main-view {
-            width: fit-content;
+            width: fit-content
         }
 
         #paymentpage-container #desktop-container #form-section #fin-logo {
@@ -3074,171 +3074,29 @@
                     <div id="header-details">
                         <div id="merchant-name" tabindex="1">AKTIV HEALTH AND WELLNESS</div>
                     </div>
-                    <div data-view-id="1" id="main-view" class="slider-view" tabindex="0">
-                        <!---->
-
-                        <div class="title" tabindex="0">
-                            <a slot="before" href="#" class="back-btn" type="button" aria-label="back button"></a><!---->
-                            Payment Details
-                            <div class="title-underline"></div>
-                        </div><!---->
-
-                        <div id="form-section" class="">
-                            @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post, new { @Id = "CreateOrderForm" }))
-                            {
-                                <div class="UI-form">
-                                    <div class="Field Field--required Field--amount Field--amount--selected Field--currency-1 ">
-                                        <div class="Field-label">
-                                            Amount
-                                        </div>
-                                        <div class="Field-content">
-                                            <div class="Field-wrapper">
-                                                <span class="Field-addon Field-addon--before">
-                                                    <span>
-                                                        <b class="currency-symbol">₹</b>
-                                                    </span>
-                                                </span>
-                                                <div class="Field-el"><label><b>@Model.Amount.ToString("N2")</b></label></div>
-                                                @Html.HiddenFor(x => x.Amount)
-                                                @Html.HiddenFor(x => x.Description)
-                                                @Html.HiddenFor(x => x.Name)
-                                                @Html.Hidden("ProgramId", Model.Id)
-                                                <span class="Field-addon Field-addon--after ">
-                                                </span>
-                                            </div>
-                                            <div class="Field-error"></div>
-                                            <div class="Field-description"></div>
-                                        </div>
-                                    </div>
-                                    <div class="Field has-error Field--required">
-                                        <div class="Field-label">
-                                            First Name
-                                        </div>
-                                        <div class="Field-content">
-                                            <div class="Field-wrapper">
-                                                @Html.TextBoxFor(x => x.FirstName, new { @class = "Field-el", required = "required" })
-                                                @Html.ValidationMessageFor(x => x.FirstName)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="Field has-error Field--required">
-                                        <div class="Field-label">
-                                            Last Name
-                                        </div>
-                                        <div class="Field-content">
-                                            <div class="Field-wrapper">
-                                                @Html.TextBoxFor(x => x.LastName, new { @class = "Field-el", required = "required" })
-                                                @Html.ValidationMessageFor(x => x.LastName)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="Field has-error Field--required">
-                                        <div class="Field-label">
-                                            Email
-
-
-                                        </div>
-                                        <div class="Field-content">
-                                            <div class="Field-wrapper">
-                                                @Html.TextBoxFor(x => x.Email, new { @class = "Field-el", required = "required" })
-                                                @Html.ValidationMessageFor(x => x.Email)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="Field has-error Field--required">
-                                        <div class="Field-label">
-                                            Phone
-                                        </div>
-                                        <div class="Field-content">
-                                            <div class="Field-wrapper">
-                                                @Html.TextBoxFor(x => x.ContactNumber, new { @class = "Field-el", type = "tel", required = "required" })
-                                                @Html.ValidationMessageFor(x => x.ContactNumber)
-                                            </div>
-
-                                        </div>
-                                    </div><!---->
-                                </div>
-                                <!---->
-
-                                <div slot="after">
-                                    <div id="form-footer" class="">
-
-
-
-                                        <div class="form-footer-payment">
-                                            <img id="fin-logo" alt="pay-methods" src="https://cdn.razorpay.com/static/assets/pay_methods_branding.png" width="180">
-
-
-                                            <button type="submit" class="btn btn--gradient" tabindex="0">Pay <span style="margin-left: 4px;">₹ @Model.Amount.ToString("N2")</span></button><!----><!---->
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    </div>
+                    @Html.Partial("~/views/payment/programpayment.cshtml")
                     <div id="details-view" class="" tabindex="1">
                         <div id="details-section">
-                            <div id="description-details">
-                                <div class="title title--big" tabindex="1">
-                                    21 Day Challenge
-                                    <div class="title-underline"></div>
-                                </div>
-
-
-
-                                <div id="description" class="details-value text-line">
-                                    <div id="description-quill" tabindex="1" class="ql-container ql-snow ql-disabled">
-                                        <div class="ql-editor" data-gramm="false" contenteditable="false">
-                                            <h2><strong>Program name </strong></h2>
-                                            <p>The 21 Day Challenge</p>
-                                            <h2><strong>Program Description </strong></h2>
-                                            <p>The 21 days challenge is a 3 weeks diet and workout routine that is created to help you lose weight and inches. The price includes both diet and workout.(not available separately) The diet is created to help you lose both weight and inches. The workout is provided through pre recorded video links- you can choose to do them at home or in the gym.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
+                            @Html.Raw(Model.PaymentContent)
                             <div id="support-details">
                                 <label tabindex="1">Contact Us:</label>
                                 <div class="sub-detail">
-                                    <a href="mailto:transformationsbynancy@gmail.com?subject=Query for Payment Page Id: pl_PIKLhRnzh2XVd3"
-                                       target="_blank" rel="noopener noreferrer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z">
-                                            </path>
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                        </svg>
-                                        <div tabindex="1" aria-label="Email transformationsbynancy@gmail.com">transformationsbynancy@gmail.com</div>
+                                    <a href="mailto:nancy@@gutcleanse.in?subject=Query for Payment Page Id: pl_PcuDT4PhfXfBB6" target="_blank" rel="noopener noreferrer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                                        <div tabindex="1" aria-label="Email nancy@@gutcleanse.in">nancy@@gutcleanse.in</div>
                                     </a>
                                 </div>
 
                                 <div class="sub-detail">
-                                    <a href="tel:9876838003">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z">
-                                            </path>
-                                        </svg>
-                                        <div tabindex="1" aria-label="Contact number 9876838003">9876838003</div>
+                                    <a href="tel:+91 9779994422">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
+                                        <div tabindex="1" aria-label="Contact number +91 9779994422">+91 9779994422</div>
                                     </a>
                                 </div>
                             </div><!---->
                             <div id="terms-details">
                                 <label tabindex="1">Terms &amp; Conditions:</label>
-                                <div class="text-wrap" tabindex="1">
-                                    The program cannot be carried forward. It has to be completed
-                                    within the time frame provided. Slots in the next program cannot be adjusted. Fees is non-refundable and
-                                    non-transferrable.
-                                    <br/><br/>
-                                    You agree to share information entered on this page with nancy dehra (owner of this page) and Razorpay, adhering
-                                    to applicable laws.
-                                    <div class="terms-details-tnc" tabindex="1">
-                                        You agree to share information entered on this page with AKTIV HEALTH AND WELLNESS (owner of this page) and Razorpay, adhering to applicable laws.
-                                    </div>
-                                </div>
+                                <div class="details-value text-wrap" tabindex="1"><div class="terms-details-tnc">You agree to share information entered on this page with AKTIV HEALTH AND WELLNESS (owner of this page) and Razorpay, adhering to applicable laws.</div></div>
                             </div>
                         </div>
                     </div>
@@ -3248,8 +3106,14 @@
     </div>
 </div>
 <div id="partialViewContainer"></div>
-
 @section scripts {
+    <script>
+
+        function showMore(){
+        $('.hideContent').show();
+        $('.hideButton').hide();
+        }
+    </script>
     <script>
         $(function () {
             $('#CreateOrderForm').on('submit', function (event) {
