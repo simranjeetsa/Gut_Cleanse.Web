@@ -155,7 +155,23 @@
                                             <span>&nbsp;</span>
                                         }
                                     }
-                                    <a class="btn-process theme-btn" href="/payment/Index?id=@program.Id">Learn more...</a>
+                                    @if(program.Id==1){
+                                        <a class="btn-process theme-btn" href="/programs/one-one-gut-reset-revolution">Learn more...</a>
+                                        
+                                    }
+                                    else if (program.Id == 2)
+                                    {
+                                        <a class="btn-process theme-btn" href="/programs/gut-and-glory">Learn more...</a>
+                                    }
+                                    else if (program.Id == 3)
+                                    {
+                                        <a class="btn-process theme-btn" href="/programs/gut-intelligence-workshop">Learn more...</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn-process theme-btn" href="/payment/Index?id=@program.Id">Learn more...</a>
+                                    }
+                                   
                                 </div>
 
                             </div>
@@ -233,7 +249,7 @@
                         </div>
                         <div class="call-to-action-btn  nut-btn">
                             <a href="~/payment/Index?id=@selectedProgram.Id"
-                               class="item-btn-phone btn-blue theme-btn"><span>Book Now </span></a>
+                               class="item-btn-phone btn-blue theme-btn" target="_blank"><span>Book Now </span></a>
                         </div>
                     </div>
                 </div>
