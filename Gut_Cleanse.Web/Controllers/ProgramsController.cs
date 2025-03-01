@@ -100,7 +100,6 @@ namespace Gut_Cleanse.Web.Controllers
                 {
 
                     bool isUpdated = _programsService.UpdateProgram(model, currentUser);
-                    _programsService.UpdateProgram(model, currentUser);
                     TempData["ToastrMessage"] = " updated successfully!";
                     TempData["ToastrType"] = "success";
                 }
@@ -119,6 +118,13 @@ namespace Gut_Cleanse.Web.Controllers
             }
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddTestimonial(int rowCount)
+        {
+            ProgramModel model= new ProgramModel();
+            model.Count = rowCount;
+            return PartialView("~/Views/Programs/Shared/_testimonial.cshtml",model);
         }
     }
 }

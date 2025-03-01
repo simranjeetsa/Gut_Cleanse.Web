@@ -1,0 +1,30 @@
+﻿@model Gut_Cleanse.Model.ProgramModel
+@{
+    int i = Model.Count ?? 0;
+}
+<div class="row panel-row testimonial-panel" id="deleteTestimonial_@i">
+    <input type="hidden" name="TestimonialPrograms[@i].Id" value="@Model.TestimonialPrograms[i].Id" />
+    <input type="hidden" name="TestimonialPrograms[@i].IsDeleted" id="Testimonial_IsDeleted_@i" value="false" />
+    <!-- Testimonial Name Field (Above Description) -->
+    <div class="col-md-12">
+        <label class="form-label">Name</label>
+        <input class="form-control" data-val="true" data-val-required="The CreatedBy field is required." id="TestimonialPrograms_'+@i+'__CreatedBy" name="TestimonialPrograms[@i].CreatedBy" type="text" value="@Model.TestimonialPrograms[i].CreatedBy">
+    </div>
+
+    <!-- Testimonial Description Field (Below Name) -->
+    <div class="col-md-12">
+        <label class="form-label">Description</label>
+        @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
+        {
+            <textarea class="form-control" data-val="true" data-val-required="The Description field is required." id="TestimonialDescription_@i" name="TestimonialPrograms[@i].Description">@Model.TestimonialPrograms[i].Description</textarea>
+        }
+    </div>
+    @if (i != 0)
+    {
+        <a onclick="deleteTestimonial(@i)" class="">
+            <i style="color:red;float:right" class="bx bx-trash"></i>
+        </a>
+    }
+
+
+</div>

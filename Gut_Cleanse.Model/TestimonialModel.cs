@@ -20,6 +20,7 @@ namespace Gut_Cleanse.Model
         public string CreatedBy { get; set; }
 
         public int ProgramId { get; set; }
-    
+        public bool IsDeleted { get; set; }
+
     }
 }

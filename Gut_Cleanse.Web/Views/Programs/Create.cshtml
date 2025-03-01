@@ -153,29 +153,18 @@
                             <div class="panel">
                                 <h5>Panel 3: Testimonials</h5> <!-- Panel number -->
                                 <div id="testimonialsContainer">
-                                    @for (int i = 0; i < (Model.TestimonialPrograms?.Count ?? 0); i++)
+                                    @for (int i = 0; i < Model.TestimonialPrograms.Count; i++)
                                     {
-                                        <div class="row panel-row">
-                                            @Html.HiddenFor(x => x.TestimonialPrograms[i].Id)
-
-                                            <!-- Testimonial Name Field (Above Description) -->
-                                            <div class="col-md-12">
-                                                <label class="form-label">Name</label>
-                                                @Html.TextBoxFor(x => x.TestimonialPrograms[i].CreatedBy, new { @class = "form-control" })
-                                            </div>
-
-                                            <!-- Testimonial Description Field (Below Name) -->
-                                            <div class="col-md-12">
-                                                @Html.LabelFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-label" })
-                                                @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
-                                                {
-                                                    @Html.TextAreaFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-control", @id = "TestimonialDescription_" + i })
-                                                }
-                                            </div>
-                                        </div>
+                                        Model.Count = i;
+                                        //Model.TestimonialPrograms.Add(Model.TestimonialPrograms[i]);
+                                        @Html.Partial("~/Views/Programs/Shared/_testimonial.cshtml", Model)
                                     }
+
                                 </div>
                             </div>
+                            <a onclick="addTestimonial()" class="">
+                                <i style="color:green;float:right;font-size:35px;" class="bx bx-plus-circle"></i>
+                            </a>
                         </div>
 
                         <!-- Submit Button -->
@@ -251,6 +240,24 @@
                 autoclose: true
             });
 
+        function deleteTestimonial(rowCount){
+        $('#deleteTestimonial_'+rowCount).hide();
+        $('#Testimonial_IsDeleted_'+rowCount).val('true');
+        }
+        function addTestimonial(){
+            var rowCount=$('.testimonial-panel').length;
+             $.ajax({
+                    url: "/Programs/AddTestimonial",
+                    type: "POST",
+                    data: {rowCount:rowCount}, // Serialize form data
+                    success: function (response) {
+                       $('#testimonialsContainer').append(response);
+                    },
+                    error: function () {
+                        toastr.error("Oops! something went wrong");
+                    }
+                });
 
+        }
     </script>
 }

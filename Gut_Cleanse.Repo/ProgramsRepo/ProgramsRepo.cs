@@ -151,26 +151,37 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                         }
 
-                    }
 
-                    if (existingProgram.Testimonials != null)
+                }
+
+                if (existingProgram.Testimonials != null)
+                {
+
+                    foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0))
                     {
-
-                        foreach (var existingTestimonial in existingProgram.Testimonials.ToList())
+                        var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
+                        if (updatedTestimonial != null)
                         {
-                            var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
-                            if (updatedTestimonial != null)
-                            {
-                                existingTestimonial.Name = updatedTestimonial.Name;
-                                existingTestimonial.Description = updatedTestimonial.Description;
-                                existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
-                            }
-
+                            //existingTestimonial.Name = updatedTestimonial.Name;
+                            existingTestimonial.Description = updatedTestimonial.Description;
+                            existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
                         }
 
+
                     }
-                    
+                    foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
+                    {
+                        Testimonial testimonial = new Testimonial()
+                        {
+                            Description = newTestimonial.Description,
+                            CreatedBy = newTestimonial.CreatedBy,
+                        };
+                        existingProgram.Testimonials.Add(testimonial);
+                    }
+
                 }
+
+
                 _context.SaveChanges();
                 return true;
             }

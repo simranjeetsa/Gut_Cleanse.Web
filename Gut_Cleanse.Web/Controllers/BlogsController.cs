@@ -52,10 +52,7 @@ namespace Gut_Cleanse.Web.Controllers
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid();
                     var filePath = Path.Combine(directory, fileName + extension);
 
-                    if (!System.IO.Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
+                   
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
@@ -63,14 +60,14 @@ namespace Gut_Cleanse.Web.Controllers
                     }
 
                     model.ImageUrl = "/Assets/blog/" + fileName + extension;
-                    if (model.Id > 0)
-                    {
-                        _blogsService.AddBlog(model);
-                        TempData["ToastrMessage"] = "Blogs updated successfully!";
-                        TempData["ToastrType"] = "success";
-                    }
+                    
                 }
-
+                if (model.Id > 0)
+                {
+                    _blogsService.AddBlog(model);
+                    TempData["ToastrMessage"] = "Blogs updated successfully!";
+                    TempData["ToastrType"] = "success";
+                }
                 else
                 {
                     _blogsService.AddBlog(model);
