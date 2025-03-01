@@ -6,6 +6,7 @@ using Gut_Cleanse.Repo.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGeneration.Design;
+using NuGet.Packaging;
 using NuGet.Protocol.Plugins;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Gut_Cleanse.Repo.ProgramsRepo.ProgramsRepo;
+using Program = Gut_Cleanse.Data.Tables.Program;
 
 namespace Gut_Cleanse.Repo.ProgramsRepo
 {
@@ -30,7 +32,6 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
             result.AddRange(_context.Programs.Select(x => x.AutoMap<ProgramModel>()).ToList());
             return result;
         }
-
         public IEnumerable<TestimonialModel> GetTestimonialProgramsById(int programId)
         {
             return _context.Testimonials
@@ -43,7 +44,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
         {
             return _context.ProgramDetails.Where(x => x.ProgramId == programId).Select(x => x.AutoMap<ProgramDetailModel>()).ToList();
         }
-        public  ProgramModel GetProgramById(int Id)
+        public ProgramModel GetProgramById(int Id)
         {
             ProgramModel result = new ProgramModel();
             var program = _context.Programs.FirstOrDefault(x => x.Id == Id);
@@ -55,16 +56,9 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                 result.Amount = program.Amount;
                 result.StartDate = program.StartDate;
                 result.EndDate = program.EndDate;
-            }
+            } 
             return result;
-
         }
- 
-
-
-
-   
-   
         public IEnumerable<ProgramModel> GetProgramWithDetails(int programId)
         {
             // First, get the Program along with its related entities
@@ -104,15 +98,14 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                               }).ToList()
                           });
 
-            return result.ToList(); 
+            return result.ToList();
         }
-
 
         public bool UpdateProgram(ProgramModel program, string currentUser)
         {
             try
             {
-               
+
                 var existingProgram = _context.Programs
                     .Include(p => p.ProgramDetails)
                     .Include(p => p.Testimonials)
@@ -120,64 +113,76 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                 if (existingProgram == null)
                 {
-                    return false; 
-                }
-
-              
-                existingProgram.Name = program.Name;
-                existingProgram.Description = program.Description;
-                existingProgram.StartDate = program.StartDate;
-                existingProgram.EndDate = program.EndDate;
-                existingProgram.Amount = program.Amount;
-
-               
-                if (existingProgram.ProgramDetails != null)
-                {
-                    // Update existing details
-                    foreach (var existingDetail in existingProgram.ProgramDetails.ToList())
-                    {
-                        var updatedDetail = program.ProgramDetail.FirstOrDefault(pd => pd.Id == existingDetail.Id);
-                        if (updatedDetail != null)
+                        Program newProgram = new Program()
                         {
-                            existingDetail.Name = updatedDetail.Name;
-                            existingDetail.Description = updatedDetail.Description;
+                        Name = program.Name,
+                        Description = program.Description,
+                        StartDate = program.StartDate,
+                        EndDate = program.EndDate,
+                        Amount = program.Amount,
+                         ProgramDetails = program.ProgramDetail?.Select(pd => new ProgramDetail
+                        {
+                                Name = pd.Name,
+                                Description = pd.Description
+                            }).ToList() ?? new List<ProgramDetail>(),
+                        };
+                    _context.Programs.Add(newProgram);
+                }
+                else
+                {
+
+                    existingProgram.Name = program.Name;
+                    existingProgram.Description = program.Description;
+                    existingProgram.StartDate = program.StartDate;
+                    existingProgram.EndDate = program.EndDate;
+                    existingProgram.Amount = program.Amount;
+
+                    if (existingProgram.ProgramDetails != null)
+                    {
+                        // Update existing details
+                        foreach (var existingDetail in existingProgram.ProgramDetails.ToList())
+                        {
+                            var updatedDetail = program.ProgramDetail.FirstOrDefault(pd => pd.Id == existingDetail.Id);
+                            if (updatedDetail != null)
+                            {
+                                existingDetail.Name = updatedDetail.Name;
+                                existingDetail.Description = updatedDetail.Description;
+                            }
+
                         }
 
                     }
 
-                 
-                }
-
-                if (existingProgram.Testimonials != null)
-                {
-                
-                    foreach (var existingTestimonial in existingProgram.Testimonials.ToList())
+                    if (existingProgram.Testimonials != null)
                     {
-                        var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
-                        if (updatedTestimonial != null)
+
+                        foreach (var existingTestimonial in existingProgram.Testimonials.ToList())
                         {
-                            existingTestimonial.Name = updatedTestimonial.Name;
-                            existingTestimonial.Description = updatedTestimonial.Description;
-                            existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
+                            var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
+                            if (updatedTestimonial != null)
+                            {
+                                existingTestimonial.Name = updatedTestimonial.Name;
+                                existingTestimonial.Description = updatedTestimonial.Description;
+                                existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
+                            }
+
                         }
-                     
+
                     }
-
+                    
                 }
-
-              
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
             {
                 // Log exception (optional)
-                Console.Error.WriteLine(ex.Message); 
+                Console.Error.WriteLine(ex.Message);
 
                 return false;
             }
         }
-
+      
 
 
 

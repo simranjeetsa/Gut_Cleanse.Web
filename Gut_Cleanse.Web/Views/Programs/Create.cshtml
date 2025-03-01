@@ -36,9 +36,9 @@
         margin-bottom: 20px;
     }
 
-    .panel-row .col-md-12 {
-        padding: 10px;
-    }
+        .panel-row .col-md-12 {
+            padding: 10px;
+        }
 
     .submit-btn {
         text-align: center;
@@ -77,22 +77,23 @@
                         <div class="col-md-12">
                             <div class="panel">
                                 <h5>Panel 1: Program Information</h5> <!-- Panel number -->
-                                
                                 <!-- Program Name Field -->
                                 <div class="row panel-row name-description-row">
                                     <div class="col-md-12">
-                                        @Html.LabelFor(x => x.Name, new { @class = "form-label" })
-                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                        @Html.LabelFor(x => x.Name, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.Name)
                                     </div>
                                 </div>
                                 <!-- Program Description Field -->
                                 <div class="row panel-row name-description-row">
                                     <div class="col-md-12">
-                                        @Html.LabelFor(x => x.Description, new { @class = "form-label" })
-                                    @*     @if (!string.IsNullOrEmpty(Model.Description))  
+                                        @Html.LabelFor(x => x.Description, new { @class = "form-label required" })
+                                        @*     @if (!string.IsNullOrEmpty(Model.Description))  
                                         { *@
-                                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @id = "DescriptionProgrammInfo" })
-                                  @*       } *@
+                                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control", required = "required", @id = "DescriptionProgrammInfo" })
+                                        @Html.ValidationMessageFor(x => x.Description)
+                                        @*       } *@
                                     </div>
                                 </div>
 
@@ -109,8 +110,9 @@
                                     </div>
                                     <!-- Program Amount Field -->
                                     <div class="col-md-4">
-                                        @Html.LabelFor(x => x.Amount, new { @class = "form-label" })
-                                        @Html.TextBoxFor(x => x.Amount, new { @class = "form-control" })
+                                        @Html.LabelFor(x => x.Amount, new { @class = "form-label required" })
+                                        @Html.TextBoxFor(x => x.Amount, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.Amount)
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +128,7 @@
                                         <div class="row panel-row">
                                             @Html.HiddenFor(x => x.ProgramDetail[i].Id)
 
-                                          
+
                                             <div class="col-md-12">
                                                 @Html.LabelFor(x => x.ProgramDetail[i].Name, new { @class = "form-label" })
                                                 @Html.TextAreaFor(x => x.ProgramDetail[i].Name, new { @class = "form-control" })
@@ -135,10 +137,10 @@
                                             <!-- ProgramDetail Description Field (Below Name) -->
                                             <div class="col-md-12">
                                                 @Html.LabelFor(x => x.ProgramDetail[i].Description, new { @class = "form-label" })
-                                                @if (!string.IsNullOrEmpty(Model.ProgramDetail[i].Description)) 
+                                                @if (!string.IsNullOrEmpty(Model.ProgramDetail[i].Description))
                                                 {
                                                     @Html.TextAreaFor(x => x.ProgramDetail[i].Description, new { @class = "form-control", @id = "Description_" + i })
-                                                 } 
+                                                }
                                             </div>
                                         </div>
                                     }
@@ -165,10 +167,10 @@
                                             <!-- Testimonial Description Field (Below Name) -->
                                             <div class="col-md-12">
                                                 @Html.LabelFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-label" })
-                                               @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
+                                                @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
                                                 {
                                                     @Html.TextAreaFor(x => x.TestimonialPrograms[i].Description, new { @class = "form-control", @id = "TestimonialDescription_" + i })
-                                                } 
+                                                }
                                             </div>
                                         </div>
                                     }
@@ -199,11 +201,11 @@
                 @if (!string.IsNullOrEmpty(Model.ProgramDetail[i].Description))
                 {
                     <text>
-                        ClassicEditor
-                            .create(document.querySelector('#Description_@i'))
-                            .catch(error => {
-                                console.error(error);
-                            });
+                                ClassicEditor
+                                    .create(document.querySelector('#Description_@i'))
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                     </text>
                 }
             </text>
@@ -216,11 +218,11 @@
                 @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
                 {
                     <text>
-                        ClassicEditor
-                            .create(document.querySelector('#TestimonialDescription_@i'))
-                            .catch(error => {
-                                console.error(error);
-                            });
+                                ClassicEditor
+                                    .create(document.querySelector('#TestimonialDescription_@i'))
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                     </text>
                 }
             </text>
@@ -229,14 +231,14 @@
         @if (!string.IsNullOrEmpty(Model.Description))
         {
             <text>
-                    ClassicEditor
-                        .create(document.querySelector('#DescriptionProgrammInfo'))
-                        .catch(error => {
-                            console.error(error);
-                        });
-        </text>
+                        ClassicEditor
+                            .create(document.querySelector('#DescriptionProgrammInfo'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+            </text>
         }
-       
+
             // Initialize date picker for the Start Date field
             $('#startDate').datepicker({
                 format: 'mm/dd/yyyy',  // You can change the format to your desired one
@@ -249,6 +251,6 @@
                 autoclose: true
             });
 
-        
+
     </script>
 }
