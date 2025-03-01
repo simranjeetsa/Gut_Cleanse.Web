@@ -59,12 +59,12 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
             return result;
 
         }
- 
 
 
 
-   
-   
+
+
+
         public IEnumerable<ProgramModel> GetProgramWithDetails(int programId)
         {
             // First, get the Program along with its related entities
@@ -104,7 +104,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                               }).ToList()
                           });
 
-            return result.ToList(); 
+            return result.ToList();
         }
 
 
@@ -112,7 +112,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
         {
             try
             {
-               
+
                 var existingProgram = _context.Programs
                     .Include(p => p.ProgramDetails)
                     .Include(p => p.Testimonials)
@@ -120,17 +120,17 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                 if (existingProgram == null)
                 {
-                    return false; 
+                    return false;
                 }
 
-              
+
                 existingProgram.Name = program.Name;
                 existingProgram.Description = program.Description;
                 existingProgram.StartDate = program.StartDate;
                 existingProgram.EndDate = program.EndDate;
                 existingProgram.Amount = program.Amount;
 
-               
+
                 if (existingProgram.ProgramDetails != null)
                 {
                     // Update existing details
@@ -145,34 +145,44 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                     }
 
-                 
+
                 }
 
                 if (existingProgram.Testimonials != null)
                 {
-                
-                    foreach (var existingTestimonial in existingProgram.Testimonials.ToList())
+
+                    foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0))
                     {
                         var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
                         if (updatedTestimonial != null)
                         {
-                            existingTestimonial.Name = updatedTestimonial.Name;
+                            //existingTestimonial.Name = updatedTestimonial.Name;
                             existingTestimonial.Description = updatedTestimonial.Description;
                             existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
                         }
-                     
+
+
+                    }
+                    foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
+                    {
+                        Testimonial testimonial = new Testimonial()
+                        {
+                            Description = newTestimonial.Description,
+                            CreatedBy = newTestimonial.CreatedBy,
+                        };
+                        existingProgram.Testimonials.Add(testimonial);
                     }
 
                 }
 
-              
+
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
             {
                 // Log exception (optional)
-                Console.Error.WriteLine(ex.Message); 
+                Console.Error.WriteLine(ex.Message);
 
                 return false;
             }

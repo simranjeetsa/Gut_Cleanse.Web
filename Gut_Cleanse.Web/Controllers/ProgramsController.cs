@@ -13,7 +13,7 @@ namespace Gut_Cleanse.Web.Controllers
         {
             _programsService = programsService;
         }
-      
+
         public IActionResult Index()
         {
             var programs = _programsService.GetPrograms();
@@ -71,10 +71,10 @@ namespace Gut_Cleanse.Web.Controllers
         {
             ProgramModel model = new ProgramModel();
 
-         
+
             if (Id != 0)
             {
-                var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault(); 
+                var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault();
 
                 if (result != null)
                 {
@@ -84,8 +84,8 @@ namespace Gut_Cleanse.Web.Controllers
                     model.Amount = result.Amount;
                     model.StartDate = result.StartDate;
                     model.EndDate = result.EndDate;
-                    model.ProgramDetail = result.ProgramDetail; 
-                    model.TestimonialPrograms = result.TestimonialPrograms; 
+                    model.ProgramDetail = result.ProgramDetail;
+                    model.TestimonialPrograms = result.TestimonialPrograms;
                 }
             }
 
@@ -95,13 +95,12 @@ namespace Gut_Cleanse.Web.Controllers
         {
             try
             {
-            
+
                 if (model.Id > 0)
                 {
                     string currentUser = User.Identity.Name;
 
                     bool isUpdated = _programsService.UpdateProgram(model, currentUser);
-                                 _programsService.UpdateProgram(model, currentUser);
                     TempData["ToastrMessage"] = " updated successfully!";
                     TempData["ToastrType"] = "success";
                 }
@@ -116,6 +115,13 @@ namespace Gut_Cleanse.Web.Controllers
             }
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddTestimonial(int rowCount)
+        {
+            ProgramModel model= new ProgramModel();
+            model.Count = rowCount;
+            return PartialView("~/Views/Programs/Shared/_testimonial.cshtml",model);
         }
     }
 }
