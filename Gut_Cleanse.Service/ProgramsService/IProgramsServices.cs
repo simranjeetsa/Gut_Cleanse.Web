@@ -19,6 +19,6 @@ namespace Gut_Cleanse.Service.ProgramsService
         bool UpdateProgram(ProgramModel Program ,string currentUser);
        
         IEnumerable<ProgramModel> GetProgramWithDetails(int programId);
-
+        void DeleteTestimonials(int testimonialId);
     }
 }

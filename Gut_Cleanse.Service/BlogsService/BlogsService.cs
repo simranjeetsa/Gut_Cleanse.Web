@@ -25,5 +25,9 @@ namespace Gut_Cleanse.Service.BlogsService
         {
              _blogsRepo.AddBlog(model);
         }
+        public void DeleteBlog(int id)
+        {
+            _blogsRepo.DeleteBlog(id);
+        }
     }
 }

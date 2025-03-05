@@ -16,7 +16,10 @@ namespace Gut_Cleanse.Repo.BlogsRepo
         public IEnumerable<BlogModel> GetBlogs()
         {
             List<BlogModel> result = new List<BlogModel>();
-            result.AddRange(_context.Blogs.Select(x => x.AutoMap<BlogModel>()).ToList());
+            result.AddRange(_context.Blogs
+                .Where(x => !x.IsDeleted) 
+                .Select(x => x.AutoMap<BlogModel>())
+                .ToList());
             return result;
         }
 
@@ -59,7 +62,15 @@ namespace Gut_Cleanse.Repo.BlogsRepo
                 };
                 _context.Blogs.Add(blog);
             }
-            
+            _context.SaveChanges();
+        }
+ 
+        public void DeleteBlog(int id)
+        {
+            var blog = _context.Blogs.FirstOrDefault(s => s.Id == id);
+            if (blog == null) return;
+
+            _context.Blogs.Remove(blog); 
             _context.SaveChanges();
         }
     }

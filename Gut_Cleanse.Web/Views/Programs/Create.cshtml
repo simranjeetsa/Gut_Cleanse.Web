@@ -162,7 +162,7 @@
 
                                 </div>
                             </div>
-                            <a onclick="addTestimonial()" class="">
+                            <a onclick="addTestimonial()" class="add-testimonial-btn">
                                 <i style="color:green;float:right;font-size:35px;" class="bx bx-plus-circle"></i>
                             </a>
                         </div>
@@ -190,11 +190,11 @@
                 @if (!string.IsNullOrEmpty(Model.ProgramDetail[i].Description))
                 {
                     <text>
-                                ClassicEditor
-                                    .create(document.querySelector('#Description_@i'))
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+                                        ClassicEditor
+                                            .create(document.querySelector('#Description_@i'))
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
                     </text>
                 }
             </text>
@@ -207,11 +207,11 @@
                 @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
                 {
                     <text>
-                                ClassicEditor
-                                    .create(document.querySelector('#TestimonialDescription_@i'))
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+                                        ClassicEditor
+                                            .create(document.querySelector('#TestimonialDescription_@i'))
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
                     </text>
                 }
             </text>
@@ -220,11 +220,11 @@
         @if (!string.IsNullOrEmpty(Model.Description))
         {
             <text>
-                        ClassicEditor
-                            .create(document.querySelector('#DescriptionProgrammInfo'))
-                            .catch(error => {
-                                console.error(error);
-                            });
+                            ClassicEditor
+                                .create(document.querySelector('#DescriptionProgrammInfo'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
             </text>
         }
 
@@ -240,24 +240,57 @@
                 autoclose: true
             });
 
-        function deleteTestimonial(rowCount){
-        $('#deleteTestimonial_'+rowCount).hide();
-        $('#Testimonial_IsDeleted_'+rowCount).val('true');
-        }
-        function addTestimonial(){
-            var rowCount=$('.testimonial-panel').length;
-             $.ajax({
-                    url: "/Programs/AddTestimonial",
-                    type: "POST",
-                    data: {rowCount:rowCount}, // Serialize form data
-                    success: function (response) {
-                       $('#testimonialsContainer').append(response);
-                    },
-                    error: function () {
+        // function deleteTestimonial(testimonialIndex){
+        //     debugger
+        // $('#deleteTestimonial_'+testimonialIndex).hide();
+        // $('#Testimonial_IsDeleted_'+testimonialIndex).val('true');
+        // }
+
+         function deleteTestimonial(testimonialIndex) {
+
+            $('#deleteTestimonial_' + testimonialIndex).hide();
+            var testimonialId = $('#Testimonial_Id_' + testimonialIndex).val();
+            if (!testimonialId) {
+                toastr.error("Testimonial ID is not valid.");
+                return;
+            }
+
+            $.ajax({
+                url: "/Programs/DeleteTestimonials",
+                type: 'POST',
+                data: {
+                    testimonialId: testimonialId,
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#testimonial_' + testimonialIndex).remove();
+                        toastr.success("Testimonial deleted successfully!");
+                    } else {
+                        toastr.error("Error deleting testimonial: " + response.error);
+                    }
+                },
+                error: function () {
                         toastr.error("Oops! something went wrong");
                     }
-                });
+            });
 
+            return false;
         }
+
+        function addTestimonial() {
+            var rowCount = $('#testimonialsContainer .testimonial-panel').length;
+            $.ajax({
+                url: "/Programs/AddTestimonial",
+                type: "POST",
+                data: { rowCount: rowCount },
+                success: function (response) {
+                    $('#testimonialsContainer').append(response);
+                },
+               error: function () {
+                        toastr.error("Oops! something went wrong");
+                    }
+            });
+        }
+
     </script>
 }

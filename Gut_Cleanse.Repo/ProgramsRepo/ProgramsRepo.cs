@@ -56,7 +56,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                 result.Amount = program.Amount;
                 result.StartDate = program.StartDate;
                 result.EndDate = program.EndDate;
-            } 
+            }
             return result;
         }
         public IEnumerable<ProgramModel> GetProgramWithDetails(int programId)
@@ -73,7 +73,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                               program.EndDate,
                               program.Amount,
                               ProgramDetails = _context.ProgramDetails.Where(pd => pd.ProgramId == program.Id).ToList(),
-                              Testimonials = _context.Testimonials.Where(t => t.ProgramId == program.Id).ToList()
+                              Testimonials = _context.Testimonials.Where(t => t.ProgramId == program.Id).ToList(),
                           }).AsEnumerable()
                           .Select(programData => new ProgramModel
                           {
@@ -113,19 +113,16 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                 if (existingProgram == null)
                 {
-                        Program newProgram = new Program()
-                        {
+                    Program newProgram = new Program()
+                    {
                         Name = program.Name,
                         Description = program.Description,
                         StartDate = program.StartDate,
                         EndDate = program.EndDate,
                         Amount = program.Amount,
-                         ProgramDetails = program.ProgramDetail?.Select(pd => new ProgramDetail
-                        {
-                                Name = pd.Name,
-                                Description = pd.Description
-                            }).ToList() ?? new List<ProgramDetail>(),
-                        };
+                        Id = program.Id
+                     
+                    };
                     _context.Programs.Add(newProgram);
                 }
                 else
@@ -152,36 +149,35 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                         }
 
 
-                }
+                    }
 
-                if (existingProgram.Testimonials != null)
-                {
-
-                    foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0))
+                    if (existingProgram.Testimonials != null)
                     {
-                        var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
-                        if (updatedTestimonial != null)
+
+                        foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0))
                         {
-                            //existingTestimonial.Name = updatedTestimonial.Name;
-                            existingTestimonial.Description = updatedTestimonial.Description;
-                            existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
+                            var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
+                            if (updatedTestimonial != null)
+                            {
+                                //existingTestimonial.Name = updatedTestimonial.Name;
+                                existingTestimonial.Description = updatedTestimonial.Description;
+                                existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
+                            }
+
+
                         }
-
-
-                    }
-                    foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
-                    {
-                        Testimonial testimonial = new Testimonial()
+                        foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
                         {
-                            Description = newTestimonial.Description,
-                            CreatedBy = newTestimonial.CreatedBy,
-                        };
-                        existingProgram.Testimonials.Add(testimonial);
+                            Testimonial testimonial = new Testimonial()
+                            {
+                                Description = newTestimonial.Description,
+                                CreatedBy = newTestimonial.CreatedBy,
+                                Name= "",
+                            };
+                            existingProgram.Testimonials.Add(testimonial);
+                        }
                     }
-
                 }
-
-
                 _context.SaveChanges();
                 return true;
             }
@@ -193,10 +189,15 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                 return false;
             }
         }
-      
 
+        public void DeleteTestimonials(int testimonialId)
+        {
+            var blog = _context.Testimonials.FirstOrDefault(s => s.Id == testimonialId);
+            if (blog == null) return;
 
-
+            _context.Testimonials.Remove(blog);
+            _context.SaveChanges();
+        }
     }
 }
 

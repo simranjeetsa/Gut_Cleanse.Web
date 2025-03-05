@@ -3,6 +3,7 @@ using Gut_Cleanse.Service.ProgramsService;
 using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -125,6 +126,23 @@ namespace Gut_Cleanse.Web.Controllers
             ProgramModel model= new ProgramModel();
             model.Count = rowCount;
             return PartialView("~/Views/Programs/Shared/_testimonial.cshtml",model);
+        }
+        [HttpPost]
+        public IActionResult DeleteTestimonials(int testimonialId)
+        {
+            try
+            {
+                if (testimonialId > 0)
+                {
+                    _programsService.DeleteTestimonials(testimonialId); 
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, error = "Invalid testimonial ID." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
         }
     }
 }
