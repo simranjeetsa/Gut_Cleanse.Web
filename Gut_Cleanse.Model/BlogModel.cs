@@ -17,6 +17,7 @@ namespace Gut_Cleanse.Model
    
         public string? MainDescription { get; set; }
         public string? Description { get; set; }
+        [Display(Name = "Image")]
         public string? ImageUrl { get; set; }
         [Required]
         [Display(Name = "Create Date")]

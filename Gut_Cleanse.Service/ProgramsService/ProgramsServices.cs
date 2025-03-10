@@ -2,6 +2,7 @@
 using Gut_Cleanse.Model;
 using Gut_Cleanse.Repo.PaymentRepo;
 using Gut_Cleanse.Repo.ProgramsRepo;
+using Microsoft.VisualStudio.Web.CodeGeneration.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,10 @@ namespace Gut_Cleanse.Service.ProgramsService
         public IEnumerable<ProgramModel> GetProgramWithDetails(int programId)
         {
             return _programsRepo.GetProgramWithDetails(programId);
+        }
+        public void DeleteTestimonials(int testimonialId)
+        {
+            _programsRepo.DeleteTestimonials(testimonialId);
         }
     }
 }

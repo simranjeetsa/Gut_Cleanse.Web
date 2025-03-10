@@ -97,5 +97,27 @@ namespace Gut_Cleanse.Web.Controllers
             return View(_blogsService.GetBlogs());
 
         }
+        public IActionResult DeleteBlogs(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    _blogsService.DeleteBlog(id);
+                    TempData["ToastrMessage"] = "Blogs deleted successfully!";
+                    TempData["ToastrType"] = "success";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ToastrMessage"] = ex.Message;
+                TempData["ToastrType"] = "error";
+            }
+
+
+            return RedirectToAction("List");
+
+
+        }
     }
 }

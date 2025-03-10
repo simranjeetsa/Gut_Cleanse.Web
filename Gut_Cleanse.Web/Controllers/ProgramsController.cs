@@ -1,7 +1,9 @@
 ﻿using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.ProgramsService;
+using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -13,7 +15,7 @@ namespace Gut_Cleanse.Web.Controllers
         {
             _programsService = programsService;
         }
-      
+
         public IActionResult Index()
         {
             var programs = _programsService.GetPrograms();
@@ -65,16 +67,15 @@ namespace Gut_Cleanse.Web.Controllers
         {
             return View(_programsService.GetPrograms());
         }
-
         [HttpGet]
         public IActionResult Create(int Id)
         {
             ProgramModel model = new ProgramModel();
 
-         
+
             if (Id != 0)
             {
-                var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault(); 
+                var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault();
 
                 if (result != null)
                 {
@@ -84,8 +85,10 @@ namespace Gut_Cleanse.Web.Controllers
                     model.Amount = result.Amount;
                     model.StartDate = result.StartDate;
                     model.EndDate = result.EndDate;
-                    model.ProgramDetail = result.ProgramDetail; 
-                    model.TestimonialPrograms = result.TestimonialPrograms; 
+                    model.ProgramDetail = result.ProgramDetail;
+                    model.TestimonialPrograms = result.TestimonialPrograms;
+                    if (!result.TestimonialPrograms.Any())
+                        result.TestimonialPrograms.Add(new TestimonialModel());
                 }
             }
 
@@ -95,17 +98,19 @@ namespace Gut_Cleanse.Web.Controllers
         {
             try
             {
-            
+                string currentUser = User.Identity.Name;
                 if (model.Id > 0)
                 {
-                    string currentUser = User.Identity.Name;
 
                     bool isUpdated = _programsService.UpdateProgram(model, currentUser);
-                                 _programsService.UpdateProgram(model, currentUser);
                     TempData["ToastrMessage"] = " updated successfully!";
                     TempData["ToastrType"] = "success";
                 }
-
+                else
+                {
+                   
+                    _programsService.UpdateProgram(model, currentUser);
+                }
                 return RedirectToAction("List");
             }
             catch (Exception ex)
@@ -117,5 +122,30 @@ namespace Gut_Cleanse.Web.Controllers
 
             return View(model);
         }
+        [HttpPost]
+        public ActionResult AddTestimonial(int rowCount)
+        {
+            ProgramModel model= new ProgramModel();
+            model.Count = rowCount;
+            return PartialView("~/Views/Programs/Shared/_testimonial.cshtml",model);
+        }
+        [HttpPost]
+        public IActionResult DeleteTestimonials(int testimonialId)
+        {
+            try
+            {
+                if (testimonialId > 0)
+                {
+                    _programsService.DeleteTestimonials(testimonialId); 
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, error = "Invalid testimonial ID." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
     }
 }
+    

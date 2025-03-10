@@ -18,5 +18,6 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
         bool UpdateProgram(ProgramModel Program,string currentUser);
      
         IEnumerable<ProgramModel> GetProgramWithDetails(int programId);
+        void DeleteTestimonials(int testimonialId);
     }
 }
