@@ -71,11 +71,10 @@ namespace Gut_Cleanse.Web.Controllers
         public IActionResult Create(int Id)
         {
             ProgramModel model = new ProgramModel();
-
+            var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault();
 
             if (Id != 0)
             {
-                var result = _programsService.GetProgramWithDetails(Id).FirstOrDefault();
 
                 if (result != null)
                 {
@@ -87,10 +86,12 @@ namespace Gut_Cleanse.Web.Controllers
                     model.EndDate = result.EndDate;
                     model.ProgramDetail = result.ProgramDetail;
                     model.TestimonialPrograms = result.TestimonialPrograms;
-                    if (!result.TestimonialPrograms.Any())
-                        result.TestimonialPrograms.Add(new TestimonialModel());
+                  
                 }
+            
             }
+            if ((!model.TestimonialPrograms.Any()))
+                model.TestimonialPrograms.Add(new TestimonialModel());
 
             return View(model);
         }
@@ -119,7 +120,6 @@ namespace Gut_Cleanse.Web.Controllers
                 TempData["ToastrMessage"] = ex.Message;
                 TempData["ToastrType"] = "error";
             }
-
             return View(model);
         }
         [HttpPost]

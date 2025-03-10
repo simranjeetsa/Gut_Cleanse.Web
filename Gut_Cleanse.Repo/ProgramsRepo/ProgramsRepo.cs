@@ -166,7 +166,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
 
                         }
-                        foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
+                        foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0 && !string.IsNullOrEmpty(x.Description)))
                         {
                             Testimonial testimonial = new Testimonial()
                             {
