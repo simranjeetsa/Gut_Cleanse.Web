@@ -47,7 +47,7 @@ namespace Gut_Cleanse.Web.Controllers
                 var file = HttpContext.Request.Form.Files.FirstOrDefault();
                 if (file != null && file.Length > 0)
                 {
-                    var directory = _webHostEnvironment.WebRootPath + "\\Assets\\blog";
+                    var directory = _webHostEnvironment.WebRootPath + "/Assets/blog";
                     var extension = Path.GetExtension(file.FileName);
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid();
                     var filePath = Path.Combine(directory, fileName + extension);
