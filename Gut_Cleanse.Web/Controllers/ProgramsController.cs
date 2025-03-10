@@ -87,6 +87,8 @@ namespace Gut_Cleanse.Web.Controllers
                     model.EndDate = result.EndDate;
                     model.ProgramDetail = result.ProgramDetail;
                     model.TestimonialPrograms = result.TestimonialPrograms;
+                    if (!result.TestimonialPrograms.Any())
+                        result.TestimonialPrograms.Add(new TestimonialModel());
                 }
             }
 
