@@ -4,6 +4,7 @@ using Gut_Cleanse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gut_Cleanse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250228110000_isDeletedPropertyAdd_Blogs")]
+    partial class isDeletedPropertyAdd_Blogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -565,9 +568,6 @@ namespace Gut_Cleanse.Data.Migrations
                         .HasMaxLength(2147483647)
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -588,7 +588,6 @@ namespace Gut_Cleanse.Data.Migrations
                             Id = 1,
                             CreatedBy = "Kannu",
                             Description = "I had a major bloating issue since a few years… nothing seemed to be working till the time I joined Nancy for the gut cleansing diet and that is when the magic happened… it was a very doable diet which helped me find out that milk was not suiting me at all which led to severe bloating… with Nancy’s diet I got rid of this problem… since then I never had bloating again and now I can easily enjoy my cold coffee everyday… thank you Nancy… you’ve been a saviour 🙏❤️🙏",
-                            IsDeleted = false,
                             Name = "What Our Clients Are Saying",
                             ProgramId = 1
                         },
@@ -597,7 +596,6 @@ namespace Gut_Cleanse.Data.Migrations
                             Id = 2,
                             CreatedBy = "Ankur",
                             Description = "Nancy's gut cleanse is the best thing that i did. I was extremely bloated with breathing issues. I had gone to multiple doctors who prescribed many medicines which didn't seem right. After 3 months of trying, I tried Nancy's gut cleanse and to my surprise the problem I was facing reduced 90%. I highly recommend her 2-week gut cleanse practice to everyone",
-                            IsDeleted = false,
                             Name = "What Our Clients Are Saying",
                             ProgramId = 1
                         },
@@ -606,7 +604,6 @@ namespace Gut_Cleanse.Data.Migrations
                             Id = 3,
                             CreatedBy = "Arvind",
                             Description = "As someone who has struggled with persistent digestive issues like bloating, frequent bowel movements, and loose stools, I was hesitant to try yet another diet plan. However, the gut cleanse workshop recommended by dietitian Nancy Dehra proved to be a game-changer. I noticed a significant improvement in my symptoms. The bloating and frequent, loose bowel movements that I had come to accept as a normal part of my life reduced drastically. I am incredibly grateful to my dietitian Nancy Dehra for designing such an effective and transformative gut cleanse workshop. Her deep understanding of digestive health, coupled with a personalized approach, has given me a new lease on life. I would highly recommend her workshop to anyone struggling with similar digestive challenges.",
-                            IsDeleted = false,
                             Name = "What Our Clients Are Saying",
                             ProgramId = 1
                         });

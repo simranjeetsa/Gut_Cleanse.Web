@@ -8,5 +8,10 @@ namespace Gut_Cleanse.Web.Controllers
         {
             return View();
         }
+        public IActionResult WelcomeUser()
+        {
+            return View();
+
+        }
     }
 }

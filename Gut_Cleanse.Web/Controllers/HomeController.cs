@@ -1,3 +1,6 @@
+using Gut_Cleanse.Data.Tables;
+using Gut_Cleanse.Model;
+using Gut_Cleanse.Service.ProgramsService;
 using Gut_Cleanse.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,14 +11,23 @@ namespace Gut_Cleanse.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProgramsServices _programsService;
+
+        public HomeController(ILogger<HomeController> logger, IProgramsServices programsService)
         {
             _logger = logger;
+            _programsService = programsService;
         }
 
         public IActionResult Index()
-        {
-            return View();
+         {
+            var testimonial = _programsService.GetTestimonialProgramsById(1).OrderByDescending(x => x.Id);
+            var viewModel = new ProgramViewModel
+            {
+                TestimonialPrograms = testimonial,
+            };
+
+            return View(viewModel);  // Pass the viewModel to the view
         }
 
         [Route("privacy-policy")]

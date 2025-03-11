@@ -47,7 +47,7 @@ namespace Gut_Cleanse.Web.Controllers
                 var file = HttpContext.Request.Form.Files.FirstOrDefault();
                 if (file != null && file.Length > 0)
                 {
-                    var directory = _webHostEnvironment.WebRootPath + "\\Assets\\blog";
+                    var directory = _webHostEnvironment.WebRootPath + "/Assets/blog";
                     var extension = Path.GetExtension(file.FileName);
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid();
                     var filePath = Path.Combine(directory, fileName + extension);
@@ -95,6 +95,28 @@ namespace Gut_Cleanse.Web.Controllers
         {
 
             return View(_blogsService.GetBlogs());
+
+        }
+        public IActionResult DeleteBlogs(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    _blogsService.DeleteBlog(id);
+                    TempData["ToastrMessage"] = "Blogs deleted successfully!";
+                    TempData["ToastrType"] = "success";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ToastrMessage"] = ex.Message;
+                TempData["ToastrType"] = "error";
+            }
+
+
+            return RedirectToAction("List");
+
 
         }
     }

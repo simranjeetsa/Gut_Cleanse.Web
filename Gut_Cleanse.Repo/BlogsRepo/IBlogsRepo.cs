@@ -7,5 +7,6 @@ namespace Gut_Cleanse.Repo.BlogsRepo
         IEnumerable<BlogModel> GetBlogs();
         BlogModel GetBlogsById(int Id);
         void AddBlog(BlogModel model);
+        void DeleteBlog(int id);
     }
 }

@@ -1,4 +1,16 @@
-﻿<div>
+﻿@using System.Web
+    @model Gut_Cleanse.Model.ProgramViewModel
+    <style>
+    .programDescriptionLength h2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    </style>
+<div>
     <div>
         <div class="banner-section">
             <div style="width: 100%; height: 100%;">
@@ -103,22 +115,24 @@
                 </div>
             </div>
         </section>
-        <section class="banner-wrap-layout1 parallaxie" id="support">
+        <section class="banner-wrap-layout1 parallaxie" id="support" style="height:460px">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="banner-box-layout1" data-aos="fade-up">
-                        <h2 class="item-title">What Our Clients Are Saying</h2>
-                        <div class="carousel-item active">
-                            <p>I had a major bloating issue since a few years… nothing seemed to be working till the time I joined Nancy for the gut cleansing diet and that is when the magic happened… it was a very doable diet which helped me find out that milk was not suiting me at all which led to severe bloating… with Nancy’s diet I got rid of this problem… since then I never had bloating again and now I can easily enjoy my cold coffee everyday… thank you Nancy… you’ve been a saviour 🙏❤️🙏</p>
-                            <p><b>Kannu</b></p>
+
+                    @foreach (var (testimonial, index) in Model.TestimonialPrograms.Select((testimonial, index) => (testimonial, index)))
+                    {
+                        <div class="carousel-item @(index == 0 ? "active" : "")">
+                            <div class="banner-box-layout1 programDescriptionLength" data-aos="fade-up">
+                                <h2 class="item-title">
+                                    @testimonial.Name
+                                </h2>
+                                <p>
+                                    @Html.Raw(testimonial.Description)
+                                </p>
+                                <p><b>@testimonial.CreatedBy</b></p>
+                            </div>
                         </div>
-                        <div class="carousel-item">
-                            <p>Nancy's gut cleanse is the best thing that i did. I was extremely bloated with breathing issues. Had gone to multiple doctors who prescribed many medicines which didn't seem right. After 3 months of trying I tried Nancy's gut cleanse and to my surprise the problem I was facing reduced 90%. I highly recommend her 2 week gut cleanse practice to every one</p><p><b>Ankur </b></p>
-                        </div>
-                        <div class="carousel-item">
-                            <p>I recently went through a surgery and my gut was completely out of wack. Nancy was instrumental in helping heal my gut issues. The diet plan and recipes shared by her are super easy to follow. In addition to that I lost 3 kgs. I feel way better, less bloated and over all energetic. Thank you Nancy for being such an awesome and empathetic health coach !</p><p><b>Sowmya</b></p>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="fa fa-chevron-circle-left" style="font-size:45px;" aria-hidden="true"></span>

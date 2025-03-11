@@ -29,8 +29,8 @@ namespace Gut_Cleanse.Web.Controllers
         }
         public IActionResult ExportToCSV()
         {
-
-            IEnumerable<UserModel> users = userService.GetUsers();
+          
+            IEnumerable<UserModel> users = userService.GetUsers().Where(x => x.RoleName == "Customer");
             var sb = new StringBuilder();
 
             sb.AppendLine("Name,Contact No.,Email");

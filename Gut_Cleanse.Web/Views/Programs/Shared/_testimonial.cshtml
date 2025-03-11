@@ -2,29 +2,67 @@
 @{
     int i = Model.Count ?? 0;
 }
-<div class="row panel-row testimonial-panel" id="deleteTestimonial_@i">
-    <input type="hidden" name="TestimonialPrograms[@i].Id" value="@Model.TestimonialPrograms[i].Id" />
-    <input type="hidden" name="TestimonialPrograms[@i].IsDeleted" id="Testimonial_IsDeleted_@i" value="false" />
-    <!-- Testimonial Name Field (Above Description) -->
+<div class="row panel-row testimonial-panel" id="testimonial_@i">
+    <input type="hidden" id="Testimonial_Id_@i" name="TestimonialPrograms[@i].Id" value="@Model.TestimonialPrograms.ElementAtOrDefault(i)?.Id" />
+    <input type="hidden" id="Testimonial_Id_@i" name="TestimonialPrograms[@i].IsDeleted" id="Testimonial_IsDeleted_@i" value="false" />
+
+    <!-- Testimonial Name Field -->
     <div class="col-md-12">
         <label class="form-label">Name</label>
-        <input class="form-control" data-val="true" data-val-required="The CreatedBy field is required." id="TestimonialPrograms_'+@i+'__CreatedBy" name="TestimonialPrograms[@i].CreatedBy" type="text" value="@Model.TestimonialPrograms[i].CreatedBy">
+        <input class="form-control" data-val="true" data-val-required="The CreatedBy field is required."
+               id="TestimonialPrograms_'+@i+'__CreatedBy"
+               name="TestimonialPrograms[@i].CreatedBy"
+               type="text"
+               value="@Model.TestimonialPrograms.ElementAtOrDefault(i)?.CreatedBy">
     </div>
 
-    <!-- Testimonial Description Field (Below Name) -->
+    <!-- Testimonial Description Field -->
     <div class="col-md-12">
         <label class="form-label">Description</label>
-        @if (!string.IsNullOrEmpty(Model.TestimonialPrograms[i].Description))
-        {
-            <textarea class="form-control" data-val="true" data-val-required="The Description field is required." id="TestimonialDescription_@i" name="TestimonialPrograms[@i].Description">@Model.TestimonialPrograms[i].Description</textarea>
-        }
+        <textarea class="form-control" data-val="true" data-val-required="The Description field is required."
+                  id="TestimonialDescription_@i"
+                  name="TestimonialPrograms[@i].Description">@Model.TestimonialPrograms.ElementAtOrDefault(i)?.Description</textarea>
     </div>
+        <a onclick="deleteTestimonial(@i)">
+            <i style="color:red;float:right" class="bx bx-trash"></i>
+        </a>
+</div>
+ 
+@*  @model Gut_Cleanse.Model.ProgramModel
+@{
+    int i = Model.Count ?? 0;
+}
+<div class="row panel-row testimonial-panel" id="testimonial_@i">
+    <!-- Testimonial ID -->
+    <input type="hidden" id="Testimonial_Id_@i" name="TestimonialPrograms[@i].Id" value="@Model.TestimonialPrograms.ElementAtOrDefault(i)?.Id" />
+
+    <!-- Testimonial IsDeleted Flag -->
+    <input type="hidden" id="Testimonial_IsDeleted_@i" name="TestimonialPrograms[@i].IsDeleted" value="false" />
+
+    <!-- Testimonial Name Field -->
+    <div class="col-md-12">
+        <label class="form-label">Name</label>
+        <input class="form-control" data-val="true" data-val-required="The CreatedBy field is required."
+               id="TestimonialPrograms_'+@i+'__CreatedBy"
+               name="TestimonialPrograms[@i].CreatedBy"
+               type="text"
+               value="@Model.TestimonialPrograms.ElementAtOrDefault(i)?.CreatedBy">
+    </div>
+
+    <!-- Testimonial Description Field -->
+    <div class="col-md-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" data-val="true" data-val-required="The Description field is required."
+                  id="TestimonialDescription_@i"
+                  name="TestimonialPrograms[@i].Description">@Model.TestimonialPrograms.ElementAtOrDefault(i)?.Description</textarea>
+    </div>
+
     @if (i != 0)
     {
-        <a onclick="deleteTestimonial(@i)" class="">
+        <a onclick="deleteTestimonial(@i)">
             <i style="color:red;float:right" class="bx bx-trash"></i>
         </a>
     }
-
-
+ 
 </div>
+ *@

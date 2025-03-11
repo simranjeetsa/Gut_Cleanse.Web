@@ -20,6 +20,7 @@ namespace Gut_Cleanse.Data.Tables
         public string CreatedBy { get; set; }
         [ForeignKey("Programs")]
         public int ProgramId { get; set; }
+        public bool IsDeleted { get; set; }
         public virtual Program Programs { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Gut_Cleanse.Data.Tables
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
         public DateOnly CreateDate { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
