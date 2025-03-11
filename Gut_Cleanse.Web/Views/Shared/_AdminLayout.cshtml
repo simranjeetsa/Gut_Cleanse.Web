@@ -38,24 +38,24 @@
     <link rel="stylesheet" href="~/css/toastr-2.1.4.css" />
     <style type="text/css">
         .card {
-        display: flex;
-        flex-direction: row;
-        max-width: 96%;
-        height: 92%;
-        margin: 25px !important;
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            max-width: 96%;
+            height: 92%;
+            margin: 25px !important;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #myTable_wrapper {
-        width: 100% !important;
-        padding: 10px !important;
+            width: 100% !important;
+            padding: 10px !important;
         }
 
         .required:after {
-        content: " *";
-        color: red;
+            content: " *";
+            color: red;
         }
 
     </style>
@@ -88,7 +88,8 @@
                             <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
                         </a>
                         <ul class="menu-sub">
-                            @if (User.IsInRole("Admin")){
+                            @if (User.IsInRole("Admin"))
+                            {
                                 <li class="menu-item">
                                     <a id="programdashboardli" href="@Url.Action("Index", "User")" class="menu-link">
                                         <div>Users</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
@@ -104,25 +105,35 @@
                                         <div>Blogs</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
                                     </a>
                                 </li>
-                                </li>
-                                <li class="menu-item">
-                                    <a id="programdashboardli" href="@Url.Action("Index", "Customer")" class="menu-link">
-                                        <div>Customers</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
-                                    </a>
+                        </li>
+                        <li class="menu-item">
+                            <a id="programdashboardli" href="@Url.Action("Index", "Customer")" class="menu-link">
+                                <div>Customers</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
+                            </a>
 
-                                </li>
+                        </li>
                             }
                             @if (User.IsInRole("Customer"))
                             {
-                                <li class="menu-item">
-                                    <a id="programdashboardli" href="@Url.Action("PaymentInfo", "Payment")" class="menu-link">
-                                        <div>Customer</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
-                                    </a>
+                        <li class="menu-item">
+                            <a id="programdashboardli" href="@Url.Action("PaymentInfo", "Payment")" class="menu-link">
+                                <div>Customer</div><div class="badge bg-label-primary fs-tiny rounded-pill ms-auto text-uppercase"></div>
+                            </a>
 
-                                </li>
+                        </li>
                             }
-                        </ul>
-                    </li>
+                            @if (User.IsInRole("User"))
+                            {
+                        <li class="menu-item active open">
+                            <a href="@Url.Action("WelcomeUser", "Dashboard")" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+
+                            </a>
+                        </li>
+                            }
+                </ul>
+                </li>
+                }
 
             </aside>
             <!-- / Menu -->

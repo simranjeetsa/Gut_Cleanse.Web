@@ -26,7 +26,7 @@ namespace Gut_Cleanse.Web.Controllers
         public IActionResult OneOneGutResetRevolution()
         {
 
-            var testimonial = _programsService.GetTestimonialProgramsById(1);
+            var testimonial = _programsService.GetTestimonialProgramsById(1).OrderByDescending(x =>x.Id);
             var programDetail = _programsService.GetProgramDetailByProgramId(1);
             var viewModel = new ProgramViewModel
             {
@@ -40,7 +40,7 @@ namespace Gut_Cleanse.Web.Controllers
         [Route("programs/gut-and-glory")]
         public IActionResult GutAndGlory()
         {
-            var testimonial = _programsService.GetTestimonialProgramsById(1);
+            var testimonial = _programsService.GetTestimonialProgramsById(1).OrderByDescending(x => x.Id);
             var programDetail = _programsService.GetProgramDetailByProgramId(2);
             var viewModel = new ProgramViewModel
             {
@@ -53,7 +53,7 @@ namespace Gut_Cleanse.Web.Controllers
         [Route("programs/gut-intelligence-workshop")]
         public IActionResult GutIntelligenceWorkshop()
         {
-            var testimonial = _programsService.GetTestimonialProgramsById(1);
+            var testimonial = _programsService.GetTestimonialProgramsById(1).OrderByDescending(x => x.Id);
             var programDetail = _programsService.GetProgramDetailByProgramId(3);
             var viewModel = new ProgramViewModel
             {

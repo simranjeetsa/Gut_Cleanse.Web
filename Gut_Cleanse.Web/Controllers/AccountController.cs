@@ -3,6 +3,7 @@ using Gut_Cleanse.Model;
 using Gut_Cleanse.Service.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Razorpay.Api;
 
 namespace Gut_Cleanse.Web.Controllers
 {
@@ -54,7 +55,7 @@ namespace Gut_Cleanse.Web.Controllers
                     if (result.Succeeded)
                     {
                         var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-
+                        var isCustomer = await _userManager.IsInRoleAsync(user, "Customer");
                         var userInfo = _userService.GetUserByUserId(user.Id);
                         HttpContext.Session.SetString("User", Newtonsoft.Json.JsonConvert.SerializeObject(userInfo));
 
@@ -62,11 +63,16 @@ namespace Gut_Cleanse.Web.Controllers
                         {
                             return RedirectToAction("Index", "User");
                         }
+                        else if (isCustomer)
+                        {
+                            // Redirect customer to their specific page
+                            return RedirectToAction("PaymentInfo", "Payment");
+                        }
                         else
                         {
                             if (string.IsNullOrEmpty(model.ReturnUrl))
                             {
-                                return RedirectToAction("PaymentInfo", "Payment");
+                                return RedirectToAction("WelcomeUser", "Dashboard");
                             }
                             else
                             {

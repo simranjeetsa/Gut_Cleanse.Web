@@ -95,7 +95,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                                   Description = t.Description,
                                   Id = t.Id,
                                   CreatedBy = t.CreatedBy,
-                              }).ToList()
+                              }).OrderByDescending(t => t.Id ).ToList()
                           });
 
             return result.ToList();
@@ -120,14 +120,17 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                         StartDate = program.StartDate,
                         EndDate = program.EndDate,
                         Amount = program.Amount,
-                        Id = program.Id
-                     
+                        Testimonials = program.TestimonialPrograms?.Select(pd => new Testimonial
+                        {
+                            CreatedBy = pd.CreatedBy,
+                            Description = pd.Description,
+                            Name = "",
+                        }).ToList() ?? new List<Testimonial>(),
                     };
                     _context.Programs.Add(newProgram);
                 }
                 else
                 {
-
                     existingProgram.Name = program.Name;
                     existingProgram.Description = program.Description;
                     existingProgram.StartDate = program.StartDate;
@@ -166,7 +169,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
 
                         }
-                        foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0 && !string.IsNullOrEmpty(x.Description)))
+                        foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
                         {
                             Testimonial testimonial = new Testimonial()
                             {

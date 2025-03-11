@@ -23,12 +23,9 @@
                   id="TestimonialDescription_@i"
                   name="TestimonialPrograms[@i].Description">@Model.TestimonialPrograms.ElementAtOrDefault(i)?.Description</textarea>
     </div>
-    @if (i != 0)
-    {
         <a onclick="deleteTestimonial(@i)">
             <i style="color:red;float:right" class="bx bx-trash"></i>
         </a>
-    }
 </div>
  
 @*  @model Gut_Cleanse.Model.ProgramModel
