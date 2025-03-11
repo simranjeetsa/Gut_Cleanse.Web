@@ -42,5 +42,10 @@ namespace Gut_Cleanse.Repo.Common
             return result;
 
         }
+
+        public bool IsEbookAccess(int programId, int userId)
+        {
+            return context.Payments.Any(x => x.ProgramId == programId && x.UserId == userId && x.Status == 1);
+        }
     }
 }

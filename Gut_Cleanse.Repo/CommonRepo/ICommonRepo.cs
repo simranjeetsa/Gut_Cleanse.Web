@@ -13,5 +13,6 @@ namespace Gut_Cleanse.Repo.Common
         List<StateModel> GetStatesByCountryId(int countryId);
         List<CityModel> GetCitiesByStateId(int stateId);
         PaymentTypeModel GetPaymentModel(int programId);
+        bool IsEbookAccess(int programId, int userId);
     }
 }

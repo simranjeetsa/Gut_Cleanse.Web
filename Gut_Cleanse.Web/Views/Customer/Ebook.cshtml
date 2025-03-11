@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "EBook";
+    Layout = null;
+}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+<div id="canvas-container">
+</div>
+
+<style>
+    #canvas-container {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    canvas {
+        margin-bottom: 20px;
+        border: 1px solid black;
+    }
+
+    @@media print {
+        canvas {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+       var url = '/customer/ShowPdf';
+
+       pdfjsLib.getDocument(url).promise.then(function (pdf) {
+           var numPages = pdf.numPages;
+           for (var pageNum = 1; pageNum <= numPages; pageNum++) {
+               renderPage(pdf, pageNum);
+           }
+       });
+
+       function renderPage(pdf, pageNum) {
+           pdf.getPage(pageNum).then(function (page)
+    {
+               var scale = 1.5;
+               var viewport = page.getViewport({ scale: scale });
+               var canvas = document.createElement('canvas');
+               var context = canvas.getContext('2d');
+               canvas.height = viewport.height;
+               canvas.width = viewport.width;
+               page.render({
+                   canvasContext: context,
+                   viewport: viewport
+               });
+
+               document.getElementById('canvas-container').appendChild(canvas);
+           });
+       }
+
+       $(document).on('contextmenu', function (e) {
+           e.preventDefault();
+       });
+
+       $(document).keydown(function (e) {
+           e.preventDefault();
+       });
+</script>

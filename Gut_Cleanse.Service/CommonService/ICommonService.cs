@@ -14,5 +14,6 @@ namespace Gut_Cleanse.Service.CommonService
         List<CityModel> GetCitiesByStateId(int stateId);
         PaymentTypeModel GetPaymentModel(int programId);
         UserModel GetCurrentUserInfo();
+        bool IsEbookAccess(int programId,int userId);
     }
 }
