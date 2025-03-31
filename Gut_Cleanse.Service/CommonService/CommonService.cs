@@ -36,5 +36,8 @@ namespace Gut_Cleanse.Service.CommonService
                 model = Newtonsoft.Json.JsonConvert.DeserializeObject<UserModel>(_httpContextAccessor.HttpContext.Session.GetString("User"));
             return model;
         }
+        public bool IsEbookAccess(int programId, int userId) {
+            return commonRepo.IsEbookAccess(programId,userId);
+        }
     }
 }
