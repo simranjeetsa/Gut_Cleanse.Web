@@ -92,12 +92,12 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                               TestimonialPrograms = programData.Testimonials.Select(t => new TestimonialModel
                               {
                                   Name = t.Name,
-                                  Description = t.Description,
+                                  Description = t.Description != null ? t.Description : string.Empty,
                                   Id = t.Id,
                                   CreatedBy = t.CreatedBy,
                               }).OrderByDescending(t => t.Id ).ToList()
                           });
-
+      
             return result.ToList();
         }
 
@@ -120,6 +120,7 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
                         StartDate = program.StartDate,
                         EndDate = program.EndDate,
                         Amount = program.Amount,
+                        Id = program.Id,
                         Testimonials = program.TestimonialPrograms?.Select(pd => new Testimonial
                         {
                             CreatedBy = pd.CreatedBy,
@@ -151,23 +152,19 @@ namespace Gut_Cleanse.Repo.ProgramsRepo
 
                         }
 
-
                     }
 
                     if (existingProgram.Testimonials != null)
                     {
 
-                        foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0))
+                        foreach (var existingTestimonial in existingProgram.Testimonials.Where(x => x.Id > 0 ))
                         {
                             var updatedTestimonial = program.TestimonialPrograms.FirstOrDefault(t => t.Id == existingTestimonial.Id);
                             if (updatedTestimonial != null)
                             {
-                                //existingTestimonial.Name = updatedTestimonial.Name;
                                 existingTestimonial.Description = updatedTestimonial.Description;
-                                existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy;
+                                existingTestimonial.CreatedBy = updatedTestimonial.CreatedBy != null ? updatedTestimonial.CreatedBy : string.Empty;
                             }
-
-
                         }
                         foreach (var newTestimonial in program.TestimonialPrograms.Where(x => x.Id == 0))
                         {
